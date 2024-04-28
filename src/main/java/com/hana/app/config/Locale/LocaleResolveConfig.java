@@ -1,4 +1,4 @@
-package com.hana.app.config;
+package com.hana.app.config.Locale;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContext;
