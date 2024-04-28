@@ -1,8 +1,6 @@
 package com.hana.post;
 
-import com.hana.app.data.dto.CommentDto;
 import com.hana.app.data.dto.PostDto;
-import com.hana.app.service.CommentService;
 import com.hana.app.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -11,10 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 @SpringBootTest
 @Slf4j
-class UpdateTests {
+class InsertByAnonymousTests {
 
     @Autowired
     PostService postService;
@@ -22,12 +21,14 @@ class UpdateTests {
     @Test
     void contextLoads() {
         PostDto postDto = PostDto.builder()
-                .title("8일이라 쓰고 2주라 읽는 프로젝트")
-                .content("내용을 수정하겠다.")
-                .isAnonymous(false)
+                .title("8일간의 프로젝트 시작")
+                .content("일주일만에 끝내고 마지막은 회식 ㄱ")
+                .userId(1)
+                .boardId(1)
+                .createDate(LocalDate.now())
                 .build();
         try {
-            postService.modify(postDto);
+            postService.addByAnonymous(postDto);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {

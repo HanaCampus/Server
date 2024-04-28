@@ -1,7 +1,7 @@
 package com.hana.post;
 
-import com.hana.app.data.dto.CommentDto;
-import com.hana.app.service.CommentService;
+import com.hana.app.data.dto.PostDto;
+import com.hana.app.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +13,22 @@ import java.time.LocalDate;
 
 @SpringBootTest
 @Slf4j
-class InsertTests {
+class InsertByNotAnonymousTests {
 
     @Autowired
-    CommentService commentService;
+    PostService postService;
 
     @Test
     void contextLoads() {
-        CommentDto commentDto = CommentDto.builder()
-                .content("댓글1")
+        PostDto postDto = PostDto.builder()
+                .title("8일간의 프로젝트 시작")
+                .content("일주일만에 끝내고 마지막은 회식 ㄱ")
                 .userId(1)
-                .postId(1)
+                .boardId(1)
                 .createDate(LocalDate.now())
-                .updateDate(LocalDate.now())
                 .build();
         try {
-            commentService.add(commentDto);
+            postService.addByNotAnonymous(postDto);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
