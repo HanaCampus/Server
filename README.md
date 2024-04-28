@@ -1,3 +1,5 @@
+# Server
+
 # HanaCampus-Server
 <b>HanaCampus 서버 레포지토리입니다. </b>
 
@@ -31,7 +33,6 @@
 - 작업한 브랜치에서 push를 진행하고 develop 브랜치로 PR을 날려주세요.
 - PR에서 관련된 Issues 번호 표시하고 해결을 표시합니다.
 - merge 진행 전에 마지막 점검은 필수입니다.
-- main 브랜치는 배포 및 백업 브랜치 입니다.
 
 <br>
 
@@ -47,19 +48,20 @@
         <img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white"> 
         <img src="https://img.shields.io/badge/Ajax-2c83b9?style=for-the-badge&logo=Ajax&logoColor=white"> 
     </div>
- 
- <br>
- 
+
+<br>
+
 
   <p><strong>Backend</strong></p>
     <div>
-       <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white">
-       <img src="https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot">  
+       <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=java&logoColor=white">
+       <img src="https://img.shields.io/badge/Spring_Boot-F2F4F9?style=flat-square&logo=spring-boot">  
        <img src="https://img.shields.io/badge/MyBatis-000000?style=for-the-badge&logo=MyBatis&logoColor=white">
        <img src="https://img.shields.io/badge/JWT-000000?style=flat-square&logo=JSON%20web%20tokens&logoColor=white">
     </div>
 
 <br>
+
 
   <p><strong>Database</strong></p>
     <div>
@@ -70,6 +72,6 @@
 
   <p><strong>Deploy</strong></p>
     <div>
-        <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">
+        <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=flat-square&logo=amazon-aws&logoColor=white">
     </div>
 </div>
