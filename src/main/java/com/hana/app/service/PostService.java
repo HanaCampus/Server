@@ -17,9 +17,18 @@ public class PostService implements HanaService<Integer, PostDto> {
     private final PostRepository postRepository;
 
     @Override
-    public int add(PostDto postDto) throws Exception {
-        // 성공 시 1, 실패 시 0 return
+    public int add(PostDto postDto) throws  Exception {
         return postRepository.insert(postDto);
+    }
+
+    public int addByAnonymous(PostDto postDto) throws Exception {
+        // 성공 시 1, 실패 시 0 return
+        return postRepository.insertByAnonymous(postDto);
+    }
+
+    public int addByNotAnonymous(PostDto postDto) throws Exception {
+        // 성공 시 1, 실패 시 0 return
+        return postRepository.insertByNotAnonymous(postDto);
     }
 
     @Override

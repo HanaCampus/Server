@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface PostRepository extends HanaRepository<Integer, PostDto> {
 
+    int insertByAnonymous(PostDto postDto) throws Exception;
+    int insertByNotAnonymous(PostDto postDto) throws Exception;
+
 }
