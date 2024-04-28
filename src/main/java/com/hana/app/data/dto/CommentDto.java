@@ -13,7 +13,7 @@ public class CommentDto {
     private int commentId;
     private String content;
     private int likes; // 좋아요 수
-    private String status; //
+    private String status; // 'Active', 'Deleted', 'Reported'
     private int userId;
     private int postId;
     private int parentId; // 대댓글일 경우 부모 댓글의 id
