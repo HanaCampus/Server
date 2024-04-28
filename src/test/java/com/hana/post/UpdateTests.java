@@ -22,6 +22,7 @@ class UpdateTests {
     @Test
     void contextLoads() {
         PostDto postDto = PostDto.builder()
+                .postId(4)
                 .title("8일이라 쓰고 2주라 읽는 프로젝트")
                 .content("내용을 수정하겠다.")
                 .isAnonymous(false)
