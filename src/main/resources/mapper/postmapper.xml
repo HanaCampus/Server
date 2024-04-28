@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hana.app.repository.PostRepository">
+
+    <select id="selectOne" parameterType="Integer" resultType="postDto">
+        SELECT *
+        FROM post
+        WHERE post_id=#{postId}
+    </select>
+
+    <select id="select" resultType="postDto">
+        SELECT *
+        FROM post
+    </select>
+
+    <insert id="insertByAnonymous" parameterType="postDto">
+        INSERT INTO post (title, content, user_id, board_id, create_date)
+        VALUES (#{title}, #{content}, #{userId}, #{postId}, NOW());
+    </insert>
+
+    <insert id="insertByNotAnonymous" parameterType="postDto">
+        INSERT INTO post (title, content, is_anonymous, user_id, board_id, create_date)
+        VALUES (#{title}, #{content}, 0, #{userId}, #{postId}, NOW());
+    </insert>
+
+    <update id="update" parameterType="postDto">
+        UPDATE post
+        SET title=#{title}, is_anonymous=#{isAnonymous}, content=#{content}, update_date=NOW()
+        WHERE post_id=#{postId}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM post WHERE post_id=#{postId}
+    </delete>
+
+</mapper>
