@@ -16,8 +16,8 @@
     </select>
 
     <insert id="insert" parameterType="commentDto">
-        INSERT INTO comment (content, user_id, post_id, create_date, update_date)
-        VALUES (#{content}, #{userId}, #{postId}, NOW(), NOW());
+        INSERT INTO comment (content, user_id, post_id, create_date)
+        VALUES (#{content}, #{userId}, #{postId}, NOW());
     </insert>
 
     <update id="update" parameterType="commentDto">

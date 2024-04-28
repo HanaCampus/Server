@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hana.app.repository.ReportedCommentRepository">
+
+    <select id="selectOne" parameterType="Integer" resultType="reportedCommentDto">
+        SELECT *
+        FROM reported_comment
+        WHERE reported_comment_id=#{reportedCommentId}
+    </select>
+
+    <select id="select" resultType="reportedCommentDto">
+        SELECT *
+        FROM reported_comment
+    </select>
+
+    <insert id="insert" parameterType="reportedCommentDto">
+        INSERT INTO reported_comment (content, user_id, comment_id, create_date)
+        VALUES (#{content}, #{userId}, #{commentId}, NOW());
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM reported_comment WHERE reported_comment_id=#{reportedCommentId}
+    </delete>
+
+</mapper>

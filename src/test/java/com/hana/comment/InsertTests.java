@@ -21,11 +21,9 @@ class InsertTests {
     @Test
     void contextLoads() {
         CommentDto commentDto = CommentDto.builder()
-                .content("댓글1")
+                .content("댓글입니다")
                 .userId(1)
                 .postId(1)
-                .createDate(LocalDate.now())
-                .updateDate(LocalDate.now())
                 .build();
         try {
             commentService.add(commentDto);

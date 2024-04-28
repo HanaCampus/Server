@@ -1,8 +1,6 @@
-package com.hana.likedcomment;
+package com.hana.reportedcomment;
 
-import com.hana.app.data.dto.CommentDto;
-import com.hana.app.data.dto.LikedCommentDto;
-import com.hana.app.service.LikedCommentService;
+import com.hana.app.service.ReportedCommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +8,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 @SpringBootTest
 @Slf4j
-class InsertTests {
+class DeleteTests {
 
     @Autowired
-    LikedCommentService likedCommentService;
+    ReportedCommentService reportedCommentService;
 
     @Test
     void contextLoads() {
-        LikedCommentDto likedCommentDto = LikedCommentDto.builder()
-                .commentId(2)
-                .userId(1)
-                .build();
         try {
-            likedCommentService.add(likedCommentDto);
+            reportedCommentService.del(1);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
