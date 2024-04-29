@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hana.app.repository.LikedPostRepository">
+
+    <select id="selectOne" parameterType="Integer" resultType="likedPostDto">
+        SELECT *
+        FROM liked_post
+        WHERE liked_post_id=#{likedPostId}
+    </select>
+
+    <select id="select" resultType="likedPostDto">
+        SELECT *
+        FROM liked_post
+    </select>
+
+    <insert id="insert" parameterType="likedPostDto">
+        INSERT INTO liked_post (user_id, post_id, create_date)
+        VALUES (#{userId}, #{postId}, NOW());
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM liked_post WHERE liked_post_id=#{likedPostId}
+    </delete>
+
+    <select id="isLikedByUserId" parameterType="Integer" resultType="likedPostDto">
+        SELECT *
+        FROM liked_post
+        WHERE post_id=#{postId} AND user_id=#{userId}
+    </select>
+
+</mapper>
