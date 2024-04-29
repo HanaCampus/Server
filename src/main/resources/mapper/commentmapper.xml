@@ -30,4 +30,14 @@
         DELETE FROM comment WHERE comment_id=#{commentId}
     </delete>
 
+    <select id="selectIsLikedComment" resultType="isLikedCommentDto">
+        SELECT *
+        FROM comment AS c
+        LEFT JOIN (SELECT comment_id AS is_liked
+                   FROM liked_comment
+                   WHERE user_id = #{userId}) AS lc
+        ON c.comment_id = lc.is_liked
+        WHERE c.post_id = #{postId};
+    </select>
+
 </mapper>

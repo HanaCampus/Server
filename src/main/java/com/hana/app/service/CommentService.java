@@ -1,6 +1,7 @@
 package com.hana.app.service;
 
 import com.hana.app.data.dto.CommentDto;
+import com.hana.app.data.dto.IsLikedCommentDto;
 import com.hana.app.frame.HanaService;
 import com.hana.app.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,9 @@ public class CommentService implements HanaService<Integer, CommentDto> {
     @Override
     public List<CommentDto> get() throws Exception {
         return commentRepository.select();
+    }
+
+    public List<IsLikedCommentDto> getIsLikedComment(Integer postId, Integer userId) throws Exception {
+        return commentRepository.selectIsLikedComment(postId, userId);
     }
 }
