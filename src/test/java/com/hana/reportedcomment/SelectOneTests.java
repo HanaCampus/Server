@@ -1,6 +1,6 @@
-package com.hana.comment;
+package com.hana.reportedcomment;
 
-import com.hana.app.service.CommentService;
+import com.hana.app.service.ReportedCommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +11,15 @@ import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class DeleteTests {
+class SelectOneTests {
 
     @Autowired
-    CommentService commentService;
+    ReportedCommentService reportedCommentService;
 
     @Test
     void contextLoads() {
         try {
-            commentService.del(2);
+            reportedCommentService.get(1);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {

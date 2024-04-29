@@ -1,6 +1,7 @@
-package com.hana.comment;
+package com.hana.reportedcomment;
 
-import com.hana.app.service.CommentService;
+import com.hana.app.data.dto.ReportedCommentDto;
+import com.hana.app.service.ReportedCommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,20 @@ import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class DeleteTests {
+class InsertTests {
 
     @Autowired
-    CommentService commentService;
+    ReportedCommentService reportedCommentService;
 
     @Test
     void contextLoads() {
+        ReportedCommentDto reportedCommentDto = ReportedCommentDto.builder()
+                .content("내용이 노잼이라서 신고")
+                .userId(1)
+                .commentId(3)
+                .build();
         try {
-            commentService.del(2);
+            reportedCommentService.add(reportedCommentDto);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
