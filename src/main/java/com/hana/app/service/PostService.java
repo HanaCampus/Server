@@ -21,16 +21,6 @@ public class PostService implements HanaService<Integer, PostDto> {
         return postRepository.insert(postDto);
     }
 
-    public int addByAnonymous(PostDto postDto) throws Exception {
-        // 성공 시 1, 실패 시 0 return
-        return postRepository.insertByAnonymous(postDto);
-    }
-
-    public int addByNotAnonymous(PostDto postDto) throws Exception {
-        // 성공 시 1, 실패 시 0 return
-        return postRepository.insertByNotAnonymous(postDto);
-    }
-
     @Override
     public int del(Integer id) throws Exception {
         return postRepository.delete(id);
@@ -49,5 +39,20 @@ public class PostService implements HanaService<Integer, PostDto> {
     @Override
     public List<PostDto> get() throws Exception {
         return postRepository.select();
+    }
+
+    public int addByAnonymous(PostDto postDto) throws Exception {
+        // 성공 시 1, 실패 시 0 return
+        return postRepository.insertByAnonymous(postDto);
+    }
+
+    public int addByNotAnonymous(PostDto postDto) throws Exception {
+        // 성공 시 1, 실패 시 0 return
+        return postRepository.insertByNotAnonymous(postDto);
+    }
+
+    public int modifyLikeCount(Integer id) throws Exception {
+        // 성공 시 1, 실패 시 0 return
+        return postRepository.updateLikeCount(id);
     }
 }
