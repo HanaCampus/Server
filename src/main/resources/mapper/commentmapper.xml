@@ -42,4 +42,12 @@
         WHERE c.post_id = #{postId};
     </select>
 
+    <update id="updateLikeCount">
+        UPDATE comment
+        SET likes = (SELECT count(*)
+                     FROM liked_comment
+                     WHERE comment_id=#{commentId})
+        WHERE comment_id=#{commentId}
+    </update>
+
 </mapper>
