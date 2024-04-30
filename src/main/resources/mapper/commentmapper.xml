@@ -26,10 +26,11 @@
         WHERE comment_id=#{commentId}
     </update>
 
-    <delete id="delete" parameterType="Integer">
-        DELETE FROM comment WHERE comment_id=#{commentId}
-
-    </delete>
+    <update id="delete" parameterType="Integer">
+        UPDATE comment
+        SET status="Deleted", update_date=NOW()
+        WHERE comment_id=#{commentId}
+    </update>
 
     <select id="selectIsLikedComment" resultType="isLikedCommentDto">
         SELECT *
