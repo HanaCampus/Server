@@ -18,6 +18,7 @@ public class PostDto {
     private boolean isAnonymous;
     private int scraps;
     private int likes;
+    private String status; // 'Active', 'Deleted'
     private int userId;
     private int boardId;
     private LocalDate createDate;
