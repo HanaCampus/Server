@@ -35,4 +35,12 @@
         DELETE FROM post WHERE post_id=#{postId}
     </delete>
 
+    <update id="updateLikeCount">
+        UPDATE post
+        SET likes = (SELECT count(*)
+                     FROM liked_post
+                     WHERE post_id=#{postId})
+        WHERE post_id=#{postId};
+    </update>
+
 </mapper>
