@@ -11,16 +11,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostDto {
-    private int postId;
-    private String title;
-    private String content;
-    private boolean isAnonymous;
-    private int scraps;
-    private int likes;
-    private String status; // 'Active', 'Deleted'
+public class ScrapDto {
+    private int scrapId;
     private int userId;
-    private int boardId;
+    private int postId;
     private LocalDate createDate;
     private LocalDate updateDate;
 }

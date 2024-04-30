@@ -31,9 +31,11 @@
         WHERE post_id=#{postId}
     </update>
 
-    <delete id="delete" parameterType="Integer">
-        DELETE FROM post WHERE post_id=#{postId}
-    </delete>
+    <update id="delete" parameterType="Integer">
+        UPDATE post
+        SET status="Deleted", update_date=NOW()
+        WHERE post_id=#{postId}
+    </update>
 
     <update id="updateLikeCount">
         UPDATE post

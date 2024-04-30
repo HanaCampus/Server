@@ -1,6 +1,7 @@
-package com.hana.comment;
+package com.hana.scrap;
 
-import com.hana.app.service.CommentService;
+import com.hana.app.data.dto.ScrapDto;
+import com.hana.app.service.ScrapService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +12,19 @@ import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class DeleteTests {
+class InsertTests {
 
     @Autowired
-    CommentService commentService;
+    ScrapService scrapService;
 
     @Test
     void contextLoads() {
+        ScrapDto scrapDto = ScrapDto.builder()
+                .postId(3)
+                .userId(2)
+                .build();
         try {
-            commentService.del(3);
+            scrapService.add(scrapDto);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
