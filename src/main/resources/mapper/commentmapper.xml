@@ -28,6 +28,7 @@
 
     <delete id="delete" parameterType="Integer">
         DELETE FROM comment WHERE comment_id=#{commentId}
+
     </delete>
 
     <select id="selectIsLikedComment" resultType="isLikedCommentDto">
@@ -39,5 +40,13 @@
         ON c.comment_id = lc.is_liked
         WHERE c.post_id = #{postId};
     </select>
+
+    <update id="updateLikeCount">
+        UPDATE comment
+        SET likes = (SELECT count(*)
+                     FROM liked_comment
+                     WHERE comment_id=#{commentId})
+        WHERE comment_id=#{commentId}
+    </update>
 
 </mapper>

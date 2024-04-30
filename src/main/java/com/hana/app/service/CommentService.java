@@ -44,4 +44,9 @@ public class CommentService implements HanaService<Integer, CommentDto> {
     public List<IsLikedCommentDto> getIsLikedComment(Integer postId, Integer userId) throws Exception {
         return commentRepository.selectIsLikedComment(postId, userId);
     }
+
+    public int modifyLikeCount(Integer id) throws Exception {
+        // 성공 시 1, 실패 시 0 return
+        return commentRepository.updateLikeCount(id);
+    }
 }
