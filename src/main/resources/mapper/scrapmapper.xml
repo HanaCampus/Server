@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hana.app.repository.ScrapRepository">
+
+    <select id="selectOne" parameterType="Integer" resultType="ScrapDto">
+        SELECT *
+        FROM scrap
+        WHERE scrap_id=#{scrapId}
+    </select>
+
+    <select id="select" resultType="ScrapDto">
+        SELECT *
+        FROM scrap
+    </select>
+
+    <insert id="insert" parameterType="ScrapDto">
+        INSERT INTO scrap (user_id, post_id, create_date)
+        VALUES (#{userId}, #{postId}, NOW());
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM scrap WHERE scrap_id=#{scrapId}
+    </delete>
+
+    <select id="isScrapedByUserId" parameterType="Integer" resultType="ScrapDto">
+        SELECT *
+        FROM scrap
+        WHERE post_id=#{postId} AND user_id=#{userId}
+    </select>
+
+</mapper>
