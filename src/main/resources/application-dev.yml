@@ -33,3 +33,7 @@ mybatis:
 logging:
   level:
     root: info
+app:
+  url:
+    kakao-api-key: ${kakao_api_key}
+    kakao-redirect-url: ${kakao_redirect_url}
