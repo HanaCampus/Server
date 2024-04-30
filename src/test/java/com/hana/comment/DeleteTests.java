@@ -19,7 +19,7 @@ class DeleteTests {
     @Test
     void contextLoads() {
         try {
-            commentService.del(2);
+            commentService.del(3);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
