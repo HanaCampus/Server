@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hana.app.repository.ReportedPostRepository">
+
+    <select id="selectOne" parameterType="Integer" resultType="reportedPostDto">
+        SELECT *
+        FROM reported_post
+        WHERE reported_post_id=#{reportedPostId}
+    </select>
+
+    <select id="select" resultType="reportedPostDto">
+        SELECT *
+        FROM reported_post
+    </select>
+
+    <insert id="insert" parameterType="reportedPostDto">
+        INSERT INTO reported_post (user_id, post_id, create_date, report_category_id)
+        VALUES (#{userId}, #{postId}, NOW(), #{reportCategoryId});
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM reported_post WHERE reported_post_id=#{reportedPostId}
+    </delete>
+
+    <select id="selectDuplicateOne" resultType="reportedPostDto">
+        SELECT *
+        FROM reported_post
+        WHERE post_id=#{postId} AND user_id=#{userId}
+    </select>
+
+</mapper>
