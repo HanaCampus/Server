@@ -11,11 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReportedCommentDto {
-    private int reportedCommentId;
-    private int userId;
-    private int commentId;
-    private LocalDate createDate;
-    private LocalDate updateDate;
+public class ReportCategoryDto {
     private int reportCategoryId;
+    private int name;
 }

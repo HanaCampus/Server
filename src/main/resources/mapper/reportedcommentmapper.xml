@@ -16,12 +16,18 @@
     </select>
 
     <insert id="insert" parameterType="reportedCommentDto">
-        INSERT INTO reported_comment (content, user_id, comment_id, create_date)
-        VALUES (#{content}, #{userId}, #{commentId}, NOW());
+        INSERT INTO reported_comment (user_id, comment_id, create_date, report_category_id)
+        VALUES (#{userId}, #{commentId}, NOW(), #{reportCategoryId});
     </insert>
 
     <delete id="delete" parameterType="Integer">
         DELETE FROM reported_comment WHERE reported_comment_id=#{reportedCommentId}
     </delete>
+
+    <select id="selectDuplicateOne" resultType="reportedCommentDto">
+        SELECT *
+        FROM reported_comment
+        WHERE comment_id=#{commentId} AND user_id=#{userId}
+    </select>
 
 </mapper>

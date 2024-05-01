@@ -1,6 +1,5 @@
 package com.hana.reportedcomment;
 
-import com.hana.app.data.dto.ReportedCommentDto;
 import com.hana.app.service.ReportedCommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -12,21 +11,15 @@ import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class InsertTests {
+class SelectDuplicateOneTests {
 
     @Autowired
     ReportedCommentService reportedCommentService;
 
     @Test
     void contextLoads() {
-        ReportedCommentDto reportedCommentDto = ReportedCommentDto.builder()
-                .userId(1)
-                .commentId(3)
-                .reportCategoryId(1)
-                .build();
-
         try {
-            reportedCommentService.add(reportedCommentDto);
+            reportedCommentService.findDuplicateOne(3, 1);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
