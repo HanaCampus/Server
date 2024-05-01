@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @Builder
 public class ReportedCommentDto {
     private int reportedCommentId;
-    private String content;
     private int userId;
     private int commentId;
     private LocalDate createDate;
     private LocalDate updateDate;
+    private int reportCategoryId;
 }

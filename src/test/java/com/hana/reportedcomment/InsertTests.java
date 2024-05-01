@@ -20,10 +20,11 @@ class InsertTests {
     @Test
     void contextLoads() {
         ReportedCommentDto reportedCommentDto = ReportedCommentDto.builder()
-                .content("내용이 노잼이라서 신고")
                 .userId(1)
                 .commentId(3)
+                .reportCategoryId(1)
                 .build();
+
         try {
             reportedCommentService.add(reportedCommentDto);
             log.info("---------- SUCCESS ----------");
