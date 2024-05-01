@@ -1,6 +1,5 @@
 package com.hana.app.repository;
 
-import com.hana.app.data.dto.LikedCommentDto;
 import com.hana.app.data.dto.LikedPostDto;
 import com.hana.app.frame.HanaRepository;
 import org.apache.ibatis.annotations.Mapper;

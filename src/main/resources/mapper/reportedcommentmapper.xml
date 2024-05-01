@@ -24,4 +24,10 @@
         DELETE FROM reported_comment WHERE reported_comment_id=#{reportedCommentId}
     </delete>
 
+    <select id="selectDuplicateOne" resultType="reportedCommentDto">
+        SELECT *
+        FROM reported_comment
+        WHERE comment_id=#{commentId} AND user_id=#{userId}
+    </select>
+
 </mapper>

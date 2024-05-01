@@ -38,4 +38,8 @@ public class ReportedCommentService implements HanaService<Integer, ReportedComm
     public List<ReportedCommentDto> get() throws Exception {
         return reportedCommentRepository.select();
     }
+
+    public ReportedCommentDto findDuplicateOne(Integer commentId, Integer userId) throws Exception {
+        return reportedCommentRepository.selectDuplicateOne(commentId, userId);
+    }
 }
