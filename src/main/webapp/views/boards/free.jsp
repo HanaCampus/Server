@@ -34,7 +34,7 @@
     <div class="breadcrumbs">
         <a href="<c:url value="/"/>">게시판 목록</a>
         <span class="dot">></span>
-        <a href="<c:url value="/boards"/>?id=1">자유게시판</a>
+        <a href="<c:url value="/boards"/>?id=1">자유 게시판</a>
 
     </div>
 
@@ -43,20 +43,20 @@
         <button id="searchBtn">🔍</button>
     </div>
 
-    <div class="postListContainer">
+    <div class="postList">
         <div class="postItem">
             <a href="<c:url value="/posts"/>?id=1">
-                <div class="title">제목</div>
-                <div class="content">내용</div>
+                <h2 class="title">제목1</h2>
+                <div class="content">내용1</div>
                 <div class="info">
-                    <div class="infoBox1">
+                    <div class="textInfo">
                         <span>n시간 전</span>
-                        |
+                        <span class="division">|</span>
                         <span>익명</span>
                     </div>
-                    <div class="infoBox2">
-                        <div class="like">제목</div>
-                        <div class="comment">제목</div>
+                    <div class="cntInfo">
+                        <div class="like item"><span class="imoticon">👍🏿</span><span class="cnt">5</span></div>
+                        <div class="comment item"><span class="imoticon">◘</span><span class="cnt">2</span></div>
                     </div>
                 </div>
             </a>
@@ -64,13 +64,37 @@
 
         <div class="postItem">
             <a href="<c:url value="/posts"/>?id=1">
-                - 게시글2
+                <h2 class="title">제목2</h2>
+                <div class="content">내용2</div>
+                <div class="info">
+                    <div class="textInfo">
+                        <span>n시간 전</span>
+                        <span class="division">|</span>
+                        <span>익명</span>
+                    </div>
+                    <div class="cntInfo">
+                        <div class="like item"><span class="imoticon">👍🏿</span><span class="cnt">8</span></div>
+                        <div class="comment item"><span class="imoticon">◘</span><span class="cnt">0</span></div>
+                    </div>
+                </div>
             </a>
         </div>
 
         <div class="postItem">
             <a href="<c:url value="/posts"/>?id=1">
-                - 게시글3
+                <h2 class="title">제목3</h2>
+                <div class="content">내용3</div>
+                <div class="info">
+                    <div class="textInfo">
+                        <span>n시간 전</span>
+                        <span class="division">|</span>
+                        <span>익명</span>
+                    </div>
+                    <div class="cntInfo">
+                        <div class="like item"><span class="imoticon">👍🏿</span><span class="cnt">2</span></div>
+                        <div class="comment item"><span class="imoticon">◘</span><span class="cnt">5</span></div>
+                    </div>
+                </div>
             </a>
         </div>
     </div>
