@@ -1,0 +1,19 @@
+.header {
+    display: flex;
+    flex-direction: row;
+
+    .title {
+        width: 80%;
+        text-align: center;
+    }
+
+    .back {
+        cursor: pointer;
+        width: 10%;
+        font-size: 20px;
+    }
+
+    .hidden {
+        visibility: hidden;
+    }
+}
