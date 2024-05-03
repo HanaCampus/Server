@@ -1,3 +1,24 @@
+/* 기본 Tag 속성 */
+button {
+    background: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+/* 공통으로 쓰이는 class */
+.breadcrumbs {
+    font-size: 14px;
+    margin: 15px 0 15px 0;
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .dot {
+        margin: 0 10px 0 10px;
+    }
+}
+
 html,
 body,
 div,
