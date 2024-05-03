@@ -41,6 +41,22 @@ public class PostService implements HanaService<Integer, PostDto> {
         return postRepository.select();
     }
 
+    public PostDto getPostInfo(Integer postId, Integer userId) throws Exception {
+        return postRepository.selectOne(postId, userId);
+    }
+
+    public List<PostDto> getPostList(Integer userId) throws Exception {
+        return postRepository.getPostList(userId);
+    }
+
+    public List<PostDto> getMyPostList(Integer userId) throws Exception{
+        return postRepository.getMyPostList(userId);
+    }
+
+    public List<PostDto> getScrapList(Integer userId) throws Exception{
+        return postRepository.getScrapList(userId);
+    }
+
     public int addByAnonymous(PostDto postDto) throws Exception {
         // 성공 시 1, 실패 시 0 return
         return postRepository.insertByAnonymous(postDto);
