@@ -1,5 +1,7 @@
 package com.hana.reportedpost;
 
+import com.hana.app.data.dto.PostDto;
+import com.hana.app.data.dto.ReportCategoryDto;
 import com.hana.app.data.dto.ReportedCommentDto;
 import com.hana.app.data.dto.ReportedPostDto;
 import com.hana.app.service.ReportedCommentService;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @SpringBootTest
 @Slf4j
@@ -21,10 +24,11 @@ class InsertTests {
 
     @Test
     void contextLoads() {
+
         ReportedPostDto reportedPostDto = ReportedPostDto.builder()
                 .userId(1)
-                .postId(3)
-                .reportCategoryId(2)
+                .postDto(PostDto.builder().postId(1).build())
+                .reportCategoryDto(ReportCategoryDto.builder().reportCategoryId(1).build())
                 .build();
 
         try {

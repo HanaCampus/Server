@@ -4,25 +4,85 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hana.app.repository.PostRepository">
 
-    <select id="selectOne" parameterType="Integer" resultType="postDto">
-        SELECT *
-        FROM post
-        WHERE post_id=#{postId}
+    <resultMap id="post" type="postDto">
+        <id column="post_id" property="postId"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="is_anonymous" property="isAnonymous"/>
+        <result column="scraps" property="scraps"/>
+        <result column="likes" property="likes"/>
+        <result column="is_liked" property="isLiked"/>
+        <result column="is_scraped" property="isScraped"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <association property="userDto" javaType="userDto">
+            <id column="user_id" property="userId"/>
+            <result column="email" property="email"/>
+            <result column="nickname" property="nickname"/>
+            <result column="gender" property="gender"/>
+        </association>
+    </resultMap>
+
+    <select id="selectOne" parameterType="Integer" resultMap="post">
+        SELECT *, p.user_id AS post_user_id
+        FROM post p
+        LEFT JOIN user u ON p.user_id = u.user_id
+        LEFT JOIN (SELECT post_id, user_id AS is_liked
+                   FROM liked_post
+                   WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
+        LEFT JOIN (SELECT post_id, user_id AS is_scraped
+                   FROM scrap
+                   WHERE user_id = #{userId}) AS s ON p.post_id = s.post_id
+        WHERE p.post_id = #{postId}
     </select>
 
     <select id="select" resultType="postDto">
-        SELECT *
+        SELECT
         FROM post
+    </select>
+
+    <select id="getPostList" resultType="postDto">
+        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked
+        FROM post p
+        LEFT JOIN comment c ON p.post_id = c.post_id
+        LEFT JOIN (SELECT post_id, user_id AS is_liked
+                   FROM liked_post
+                   WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
+        GROUP BY p.post_id, is_liked
+        ORDER BY p.create_date DESC
+    </select>
+
+    <select id="getMyPostList" resultType="postDto">
+        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked
+        FROM post p
+        LEFT JOIN comment c ON p.post_id = c.post_id
+        LEFT JOIN (SELECT post_id, user_id AS is_liked
+                   FROM liked_post
+                   WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
+        WHERE p.user_id = #{userId}
+        GROUP BY p.post_id, is_liked
+        ORDER BY p.create_date DESC
+    </select>
+
+    <select id="getScrapList" resultType="postDto">
+        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked
+        FROM post p JOIN (SELECT post_id FROM scrap WHERE user_id = #{userId}) AS s ON p.post_id = s.post_id
+        LEFT JOIN comment c ON p.post_id = c.post_id
+        LEFT JOIN (SELECT post_id, user_id AS is_liked
+                   FROM liked_post
+                   WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
+        GROUP BY p.post_id, is_liked
+        ORDER BY p.create_date DESC
     </select>
 
     <insert id="insertByAnonymous" parameterType="postDto">
         INSERT INTO post (title, content, user_id, board_id, create_date)
-        VALUES (#{title}, #{content}, #{userId}, #{boardId}, NOW());
+        VALUES (#{title}, #{content}, #{userId}, #{boardId}, NOW())
     </insert>
 
     <insert id="insertByNotAnonymous" parameterType="postDto">
         INSERT INTO post (title, content, is_anonymous, user_id, board_id, create_date)
-        VALUES (#{title}, #{content}, 0, #{userId}, #{boardId}, NOW());
+        VALUES (#{title}, #{content}, 0, #{userId}, #{boardId}, NOW())
     </insert>
 
     <update id="update" parameterType="postDto">
@@ -42,7 +102,7 @@
         SET likes = (SELECT count(*)
                      FROM liked_post
                      WHERE post_id=#{postId})
-        WHERE post_id=#{postId};
+        WHERE post_id=#{postId}
     </update>
 
 </mapper>

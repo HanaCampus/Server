@@ -1,6 +1,7 @@
 package com.hana.comment;
 
 import com.hana.app.data.dto.CommentDto;
+import com.hana.app.data.dto.UserDto;
 import com.hana.app.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class InsertTests {
     void contextLoads() {
         CommentDto commentDto = CommentDto.builder()
                 .content("댓글입니다")
-                .userId(1)
+                .userDto(UserDto.builder().userId(1).build())
                 .postId(1)
                 .build();
         try {

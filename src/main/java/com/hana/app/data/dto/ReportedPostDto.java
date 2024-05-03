@@ -14,8 +14,8 @@ import java.time.LocalDate;
 public class ReportedPostDto {
     private int reportedPostId;
     private int userId;
-    private int postId;
+    private PostDto postDto;
     private LocalDate createDate;
     private LocalDate updateDate;
-    private int reportCategoryId;
+    private ReportCategoryDto reportCategoryDto;
 }

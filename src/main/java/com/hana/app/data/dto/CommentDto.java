@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
@@ -16,9 +17,15 @@ public class CommentDto {
     private String content;
     private int likes; // 좋아요 수
     private String status; // 'Active', 'Deleted', 'Reported'
-    private int userId;
+    private UserDto userDto;
     private int postId;
-    private int parentId; // 대댓글일 경우 부모 댓글의 id
+    private int parentId;
+    private boolean isAnonymous;
+    private ArrayList<CommentDto> children;
+
+    // 좋아요 누른 사람 여부
+    private int isLiked;
+
     private LocalDate createDate;
     private LocalDate updateDate;
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 public class ScrapDto {
     private int scrapId;
     private int userId;
-    private int postId;
+    private ArrayList<PostDto> posts;
     private LocalDate createDate;
     private LocalDate updateDate;
 }

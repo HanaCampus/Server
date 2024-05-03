@@ -1,5 +1,6 @@
 package com.hana.post;
 
+import com.hana.app.data.dto.PostDto;
 import com.hana.app.service.CommentService;
 import com.hana.app.service.PostService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,9 @@ class SelectOneTests {
     @Test
     void contextLoads() {
         try {
-            postService.get(1);
+            PostDto postDto = postService.getPostInfo(3, 2);
+            log.info(postDto.toString());
+            log.info(postDto.getUserDto().toString());
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
