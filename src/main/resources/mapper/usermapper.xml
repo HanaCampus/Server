@@ -26,8 +26,8 @@
     </select>
 
     <insert id="insert" parameterType="userDto">
-        INSERT INTO user (user_id, email, nickname, gender, is_admin, create_date)
-        VALUES (0, #{email}, #{nickname},#{gender},#{isAdmin},0 ,NOW());
+        INSERT INTO user (user_id, email, nickname, gender, create_date)
+        VALUES (0, #{email}, #{nickname},#{gender},NOW());
     </insert>
 
     <update id="update" parameterType="userDto">

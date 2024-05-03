@@ -21,7 +21,9 @@
 </script>
 <div class="navigation-bar">
     <div class="nav-item">
-        <span>HANA CAMPUS</span>
+        <a href="<c:url value="/"/>">
+            <span>HANA CAMPUS</span>
+        </a>
     </div>
     <div></div>
     <div class="button-group">
@@ -34,8 +36,8 @@
                 </c:when>
                 <c:otherwise>
                     <button>
-                        <a href="<c:url value="/logout"/>">
-                            <div>현재 ID${sessionScope.id} 로그아웃</div>
+                        <a href="<c:url value="/users/mypage"/>">
+                            <div>마이페이지</div>
                         </a>
                     </button>
                 </c:otherwise>

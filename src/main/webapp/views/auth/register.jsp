@@ -13,11 +13,13 @@
 
         }
     };
-
     const onClickSubmit = () => {
         const gender = $('input[name="gender"]:checked').val();
         const nickname = $('#nickname').val();
-
+        if (!isValidateNickname(nickname)){
+            alert("닉네임 규칙에 맞게 입력해주세요");
+            return;
+        }
         const formData = {
             email: $('#registerEmail').val(),
             gender: gender,
@@ -29,7 +31,6 @@
             url: "<c:url value="/auth/registerimpl"/>",
             data: formData,
             success: function(response) {
-                console.log(response, "??");
                 if(response=="1"){
                     alert("로그인 되었습니다.");
                     location.href = "<c:url value="/"/>"
@@ -61,6 +62,7 @@
     <input type="radio" id="female" name="gender" value="female">
     <label for="female">Female</label><br>
     <%--    TODO: 닉네임 유효성--%>
+    <button onClick="onClickCheckValidateNickname()">닉네임 검사</button>
     <label for="nickname">Nickname:</label><br>
     <input type="text" id="nickname" name="nickname"><br><br>
 
