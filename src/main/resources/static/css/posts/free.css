@@ -1,0 +1,78 @@
+.parentContent{
+    background-color: #5cd65c;
+    height: 40%;
+    padding: 20px 20px 20px 20px;
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .user{
+
+    }
+    .title{
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .content{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+    .bottom{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+}
+.childContent{
+    margin-bottom: 10px;
+}
+
+
+.parentComment{
+    height: 10%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 40px 20px;
+
+    /*border: 1px solid rgba(222, 222, 222, 0.5);*/
+    /*border-radius: 12px;*/
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    font-size: 15px;
+}
+
+.write {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 10px 0;
+    position: relative;
+
+    #writeInput {
+        width: 100%;
+        font-size: 16px;
+        padding: 5px 15px 5px 15px;
+        border-radius: 20px;
+        border: none;
+    }
+
+    #writeBtn {
+        position: absolute;
+        right: 10px;
+        font-size: 16px;
+        border-radius: 20px;
+        padding: 3px 5px 3px 5px;
+    }
+
+    #writeBtn:hover {
+        background: var(--free-hover-bg-color);
+    }
+}
