@@ -4,13 +4,21 @@
 
     .title {
         width: 80%;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .back {
         cursor: pointer;
         width: 10%;
         font-size: 20px;
+        background: inherit;
+        border-radius: 10px;
+    }
+
+    .back:hover {
+        background: #5d5d5d;
     }
 
     .hidden {
