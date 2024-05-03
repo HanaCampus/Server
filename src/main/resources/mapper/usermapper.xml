@@ -26,18 +26,18 @@
     </select>
 
     <insert id="insert" parameterType="userDto">
-        INSERT INTO user (user_id, email, nickname, gender, is_admin, status, suspended_date, create_date, update_date)
-        VALUES (0, #{email}, #{nickname},#{gender},#{isAdmin},#{status},null, NOW(), null);
+        INSERT INTO user (user_id, email, nickname, gender, create_date)
+        VALUES (0, #{email}, #{nickname},#{gender},NOW());
     </insert>
 
     <update id="update" parameterType="userDto">
         UPDATE user
-        SET nickname=#{nickname}, status=#{status}, suspended_date={suspendedDate}, update_date=NOW()
-        WHERE email=#{email}
+        SET nickname=#{nickname},update_date=NOW(), status=#{status}, suspended_date=#{suspendedDate}
+        WHERE user_id=#{userId}
     </update>
 
     <delete id="delete" parameterType="String">
-        DELETE FROM user WHERE email=#{email}
+        DELETE FROM user WHERE user_id=#{userId}
     </delete>
 
 
