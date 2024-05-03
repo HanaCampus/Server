@@ -12,14 +12,14 @@
 <link rel="stylesheet" href="<c:url value="/css/boards/free.css" />" />
 
 <script>
-    let center = {
+    let free = {
         init: function () {
 
         }
     };
 
     $(function () {
-        center.init();
+        free.init();
     });
 </script>
 
@@ -28,6 +28,24 @@
         <button class="back">⇦</button>
         <h3 class="title">자유게시판</h3>
         <button class="back hidden"></button>
+    </div>
+
+    <div>
+        <a href="<c:url value="/posts"/>?id=1">
+            - 게시글1
+        </a>
+    </div>
+
+    <div>
+        <a href="<c:url value="/posts"/>?id=1">
+            - 게시글2
+        </a>
+    </div>
+
+    <div>
+        <a href="<c:url value="/posts"/>?id=1">
+            - 게시글3
+        </a>
     </div>
 </div>
 
