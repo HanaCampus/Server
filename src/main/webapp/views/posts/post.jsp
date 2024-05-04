@@ -61,17 +61,29 @@
     </div>
 
     <div class="commentContainer">
-        <div class="comments">
+        <div class="commentList">
             <div class="comment">
-                <div class="childContent user"><img src="#"/>익명1</div>
-                <div class="childContent content">내용1</div>
-                <div class="childContent">날짜 | 시간</div>
+                <div class="innerBox">
+                    <div class="user"><img src="#"/>익명1</div>
+                    <div class="rightBox">
+                        <div class="cntItem"><span class="imoticon">❤️</span><span class="cnt">8</span></div>
+                        <button class="menuBtn">¦</button>
+                    </div>
+                </div>
+                <div class="content">내용1</div>
+                <div class="time">날짜 | 시간</div>
             </div>
 
             <div class="comment">
-                <div class="childContent user"><img src="#"/>익명2</div>
-                <div class="childContent content">내용2</div>
-                <div class="childContent">날짜 | 시간</div>
+                <div class="innerBox">
+                    <div class="user"><img src="#"/>익명2</div>
+                    <div class="rightBox">
+                        <div class="cntItem"><span class="imoticon">❤️</span><span class="cnt">2</span></div>
+                        <button class="menuBtn">¦</button>
+                    </div>
+                </div>
+                <div class="content">내용2</div>
+                <div class="time">날짜 | 시간</div>
             </div>
         </div>
 
