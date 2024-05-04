@@ -37,7 +37,7 @@
     </select>
 
     <select id="select" resultType="postDto">
-        SELECT
+        SELECT *
         FROM post
     </select>
 
@@ -77,12 +77,12 @@
 
     <insert id="insertByAnonymous" parameterType="postDto">
         INSERT INTO post (title, content, user_id, board_id, create_date)
-        VALUES (#{title}, #{content}, #{userId}, #{boardId}, NOW())
+        VALUES (#{title}, #{content}, #{userDto.userId}, #{boardId}, NOW())
     </insert>
 
     <insert id="insertByNotAnonymous" parameterType="postDto">
         INSERT INTO post (title, content, is_anonymous, user_id, board_id, create_date)
-        VALUES (#{title}, #{content}, 0, #{userId}, #{boardId}, NOW())
+        VALUES (#{title}, #{content}, 0, #{userDto.userId}, #{boardId}, NOW())
     </insert>
 
     <update id="update" parameterType="postDto">

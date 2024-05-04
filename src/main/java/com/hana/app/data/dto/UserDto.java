@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -21,8 +21,8 @@ public class UserDto {
     private String gender;
     private boolean isAdmin;
     private UType status;
-    private Date suspendedDate;
-    private Date createDate;
-    private Date updateDate;
+    private LocalDateTime suspendedDate;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
 
 }

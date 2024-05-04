@@ -11,6 +11,7 @@ import org.springframework.dao.DuplicateKeyException;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 @Slf4j
@@ -22,11 +23,10 @@ class InsertByAnonymousTests {
     @Test
     void contextLoads() {
         PostDto postDto = PostDto.builder()
-                .title("8일간의 프로젝트 시작")
-                .content("일주일만에 끝내고 마지막은 회식 ㄱ")
+                .title("5월4일")
+                .content("테스트테스트")
                 .userDto(UserDto.builder().userId(1).build())
                 .boardId(1)
-                .createDate(LocalDate.now())
                 .build();
         try {
             postService.addByAnonymous(postDto);

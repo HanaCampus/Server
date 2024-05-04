@@ -26,7 +26,7 @@
 
 <div class="freeBoard">
     <div class="header">
-        <button class="back" onclick="history.back()">⇦</button>
+        <a href class="back" onclick="history.back()">⇦</a>
         <h3 class="title">자유게시판</h3>
         <button class="back hidden"></button>
     </div>
