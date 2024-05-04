@@ -23,14 +23,14 @@ class UpdateTests {
     @Test
     void contextLoads() {
         UserDto userDto = UserDto.builder()
-                .userId(5)
+                .userId(4)
                 .nickname("완전 새로운 닉네임")
                 .status(UType.Active)
                 .build();
         try {
             userService.modify(userDto);
             log.info("-----🌟---- SUCCESS ----------");
-            UserDto userDto1 =  userService.get("5");
+            UserDto userDto1 =  userService.get("4");
             log.info(userDto1.toString());
         } catch (Exception e) {
             if(e instanceof SQLException) {

@@ -1,5 +1,7 @@
 package com.hana.reportedcomment;
 
+import com.hana.app.data.dto.CommentDto;
+import com.hana.app.data.dto.ReportCategoryDto;
 import com.hana.app.data.dto.ReportedCommentDto;
 import com.hana.app.service.ReportedCommentService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +23,8 @@ class InsertTests {
     void contextLoads() {
         ReportedCommentDto reportedCommentDto = ReportedCommentDto.builder()
                 .userId(1)
-                .commentId(3)
-                .reportCategoryId(1)
+                .commentDto(CommentDto.builder().commentId(1).build())
+                .reportCategoryDto(ReportCategoryDto.builder().reportCategoryId(1).build())
                 .build();
 
         try {

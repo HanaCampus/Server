@@ -1,5 +1,6 @@
 package com.hana.scrap;
 
+import com.hana.app.data.dto.PostDto;
 import com.hana.app.data.dto.ScrapDto;
 import com.hana.app.service.ScrapService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @SpringBootTest
 @Slf4j
@@ -19,8 +21,11 @@ class InsertTests {
 
     @Test
     void contextLoads() {
+        ArrayList<PostDto> postDtoList = new ArrayList<>();
+        postDtoList.add(PostDto.builder().postId(1).build());
+
         ScrapDto scrapDto = ScrapDto.builder()
-                .postId(3)
+                .posts(postDtoList)
                 .userId(2)
                 .build();
         try {

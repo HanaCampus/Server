@@ -1,6 +1,7 @@
 package com.hana.post;
 
 import com.hana.app.data.dto.PostDto;
+import com.hana.app.data.dto.UserDto;
 import com.hana.app.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class InsertByNotAnonymousTests {
         PostDto postDto = PostDto.builder()
                 .title("8일간의 프로젝트 시작")
                 .content("일주일만에 끝내고 마지막은 회식 ㄱ")
-                .userId(1)
+                .userDto(UserDto.builder().userId(1).build())
                 .boardId(1)
                 .createDate(LocalDate.now())
                 .build();

@@ -32,7 +32,7 @@
         WHERE comment_id=#{commentId}
     </update>
 
-    <select id="selectIsLikedComment" resultType="isLikedCommentDto">
+    <select id="selectIsLikedComment" resultType="CommentDto">
         SELECT *
         FROM comment AS c
         LEFT JOIN (SELECT comment_id AS is_liked
