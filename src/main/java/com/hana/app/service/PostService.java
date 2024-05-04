@@ -45,8 +45,8 @@ public class PostService implements HanaService<Integer, PostDto> {
         return postRepository.selectOne(postId, userId);
     }
 
-    public List<PostDto> getPostList(Integer userId) throws Exception {
-        return postRepository.getPostList(userId);
+    public List<PostDto> getPostList(Integer userId, Integer boardId) throws Exception {
+        return postRepository.getPostList(userId, boardId);
     }
 
     public List<PostDto> getMyPostList(Integer userId) throws Exception{

@@ -37,7 +37,7 @@
     </select>
 
     <select id="select" resultType="postDto">
-        SELECT
+        SELECT *
         FROM post
     </select>
 
@@ -48,6 +48,7 @@
         LEFT JOIN (SELECT post_id, user_id AS is_liked
                    FROM liked_post
                    WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
+        WHERE p.board_id = #{boardId}
         GROUP BY p.post_id, is_liked
         ORDER BY p.create_date DESC
     </select>
