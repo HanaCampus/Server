@@ -131,6 +131,12 @@ body {
 button {
     outline: 0;
     border: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 * {
     box-sizing: border-box;
@@ -276,7 +282,7 @@ a {
 
 .main-content {
     padding: 90px 0;
-    min-height: max(600px, 100vh);
+    min-height: max(600px, calc(100vh));
 }
 
 .css-9hr1x0 {

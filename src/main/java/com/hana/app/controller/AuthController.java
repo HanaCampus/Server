@@ -50,13 +50,14 @@ public class AuthController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return "redirect:/auth/register";
+        return "redirect:/users/agree";
     }
     @GetMapping("/register")
     public String register(Model model, HttpSession httpSession){
-        if (httpSession.getAttribute("email") == null){
-            return "redirect:/auth/sign-in";
-        }
+        //        TODO: 개발 후 주석 해제
+//        if (httpSession.getAttribute("id"){
+//            return "redirect:/";
+//        }
         model.addAttribute("email", httpSession.getAttribute("email"));
         model.addAttribute("center", dir+"register");
         return "index";
@@ -71,7 +72,8 @@ public class AuthController {
                 return "3"; //닉네임 중복
             }
             userService.add(userDto);
-            httpSession.setAttribute("id", userDto.getUserId());
+            UserDto userDto2 = userService.findByEmail(userDto.getEmail());
+            httpSession.setAttribute("id", userDto2.getUserId());
             return "1";
         } catch (Exception e) {
             return "0";
