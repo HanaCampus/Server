@@ -22,7 +22,7 @@ class InsertTests {
     @Test
     void contextLoads() {
         CommentDto commentDto = CommentDto.builder()
-                .content("댓글입니다")
+                .content("오늘은 5월4일 댓글~")
                 .userDto(UserDto.builder().userId(1).build())
                 .postId(1)
                 .build();
