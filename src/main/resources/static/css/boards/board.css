@@ -1,36 +1,5 @@
 /* board 상세보기 페이지 */
 
-:root {
-    --free-hover-bg-color: #5d5d5d;
-}
-
-.header {
-    display: flex;
-    flex-direction: row;
-    margin: 10px 0 10px 0;
-
-    .title {
-        width: 80%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .back {
-        width: 10%;
-        font-size: 20px;
-        border-radius: 10px;
-    }
-
-    .back:hover {
-        background: var(--free-hover-bg-color);
-    }
-
-    .hidden {
-        visibility: hidden;
-    }
-}
-
 .search {
     width: 100%;
     display: flex;
@@ -43,7 +12,7 @@
     #searchInput {
         width: 100%;
         font-size: 16px;
-        padding: 5px 15px 5px 15px;
+        padding: 5px 40px 5px 15px;
         border-radius: 20px;
         border: none;
     }
@@ -57,6 +26,6 @@
     }
 
     #searchBtn:hover {
-        background: var(--free-hover-bg-color);
+        background: var(--board-hover-bg-color);
     }
 }

@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="<c:url value="/css/posts/free.css" />" />
+<link rel="stylesheet" href="<c:url value="/css/posts/post.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/boards/board.css" />"/>
 
 <script>
@@ -27,9 +27,9 @@
 
 <div class="freeBoard">
     <div class="header">
-        <button class="back" onclick="history.back()">⇦</button>
-        <h3 class="title">자유게시판</h3>
-        <button class="back hidden"></button>
+        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1">⇦</a></div>
+        <h3 class="title">자유 게시판</h3>
+        <div class="back"></div>
     </div>
 
     <div class="breadcrumbs">
@@ -63,8 +63,19 @@
     </div>
 
     <div class="write">
-        <input type="text" name="writeInput" id="writeInput">
-        <button id="writeBtn">📩</button>
+        <textarea type="text" name="writeTextArea" id="writeTextArea"></textarea>
+        <div class="regist">
+            <div class="anonymous">
+                <input
+                        type="checkbox"
+                        id="anonymousCheckBox"
+                        name="anonymousCheckBox"
+                        value="isAnonymous" />
+                <label for="anonymousCheckBox">익명</label>
+            </div>
+            <button id="writeBtn">➤</button>
+        </div>
+
     </div>
 </div>
 

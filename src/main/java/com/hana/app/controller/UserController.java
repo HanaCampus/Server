@@ -71,14 +71,25 @@ public class UserController {
             throw new RuntimeException(e);
         }
     }
-
-
+    @GetMapping("/agree")
+    public String userAgree(Model model,HttpSession httpSession){
+//        TODO: 개발 후 주석 해제
+//        if (httpSession.getAttribute("id"){
+//            return "redirect:/";
+//        }
+        if (httpSession.getAttribute("email") == null){
+            return "redirect:/auth/sign-in";
+        }
+        model.addAttribute("center", dir+"agree");
+        return "index";
+    }
 
     @GetMapping("/info")
     public String userInfo(Model model,HttpSession httpSession){
         try {
             Object id = httpSession.getAttribute("id");
             UserDto userDto = userService.get(String.valueOf(id));
+            log.info(userDto.toString());
             model.addAttribute("user", userDto);
             model.addAttribute("center", dir+"info");
             return "index";

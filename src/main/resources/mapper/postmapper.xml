@@ -37,7 +37,7 @@
     </select>
 
     <select id="select" resultType="postDto">
-        SELECT *
+        SELECT
         FROM post
     </select>
 
