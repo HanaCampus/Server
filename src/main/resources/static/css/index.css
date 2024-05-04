@@ -1,3 +1,56 @@
+/* 전역 변수 설정 */
+:root {
+    --board-hover-bg-color: #5d5d5d;
+}
+
+/* 기본 Tag 속성 */
+button {
+    background: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+/* 공통으로 쓰이는 class */
+.header {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0 10px 0;
+
+    .title {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .back {
+        width: 10%;
+        font-size: 20px;
+
+        .backBtn {
+            padding: 3px;
+            border-radius: 10px;
+        }
+
+        .backBtn:hover {
+            background: var(--board-hover-bg-color);
+        }
+    }
+}
+
+.breadcrumbs {
+    font-size: 14px;
+    margin: 15px 0 15px 0;
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .dot {
+        margin: 0 10px 0 10px;
+    }
+}
+
 html,
 body,
 div,

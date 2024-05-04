@@ -22,7 +22,7 @@
 <div class="navigation-bar">
     <div class="nav-item">
         <a href="<c:url value="/"/>">
-            <span>HANA CAMPUS</span>
+            <span style="color: #028e25; font-weight: bold">HANA CAMPUS</span>
         </a>
     </div>
     <div></div>

@@ -1,0 +1,60 @@
+/* 게시판 상세보기 페이지 - postList 관련 */
+
+.postList {
+    display: flex;
+    flex-direction: column;
+
+    .postItem {
+        /*min-height: 20vh;*/
+        margin: 10px 0 10px 0;
+        padding: 10px;
+        border: 1px solid rgba(222, 222, 222, 0.5);
+        border-radius: 12px;
+        cursor: pointer;
+
+        .title {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .content {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .textInfo {
+            font-size: 12px;
+        }
+
+        .cntInfo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            .item {
+                margin-right: 8px;
+            }
+
+            .imoticon {
+                margin-right: 5px;
+                font-size: 18px;
+            }
+
+            .cnt {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .postItem:hover {
+        border: 1px solid rgba(222, 222, 222, 1);
+    }
+}
