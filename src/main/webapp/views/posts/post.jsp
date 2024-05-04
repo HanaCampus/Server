@@ -41,7 +41,10 @@
     </div>
 
     <div class="postInfo">
-        <div class="user"><img src="#"/>익명</div>
+        <div class="userAndMenuBox">
+            <div class="user"><img src="#"/>익명</div>
+            <button class="menuBtn">¦</button>
+        </div>
         <div class="time">날짜 | 시간</div>
         <div class="title">제목</div>
         <div class="content">내용</div>
@@ -52,7 +55,7 @@
             </div>
 
             <div class="BoxItem">
-                <div class="item"><span class="imoticon">🔖</span><span class="cnt">5</span></div>
+                <div class="item noneMarginItem"><span class="imoticon">🔖</span><span class="cnt">5</span></div>
             </div>
         </div>
     </div>
