@@ -63,7 +63,14 @@
     </div>
 
     <div class="write">
-        <textarea type="text" name="writeTextArea" id="writeTextArea"></textarea>
+        <c:choose>
+            <c:when test="${sessionScope.id == null}">
+                <textarea type="text" name="writeTextArea" id="writeTextArea" placeholder="로그인 먼저 해주세요!" disabled></textarea>
+            </c:when>
+            <c:otherwise>
+                <textarea type="text" name="writeTextArea" id="writeTextArea"></textarea>
+            </c:otherwise>
+        </c:choose>
         <div class="regist">
             <div class="anonymous">
                 <input

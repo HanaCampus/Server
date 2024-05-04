@@ -24,7 +24,7 @@ class InsertByAnonymousTests {
     void contextLoads() {
         PostDto postDto = PostDto.builder()
                 .title("5월4일")
-                .content("테스트테스트")
+                .content("시간설정 잘 됐나")
                 .userDto(UserDto.builder().userId(1).build())
                 .boardId(1)
                 .build();
