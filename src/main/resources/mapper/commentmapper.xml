@@ -4,6 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hana.app.repository.CommentRepository">
 
+    <resultMap id="comment" type="commentDto">
+        <id column="comment_id" property="commentId"/>
+        <result column="content" property="content"/>
+        <result column="likes" property="likes"/>
+    </resultMap>
+
     <select id="selectOne" parameterType="Integer" resultType="commentDto">
         SELECT *
         FROM comment
@@ -17,7 +23,7 @@
 
     <insert id="insert" parameterType="commentDto">
         INSERT INTO comment (content, user_id, post_id, create_date)
-        VALUES (#{content}, #{userId}, #{postId}, NOW());
+        VALUES (#{content}, #{userDto.userId}, #{postId}, NOW());
     </insert>
 
     <update id="update" parameterType="commentDto">
