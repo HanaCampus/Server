@@ -1,6 +1,5 @@
-.parentContent {
-    height: 40%;
-    padding: 20px 20px 20px 20px;
+.postInfo {
+    padding: 20px;
     border: 2px solid rgba(222, 222, 222, 1);
     border-radius: 10px;
 
@@ -8,34 +7,61 @@
     flex-direction: column;
     justify-content: center;
 
+    .user {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .time {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
     .title {
-        font-size: 30px;
+        font-size: 20px;
         font-weight: bold;
+        margin-bottom: 24px;
     }
 
     .content {
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         font-size: 20px;
     }
 
-    .bottom {
+    .cntBox {
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: space-between;
+        align-items: center;
+
+        .BoxItem {
+            display: flex;
+            flex-direction: row;
+
+            .item {
+                margin-right: 8px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .imoticon {
+                margin-right: 5px;
+                font-size: 18px;
+            }
+
+            .cnt {
+                font-size: 16px;
+            }
+        }
     }
 }
 
-.childContent {
-    margin-bottom: 10px;
-}
-
-
-.parentComment {
+.comment {
     height: 10%;
     margin-top: 20px;
     margin-bottom: 20px;
-    padding: 40px 20px;
+    padding: 8px 10px;
 
     /*border: 1px solid rgba(222, 222, 222, 0.5);*/
     /*border-radius: 12px;*/
