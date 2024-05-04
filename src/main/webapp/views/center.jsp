@@ -10,10 +10,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <div>
-    <div class="css-1hgree4">
-        <a data-theme="primary" class="css-3hax7m" href="/all-articles">게시판</a>
-        <a data-theme="secondary" class="css-1rdqar8" href="/hot-articles">게시판</a>
-    </div>
+<%--    <div class="css-1hgree4">--%>
+<%--        <a data-theme="primary" class="css-3hax7m" href="/all-articles">게시판</a>--%>
+<%--        <a data-theme="secondary" class="css-1rdqar8" href="/hot-articles">게시판</a>--%>
+<%--    </div>--%>
     <div class="css-65egb5">
         <a class="css-hthzsn" href="<c:url value="/boards"/>?id=1">
             <div>

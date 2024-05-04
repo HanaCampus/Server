@@ -26,9 +26,9 @@
 
 <div class="freeBoard">
     <div class="header">
-        <button class="back" onclick="history.back()">⇦</button>
-        <h3 class="title">자유게시판</h3>
-        <button class="back hidden"></button>
+        <div class="back"><a class="backBtn" href="<c:url value="/"/>">⇦</a></div>
+        <h3 class="title">자유 게시판</h3>
+        <div class="back"></div>
     </div>
 
     <div class="breadcrumbs">

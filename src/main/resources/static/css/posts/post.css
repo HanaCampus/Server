@@ -1,37 +1,37 @@
-.parentContent{
-    background-color: #5cd65c;
+.parentContent {
     height: 40%;
     padding: 20px 20px 20px 20px;
-    border-radius: 12px;
+    border: 2px solid rgba(222, 222, 222, 1);
+    border-radius: 10px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    .user{
-
-    }
-    .title{
+    .title {
         font-size: 30px;
         font-weight: bold;
     }
-    .content{
+
+    .content {
         margin-top: 20px;
         margin-bottom: 20px;
         font-size: 20px;
     }
-    .bottom{
+
+    .bottom {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
     }
 }
-.childContent{
+
+.childContent {
     margin-bottom: 10px;
 }
 
 
-.parentComment{
+.parentComment {
     height: 10%;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -56,23 +56,35 @@
     margin: 10px 0 10px 0;
     position: relative;
 
-    #writeInput {
+    #writeTextArea {
         width: 100%;
+        height: 80px;
         font-size: 16px;
-        padding: 5px 15px 5px 15px;
+        padding: 5px 90px 5px 15px;
         border-radius: 20px;
         border: none;
     }
 
-    #writeBtn {
+    .regist {
+        display: flex;
+        flex-direction: row;
         position: absolute;
         right: 10px;
+        bottom: 5px;
         font-size: 16px;
-        border-radius: 20px;
-        padding: 3px 5px 3px 5px;
+        /*border-radius: 20px;*/
+        /*padding: 3px 5px 3px 5px;*/
+
+        .anonymous {
+            color: black;
+        }
+
+        .anonymous, #writeBtn {
+            margin-left: 5px;
+        }
     }
 
     #writeBtn:hover {
-        background: var(--free-hover-bg-color);
+        background: var(--board-hover-bg-color);
     }
 }
