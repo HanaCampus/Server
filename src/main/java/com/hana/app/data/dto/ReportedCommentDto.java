@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +15,7 @@ public class ReportedCommentDto {
     private int reportedCommentId;
     private int userId;
     private CommentDto commentDto;
-    private LocalDate createDate;
-    private LocalDate updateDate;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
     private ReportCategoryDto reportCategoryDto;
 }
