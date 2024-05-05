@@ -51,6 +51,12 @@
         WHERE comment_id=#{commentId}
     </update>
 
+    <update id="report" parameterType="Integer">
+        UPDATE comment
+        SET status="Reported", update_date=NOW()
+        WHERE comment_id=#{commentId}
+    </update>
+
     <select id="selectIsLikedComment" resultMap="comment">
         SELECT *
         FROM comment AS c
