@@ -42,13 +42,13 @@
     </select>
 
     <select id="getPostList" resultType="postDto">
-        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked
+        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked, p.status
         FROM post p
         LEFT JOIN comment c ON p.post_id = c.post_id
         LEFT JOIN (SELECT post_id, user_id AS is_liked
                    FROM liked_post
                    WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
-        WHERE p.board_id = #{boardId}
+        WHERE p.board_id = #{boardId} AND p.status = "ACTIVE"
         GROUP BY p.post_id, is_liked
         ORDER BY p.create_date DESC
     </select>
@@ -60,7 +60,7 @@
         LEFT JOIN (SELECT post_id, user_id AS is_liked
                    FROM liked_post
                    WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
-        WHERE p.user_id = #{userId}
+        WHERE p.user_id = #{userId} AND p.status = "ACTIVE"
         GROUP BY p.post_id, is_liked
         ORDER BY p.create_date DESC
     </select>
@@ -72,6 +72,7 @@
         LEFT JOIN (SELECT post_id, user_id AS is_liked
                    FROM liked_post
                    WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
+        WHERE p.status = "ACTIVE"
         GROUP BY p.post_id, is_liked
         ORDER BY p.create_date DESC
     </select>
