@@ -1,7 +1,10 @@
 package com.hana.app.controller;
 
 
+import com.hana.app.common.type.UType;
+import com.hana.app.data.dto.PostDto;
 import com.hana.app.data.dto.UserDto;
+import com.hana.app.service.PostService;
 import com.hana.app.service.UserService;
 import com.hana.util.kakao.KakaoKey;
 import jakarta.servlet.http.HttpSession;
@@ -11,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/users")
@@ -19,14 +25,21 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     final UserService userService;
+    final PostService postService;
+
     String dir= "users/";
 
 
     @ResponseBody
-    @DeleteMapping("/sign-out")
-    public String userSignOut(String s){
+    @PostMapping("/sign-out")
+    public String userSignOut(HttpSession httpSession){
+        Object id = httpSession.getAttribute("id");
+        UserDto userDto = UserDto.builder()
+                .userId(Integer.parseInt(String.valueOf(id)))
+                .status(UType.Deleted)
+                .build();
         try {
-            userService.del(s);
+            userService.modify(userDto);
             return "1";
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -50,8 +63,9 @@ public class UserController {
     public String usermyscraps(Model model,HttpSession httpSession){
         try {
             Object id = httpSession.getAttribute("id");
-            UserDto userDto = userService.get(String.valueOf(id));
-            model.addAttribute("user", userDto);
+            List<PostDto> postDtoList= postService.getScrapList((Integer) id);
+            log.info(postDtoList.toString());
+            model.addAttribute("posts", postDtoList);
             model.addAttribute("center", dir+"myscraps");
             return "index";
         } catch (Exception e) {
@@ -64,7 +78,9 @@ public class UserController {
         try {
             Object id = httpSession.getAttribute("id");
             UserDto userDto = userService.get(String.valueOf(id));
+            List<PostDto> postDtoList= postService.getMyPostList((Integer) id);
             model.addAttribute("user", userDto);
+            model.addAttribute("posts", postDtoList);
             model.addAttribute("center", dir+"myposts");
             return "index";
         } catch (Exception e) {
