@@ -25,10 +25,10 @@ public class PostDto {
     private int commentCount;
 
     // 좋아요 누른 사람 여부
-    private int isLiked;
+    private Integer isLiked;
 
     // 스크랩 누른 사람 여부
-    private int isScraped;
+    private Integer isScraped;
 
     private LocalDateTime createDate;
     private LocalDateTime updateDate;

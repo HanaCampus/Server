@@ -71,4 +71,9 @@ public class PostService implements HanaService<Integer, PostDto> {
         // 성공 시 1, 실패 시 0 return
         return postRepository.updateLikeCount(id);
     }
+
+    public int modifyScrapCount(Integer id) throws Exception {
+        // 성공 시 1, 실패 시 0 return
+        return postRepository.updateScrapCount(id);
+    }
 }
