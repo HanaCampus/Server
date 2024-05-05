@@ -28,6 +28,8 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="<c:url value="/css/index.css" />" />
+<%--    TODO:posts.css 중복 삭제--%>
+    <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>게시판 모음 | HANA CAMPUS</title>
     <meta property="og:type" content="website" />
