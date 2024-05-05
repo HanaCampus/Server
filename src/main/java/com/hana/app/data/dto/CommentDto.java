@@ -18,13 +18,13 @@ public class CommentDto {
     private int likes; // 좋아요 수
     private String status; // 'Active', 'Deleted', 'Reported'
     private UserDto userDto;
-    private int postId;
+    private Integer postId;
     private int parentId;
     private boolean isAnonymous;
-    private ArrayList<CommentDto> children;
+//    private ArrayList<CommentDto> children;
 
     // 좋아요 누른 사람 여부
-    private int isLiked;
+    private Integer isLiked;
 
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
