@@ -19,5 +19,6 @@ public interface PostRepository extends HanaRepository<Integer, PostDto> {
     int insertByAnonymous(PostDto postDto) throws Exception;
     int insertByNotAnonymous(PostDto postDto) throws Exception;
     int updateLikeCount(Integer id) throws Exception;
+    int updateScrapCount(Integer id) throws Exception;
 
 }

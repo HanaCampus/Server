@@ -44,7 +44,9 @@
     <select id="getPostList" resultType="postDto">
         SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked, p.status
         FROM post p
-        LEFT JOIN comment c ON p.post_id = c.post_id
+        LEFT JOIN (SELECT *
+                   FROM comment
+                   WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
         LEFT JOIN (SELECT post_id, user_id AS is_liked
                    FROM liked_post
                    WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
@@ -56,11 +58,13 @@
     <select id="getMyPostList" resultType="postDto">
         SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked
         FROM post p
-        LEFT JOIN comment c ON p.post_id = c.post_id
+        LEFT JOIN (SELECT *
+                   FROM comment
+                   WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
         LEFT JOIN (SELECT post_id, user_id AS is_liked
                    FROM liked_post
                    WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
-        WHERE p.user_id = #{userId} AND p.status = "ACTIVE"
+        WHERE p.user_id = #{userId} AND p.status = "Active"
         GROUP BY p.post_id, is_liked
         ORDER BY p.create_date DESC
     </select>
@@ -68,7 +72,9 @@
     <select id="getScrapList" resultType="postDto">
         SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked
         FROM post p JOIN (SELECT post_id FROM scrap WHERE user_id = #{userId}) AS s ON p.post_id = s.post_id
-        LEFT JOIN comment c ON p.post_id = c.post_id
+        LEFT JOIN (SELECT *
+                   FROM comment
+                   WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
         LEFT JOIN (SELECT post_id, user_id AS is_liked
                    FROM liked_post
                    WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
@@ -103,6 +109,14 @@
         UPDATE post
         SET likes = (SELECT count(*)
                      FROM liked_post
+                     WHERE post_id=#{postId})
+        WHERE post_id=#{postId}
+    </update>
+
+    <update id="updateScrapCount">
+        UPDATE post
+        SET scraps = (SELECT count(*)
+                     FROM scrap
                      WHERE post_id=#{postId})
         WHERE post_id=#{postId}
     </update>
