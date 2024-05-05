@@ -41,6 +41,9 @@
 
             .item {
                 margin-right: 8px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
             }
 
             .imoticon {
