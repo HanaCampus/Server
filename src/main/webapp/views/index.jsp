@@ -13,6 +13,10 @@
 <script>
     let index = {
         init: function () {
+            var alertMessage = "${alertMessage}";
+            if (alertMessage) {
+                alert(alertMessage);
+            }
         }
     };
     $(function () {
