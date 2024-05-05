@@ -13,7 +13,7 @@ import java.util.List;
 public interface PostRepository extends HanaRepository<Integer, PostDto> {
 
     PostDto selectOne(@Param("postId") Integer postId, @Param("userId") Integer userId) throws Exception;
-    List<PostDto> getPostList(Integer userId) throws Exception;
+    List<PostDto> getPostList(@Param("userId") Integer userId, @Param("boardId") Integer boardId) throws Exception;
     List<PostDto> getMyPostList(Integer userId) throws Exception;
     List<PostDto> getScrapList(Integer userId) throws Exception;
     int insertByAnonymous(PostDto postDto) throws Exception;
