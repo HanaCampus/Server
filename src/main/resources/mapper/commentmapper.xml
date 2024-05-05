@@ -64,7 +64,7 @@
         LEFT JOIN (SELECT comment_id, user_id AS is_liked
                    FROM liked_comment
                    WHERE user_id = #{userId}) AS lc ON c.comment_id = lc.comment_id
-        WHERE c.post_id = #{postId};
+        WHERE c.post_id = #{postId} AND NOT c.status = "DELETED"
     </select>
 
     <update id="updateLikeCount">
