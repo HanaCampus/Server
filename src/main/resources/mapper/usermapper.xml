@@ -30,9 +30,20 @@
         VALUES (0, #{email}, #{nickname},#{gender},NOW());
     </insert>
 
-    <update id="update" parameterType="userDto">
+    <update id="update" parameterType="UserDto">
         UPDATE user
-        SET nickname=#{nickname},update_date=NOW(), status=#{status}, suspended_date=#{suspendedDate}
+        <set>
+            <if test="nickname != null">
+                nickname=#{nickname},
+            </if>
+            update_date=NOW(),
+            <if test="status != null">
+                status=#{status},
+            </if>
+            <if test="suspendedDate != null">
+                suspended_date=#{suspendedDate},
+            </if>
+        </set>
         WHERE user_id=#{userId}
     </update>
 
