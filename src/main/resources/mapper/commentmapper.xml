@@ -7,7 +7,20 @@
     <resultMap id="comment" type="commentDto">
         <id column="comment_id" property="commentId"/>
         <result column="content" property="content"/>
+        <result column="is_anonymous" property="isAnonymous"/>
+        <result column="status" property="status"/>
         <result column="likes" property="likes"/>
+        <result column="post_id" property="postId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="is_liked" property="isLiked"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <association property="userDto" javaType="userDto">
+            <id column="user_id" property="userId"/>
+            <result column="email" property="email"/>
+            <result column="nickname" property="nickname"/>
+            <result column="gender" property="gender"/>
+        </association>
     </resultMap>
 
     <select id="selectOne" parameterType="Integer" resultType="commentDto">
@@ -38,14 +51,20 @@
         WHERE comment_id=#{commentId}
     </update>
 
-    <select id="selectIsLikedComment" resultType="CommentDto">
+    <update id="report" parameterType="Integer">
+        UPDATE comment
+        SET status="Reported", update_date=NOW()
+        WHERE comment_id=#{commentId}
+    </update>
+
+    <select id="selectIsLikedComment" resultMap="comment">
         SELECT *
         FROM comment AS c
-        LEFT JOIN (SELECT comment_id AS is_liked
+        LEFT JOIN user u ON c.user_id = u.user_id
+        LEFT JOIN (SELECT comment_id, user_id AS is_liked
                    FROM liked_comment
-                   WHERE user_id = #{userId}) AS lc
-        ON c.comment_id = lc.is_liked
-        WHERE c.post_id = #{postId};
+                   WHERE user_id = #{userId}) AS lc ON c.comment_id = lc.comment_id
+        WHERE c.post_id = #{postId} AND NOT c.status = "DELETED"
     </select>
 
     <update id="updateLikeCount">

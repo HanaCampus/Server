@@ -18,4 +18,6 @@ public interface CommentRepository extends HanaRepository<Integer, CommentDto> {
 
     int updateLikeCount(Integer id) throws Exception;
 
+    int report(Integer id) throws Exception;
+
 }
