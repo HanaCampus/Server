@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hana.app.repository.UserRepository">
+
+    <select id="selectOne" parameterType="String" resultType="userDto">
+        SELECT *
+        FROM user
+        WHERE user_id=#{userId}
+    </select>
+    <select id="findByEmail" parameterType="String" resultType="userDto">
+        SELECT *
+        FROM user
+        WHERE email=#{email}
+    </select>
+    <select id="findByNickname" parameterType="String" resultType="userDto">
+        SELECT *
+        FROM user
+        WHERE nickname = #{nickname}
+    </select>
+
+    <select id="select" resultType="userDto">
+        SELECT *
+        FROM user
+    </select>
+
+    <insert id="insert" parameterType="userDto">
+        INSERT INTO user (user_id, email, nickname, gender, create_date)
+        VALUES (0, #{email}, #{nickname},#{gender},NOW());
+    </insert>
+
+    <update id="update" parameterType="UserDto">
+        UPDATE user
+        <set>
+            <if test="nickname != null">
+                nickname=#{nickname},
+            </if>
+            update_date=NOW(),
+            <if test="status != null">
+                status=#{status},
+            </if>
+            <if test="suspendedDate != null">
+                suspended_date=#{suspendedDate},
+            </if>
+        </set>
+        WHERE user_id=#{userId}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM user WHERE user_id=#{userId}
+    </delete>
+
+
+</mapper>

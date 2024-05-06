@@ -1,0 +1,173 @@
+.postInfo {
+    padding: 20px;
+    border: 2px solid rgba(222, 222, 222, 1);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .userAndMenuBox {
+        font-size: 18px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .menuBtn {
+            color: white;
+            padding: 5px;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .menuBtn:hover {
+            background: var(--board-hover-bg-color);
+        }
+    }
+
+    .time {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 24px;
+    }
+
+    .content {
+        margin-bottom: 30px;
+        font-size: 20px;
+    }
+
+    .cntBox {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .BoxItem {
+            display: flex;
+            flex-direction: row;
+
+            .item {
+                margin-right: 8px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .noneMarginItem {
+                margin-right: 0;
+            }
+
+            .imoticon {
+                margin-right: 5px;
+                font-size: 18px;
+            }
+
+            .cnt {
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+.comment {
+    margin: 12px 0;
+    padding: 8px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .innerBox {
+        font-size: 12px;
+        margin-bottom: 6px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .rightBox {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: 14px;
+
+            .cntItem {
+                margin-right: 8px;
+
+                .imoticon {
+                    margin-right: 4px;
+                }
+            }
+
+            .menuBtn {
+                color: white;
+                padding: 5px;
+                border-radius: 12px;
+            }
+
+            .menuBtn:hover {
+                background: var(--board-hover-bg-color);
+            }
+        }
+    }
+
+    .content {
+        margin-bottom: 6px;
+        font-size: 14px;
+    }
+
+    .time {
+        font-size: 12px;
+        margin-bottom: 10px;
+        color: #98ceff;
+    }
+}
+
+.write {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 10px 0;
+    position: relative;
+
+    #writeTextArea {
+        width: 100%;
+        height: 80px;
+        font-size: 16px;
+        padding: 5px 90px 5px 15px;
+        border-radius: 20px;
+        border: none;
+    }
+
+    .regist {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        right: 10px;
+        bottom: 5px;
+        font-size: 16px;
+        /*border-radius: 20px;*/
+        /*padding: 3px 5px 3px 5px;*/
+
+        .anonymous {
+            color: black;
+        }
+
+        .anonymous, #writeBtn {
+            margin-left: 5px;
+        }
+    }
+
+    #writeBtn:hover {
+        background: var(--board-hover-bg-color);
+    }
+}

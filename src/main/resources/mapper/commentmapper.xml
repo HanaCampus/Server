@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hana.app.repository.CommentRepository">
+
+    <resultMap id="comment" type="commentDto">
+        <id column="comment_id" property="commentId"/>
+        <result column="content" property="content"/>
+        <result column="is_anonymous" property="isAnonymous"/>
+        <result column="status" property="status"/>
+        <result column="likes" property="likes"/>
+        <result column="post_id" property="postId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="is_liked" property="isLiked"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <association property="userDto" javaType="userDto">
+            <id column="user_id" property="userId"/>
+            <result column="email" property="email"/>
+            <result column="nickname" property="nickname"/>
+            <result column="gender" property="gender"/>
+        </association>
+    </resultMap>
+
+    <select id="selectOne" parameterType="Integer" resultType="commentDto">
+        SELECT *
+        FROM comment
+        WHERE comment_id=#{commentId}
+    </select>
+
+    <select id="select" resultType="commentDto">
+        SELECT *
+        FROM comment
+    </select>
+
+    <insert id="insert" parameterType="commentDto">
+        INSERT INTO comment (content, user_id, post_id, create_date)
+        VALUES (#{content}, #{userDto.userId}, #{postId}, NOW());
+    </insert>
+
+    <update id="update" parameterType="commentDto">
+        UPDATE comment
+        SET content=#{content}, update_date=NOW()
+        WHERE comment_id=#{commentId}
+    </update>
+
+    <update id="delete" parameterType="Integer">
+        UPDATE comment
+        SET status="Deleted", update_date=NOW()
+        WHERE comment_id=#{commentId}
+    </update>
+
+    <update id="report" parameterType="Integer">
+        UPDATE comment
+        SET status="Reported", update_date=NOW()
+        WHERE comment_id=#{commentId}
+    </update>
+
+    <select id="selectIsLikedComment" resultMap="comment">
+        SELECT *
+        FROM comment AS c
+        LEFT JOIN user u ON c.user_id = u.user_id
+        LEFT JOIN (SELECT comment_id, user_id AS is_liked
+                   FROM liked_comment
+                   WHERE user_id = #{userId}) AS lc ON c.comment_id = lc.comment_id
+        WHERE c.post_id = #{postId} AND NOT c.status = "DELETED"
+    </select>
+
+    <update id="updateLikeCount">
+        UPDATE comment
+        SET likes = (SELECT count(*)
+                     FROM liked_comment
+                     WHERE comment_id=#{commentId})
+        WHERE comment_id=#{commentId}
+    </update>
+
+</mapper>
