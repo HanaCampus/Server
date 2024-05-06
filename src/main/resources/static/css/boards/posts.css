@@ -61,3 +61,16 @@
         border: 1px solid rgba(222, 222, 222, 1);
     }
 }
+
+.postHome {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .button {
+        width: 60px;
+        border: 1px solid rgba(222, 222, 222, 1);
+        border-radius: 10px;
+        text-align: center;
+    }
+}
