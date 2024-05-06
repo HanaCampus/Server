@@ -23,6 +23,12 @@
     });
 </script>
 
+<div class="header">
+    <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1">⇦</a></div>
+    <h3 class="title">글쓰기</h3>
+    <div class="back"></div>
+</div>
+
 <div class="formContainer">
     <input type="text" name="writeTitle" id="writeTitle" placeholder="제목" />
     <div class="write">
