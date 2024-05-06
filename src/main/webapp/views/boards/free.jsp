@@ -22,6 +22,11 @@
     $(function () {
         free.init();
     });
+
+    function pleaseLogin() {
+        alert("로그인 후, 이용해주세요!");
+        location.reload();
+    }
 </script>
 
 <div class="freeBoard">
@@ -31,11 +36,23 @@
         <div class="back"></div>
     </div>
 
-    <div class="breadcrumbs">
-        <a href="<c:url value="/"/>">게시판 목록</a>
-        <span class="dot">></span>
-        <a href="<c:url value="/boards"/>?id=1">자유 게시판</a>
+    <div class="breadcrumbs postHome">
+        <div>
+            <a href="<c:url value="/"/>">게시판 목록</a>
+            <span class="dot">></span>
+            <a href="<c:url value="/boards"/>?id=1">자유 게시판</a>
+        </div>
 
+        <div class="button">
+            <c:choose>
+                <c:when test="${sessionScope.id == null}">
+                    <a onclick="pleaseLogin()">글쓰기</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="<c:url value="/posts/writepost"/>">글쓰기</a>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
 
     <div class="search">
