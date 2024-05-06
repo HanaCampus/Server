@@ -42,7 +42,7 @@
     </select>
 
     <select id="getPostList" resultType="postDto">
-        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked, p.status
+        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, p.board_id, COUNT(c.comment_id) AS comment_count, is_liked, p.status
         FROM post p
         LEFT JOIN (SELECT *
                    FROM comment
@@ -121,4 +121,18 @@
         WHERE post_id=#{postId}
     </update>
 
+
+    <select id="selectByKeyword" resultType="postDto">
+        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, p.board_id, COUNT(c.comment_id) AS comment_count, is_liked, p.status
+        FROM post p
+                 LEFT JOIN (SELECT *
+                            FROM comment
+                            WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
+                 LEFT JOIN (SELECT post_id, user_id AS is_liked
+                            FROM liked_post
+                            WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
+        WHERE p.board_id = #{boardId} AND p.status = "ACTIVE" AND (p.title LIKE CONCAT('%', #{keyword}, '%') OR p.content LIKE CONCAT('%', #{keyword}, '%'))
+        GROUP BY p.post_id, is_liked
+        ORDER BY p.create_date DESC
+    </select>
 </mapper>
