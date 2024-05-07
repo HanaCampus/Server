@@ -65,27 +65,34 @@
     <div class="breadcrumbs">
         <a href="<c:url value="/"/>">게시판 목록</a>
         <span class="dot">></span>
-        <a href="<c:url value="/boards"/>?id=1">자유 게시판</a>
+        <a href="<c:url value="/boards"/>?id=${boardId}">${boardId==1? "자유게시판" : "게시판 추가"}</a>
         <span class="dot">></span>
-        <a href="<c:url value="/posts"/>?id=1">게시글 상세</a>
+        <a href="<c:url value="/posts"/>?id=${postId}">게시글 상세</a>
     </div>
 
     <div class="postInfo">
         <div class="userAndMenuBox">
-            <div class="user"><img src="#"/>익명</div>
+            <div class="user"><img src="#"/>
+                <c:if test="${post.anonymous == false}">
+                    ${post.userDto.nickname}
+                </c:if>
+                <c:if test="${post.anonymous == true}">
+                    익명
+                </c:if>
+            </div>
             <button class="menuBtn">¦</button>
         </div>
-        <div class="time">날짜 | 시간</div>
-        <div class="title">제목</div>
-        <div class="content">내용</div>
+        <div class="time">${post.createDate}</div>
+        <div class="title">${post.title}</div>
+        <div class="content">${post.content}</div>
         <div class="cntBox">
             <div class="BoxItem">
-                <div class="item"><span class="imoticon">❤️</span><span class="cnt">8</span></div>
-                <div class="item"><span class="imoticon">🔖</span><span class="cnt">2</span></div>
+                <div class="item"><span class="imoticon">${c.isLiked==null ? "🩶️":"❤️"}️</span><span class="cnt">${post.likes}</span></div>
+                <div class="item"><span class="imoticon">🔖</span><span class="cnt">${post.commentCount}</span></div>
             </div>
 
             <div class="BoxItem">
-                <div class="item noneMarginItem"><span class="imoticon">🔖</span><span class="cnt">5</span></div>
+                <div class="item noneMarginItem"><span class="imoticon">🔖</span><span class="cnt">${post.scraps}</span></div>
             </div>
         </div>
     </div>
@@ -109,18 +116,30 @@
                 <div class="content" id="contentText" >내용1</div>
                 <div class="time">날짜 | 시간</div>
             </div>
-
-            <div class="comment">
-                <div class="innerBox">
-                    <div class="user"><img src="#"/>익명2</div>
-                    <div class="rightBox">
-                        <div class="cntItem"><span class="imoticon">❤️</span><span class="cnt">2</span></div>
-                        <button class="menuBtn">¦</button>
+            <c:forEach var="c" items="${comments}">
+                <div class="comment">
+                    <div class="innerBox">
+                        <div class="user">
+                            <div class="userThumbnail">
+<%--                                <img src="<c:url value="/img/anonymous.png"/>"/>--%>
+                            </div>
+                            <c:if test="${c.anonymous == false}">
+                                ${c.userDto.nickname}
+                            </c:if>
+                            <c:if test="${c.anonymous == true}">
+                                익명
+                            </c:if>
+                        </div>
+                        <div class="rightBox">
+                            <div class="cntItem"><span class="imoticon">${c.isLiked==null ? "🩶️":"❤️"}</span><span class="cnt">${c.likes}</span></div>
+                            <button class="menuBtn">¦</button>
+                        </div>
                     </div>
+                    <div class="content">${c.content}</div>
+                    <div class="time">${c.createDate}</div>
                 </div>
-                <div class="content">내용2</div>
-                <div class="time">날짜 | 시간</div>
-            </div>
+            </c:forEach>
+
         </div>
 
         <div class="write">
