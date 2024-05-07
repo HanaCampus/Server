@@ -4,20 +4,63 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hana.app.repository.ReportedPostRepository">
 
-    <select id="selectOne" parameterType="Integer" resultType="reportedPostDto">
-        SELECT *
-        FROM reported_post
-        WHERE reported_post_id=#{reportedPostId}
+    <resultMap id="reportedPost" type="reportedPostDto">
+        <id column="reported_post_id" property="reportedPostId"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="cnt_category_1" property="cntCategory1"/>
+        <result column="cnt_category_2" property="cntCategory2"/>
+        <result column="cnt_category_3" property="cntCategory3"/>
+        <result column="cnt_category_4" property="cntCategory4"/>
+        <result column="cnt_category_5" property="cntCategory5"/>
+        <result column="cnt_category_6" property="cntCategory6"/>
+        <result column="cnt_category_7" property="cntCategory7"/>
+        <association property="postDto" javaType="postDto">
+            <id column="post_id" property="postId"/>
+            <result column="title" property="title"/>
+            <result column="content" property="content"/>
+        </association>
+        <association property="reportCategoryDto" javaType="reportCategoryDto">
+            <id column="report_category_id" property="reportCategoryId"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="selectOne" parameterType="Integer" resultMap="reportedPost">
+        SELECT p.post_id, p.title, p.content,
+               COUNT(CASE WHEN rp.report_category_id = 1 THEN 1 ELSE NULL END) AS cnt_category_1,
+               COUNT(CASE WHEN rp.report_category_id = 2 THEN 1 ELSE NULL END) AS cnt_category_2,
+               COUNT(CASE WHEN rp.report_category_id = 3 THEN 1 ELSE NULL END) AS cnt_category_3,
+               COUNT(CASE WHEN rp.report_category_id = 4 THEN 1 ELSE NULL END) AS cnt_category_4,
+               COUNT(CASE WHEN rp.report_category_id = 5 THEN 1 ELSE NULL END) AS cnt_category_5,
+               COUNT(CASE WHEN rp.report_category_id = 6 THEN 1 ELSE NULL END) AS cnt_category_6,
+               COUNT(CASE WHEN rp.report_category_id = 7 THEN 1 ELSE NULL END) AS cnt_category_7
+        FROM reported_post AS rp
+        JOIN post AS p
+        ON rp.post_id = p.post_id
+        WHERE p.post_id=#{postId}
+        GROUP BY p.post_id
     </select>
 
-    <select id="select" resultType="reportedPostDto">
-        SELECT *
-        FROM reported_post
+    <select id="select" resultMap="reportedPost">
+        SELECT p.post_id, p.title, p.content,
+               COUNT(CASE WHEN rp.report_category_id = 1 THEN 1 ELSE NULL END) AS cnt_category_1,
+               COUNT(CASE WHEN rp.report_category_id = 2 THEN 1 ELSE NULL END) AS cnt_category_2,
+               COUNT(CASE WHEN rp.report_category_id = 3 THEN 1 ELSE NULL END) AS cnt_category_3,
+               COUNT(CASE WHEN rp.report_category_id = 4 THEN 1 ELSE NULL END) AS cnt_category_4,
+               COUNT(CASE WHEN rp.report_category_id = 5 THEN 1 ELSE NULL END) AS cnt_category_5,
+               COUNT(CASE WHEN rp.report_category_id = 6 THEN 1 ELSE NULL END) AS cnt_category_6,
+               COUNT(CASE WHEN rp.report_category_id = 7 THEN 1 ELSE NULL END) AS cnt_category_7
+        FROM reported_post AS rp
+        JOIN post AS p
+        ON rp.post_id = p.post_id
+        GROUP BY post_id
     </select>
 
     <insert id="insert" parameterType="reportedPostDto">
         INSERT INTO reported_post (user_id, post_id, create_date, report_category_id)
-        VALUES (#{userId}, #{postId}, NOW(), #{reportCategoryId});
+        VALUES (#{userId}, #{postDto.postId}, NOW(), #{reportCategoryDto.reportCategoryId});
     </insert>
 
     <delete id="delete" parameterType="Integer">
