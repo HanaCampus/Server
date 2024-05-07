@@ -29,7 +29,6 @@ public class PostController {
     public String main(Model model, @RequestParam("id") Integer postId, HttpSession httpSession) throws Exception {
         PostDto postDto = postService.getPostInfo(postId, (Integer) httpSession.getAttribute("id"));
         List<CommentDto> commentDtoList = commentService.getIsLikedComment(postId, (Integer) httpSession.getAttribute("id"));
-        log.info("??!?가가");
         log.info(postDto.toString());
         log.info(commentDtoList.toString());
 
