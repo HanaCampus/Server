@@ -35,8 +35,12 @@
                             <div class="textInfo">
                                 <span>${p.createDate}</span>
                                 <span class="division">|</span>
-                                <span>${user.nickname}</span>
-<%--                                <span>${p.isAnonymous == true ? '익명' : user.nickname}</span>--%>
+                                <c:if test="${p.anonymous == false}">
+                                    <span>익명아님</span>
+                                </c:if>
+                                <c:if test="${p.anonymous == true}">
+                                    <span>익명</span>
+                                </c:if>
                             </div>
                             <div class="cntInfo">
                                 <div class="like item"><span class="imoticon">👍🏿</span><span class="cnt">${p.likes}</span></div>

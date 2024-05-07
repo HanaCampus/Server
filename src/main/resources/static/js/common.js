@@ -1,5 +1,5 @@
 function isValidateNickname(nickname) {
-    const nicknamePattern = /^[a-zA-Z가-힣]+$/;
+    const nicknamePattern = /^[a-zA-Z가-힣0-9]+$/;
 
     if (nickname.length >= 20 || !nicknamePattern.test(nickname)) {
         return false;

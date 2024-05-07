@@ -8,11 +8,14 @@
         <id column="post_id" property="postId"/>
         <result column="title" property="title"/>
         <result column="content" property="content"/>
-        <result column="is_anonymous" property="isAnonymous"/>
+        <result column="is_anonymous" property="anonymous"/>
         <result column="scraps" property="scraps"/>
         <result column="likes" property="likes"/>
+        <result column="status" property="status"/>
+        <result column="board_id" property="boardId"/>
         <result column="is_liked" property="isLiked"/>
         <result column="is_scraped" property="isScraped"/>
+        <result column="comment_count" property="commentCount"/>
         <result column="create_date" property="createDate"/>
         <result column="update_date" property="updateDate"/>
         <association property="userDto" javaType="userDto">
@@ -41,9 +44,10 @@
         FROM post
     </select>
 
-    <select id="getPostList" resultType="postDto">
-        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, p.board_id, COUNT(c.comment_id) AS comment_count, is_liked, p.status
+    <select id="getPostList" resultMap="post">
+        SELECT p.*, COUNT(c.comment_id) AS comment_count, is_liked, u.email, u.nickname, u.gender
         FROM post p
+        LEFT JOIN user u ON p.user_id = u.user_id
         LEFT JOIN (SELECT *
                    FROM comment
                    WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
@@ -55,9 +59,10 @@
         ORDER BY p.create_date DESC
     </select>
 
-    <select id="getMyPostList" resultType="postDto">
-        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked
+    <select id="getMyPostList" resultMap="post">
+        SELECT p.*, COUNT(c.comment_id) AS comment_count, is_liked, u.email, u.nickname, u.gender
         FROM post p
+        LEFT JOIN user u ON p.user_id = u.user_id
         LEFT JOIN (SELECT *
                    FROM comment
                    WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
@@ -69,9 +74,10 @@
         ORDER BY p.create_date DESC
     </select>
 
-    <select id="getScrapList" resultType="postDto">
-        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, COUNT(c.comment_id) AS comment_count, is_liked
+    <select id="getScrapList" resultMap="post">
+        SELECT p.*, COUNT(c.comment_id) AS comment_count, is_liked, u.email, u.nickname, u.gender
         FROM post p JOIN (SELECT post_id FROM scrap WHERE user_id = #{userId}) AS s ON p.post_id = s.post_id
+        LEFT JOIN user u ON p.user_id = u.user_id
         LEFT JOIN (SELECT *
                    FROM comment
                    WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
@@ -122,15 +128,16 @@
     </update>
 
 
-    <select id="selectByKeyword" resultType="postDto">
-        SELECT p.post_id, p.title, p.content, p.is_anonymous, p.create_date, p.likes, p.board_id, COUNT(c.comment_id) AS comment_count, is_liked, p.status
+    <select id="selectByKeyword" resultMap="post">
+        SELECT p.*, COUNT(c.comment_id) AS comment_count, is_liked, u.email, u.nickname, u.gender
         FROM post p
-                 LEFT JOIN (SELECT *
-                            FROM comment
-                            WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
-                 LEFT JOIN (SELECT post_id, user_id AS is_liked
-                            FROM liked_post
-                            WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
+        LEFT JOIN user u ON p.user_id = u.user_id
+         LEFT JOIN (SELECT *
+                    FROM comment
+                    WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
+         LEFT JOIN (SELECT post_id, user_id AS is_liked
+                    FROM liked_post
+                    WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
         WHERE p.board_id = #{boardId} AND p.status = "ACTIVE" AND (p.title LIKE CONCAT('%', #{keyword}, '%') OR p.content LIKE CONCAT('%', #{keyword}, '%'))
         GROUP BY p.post_id, is_liked
         ORDER BY p.create_date DESC
