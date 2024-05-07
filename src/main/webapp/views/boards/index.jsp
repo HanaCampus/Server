@@ -60,6 +60,8 @@
         <button id="searchBtn">🔍</button>
     </div>
 
+    <jsp:include page="../pagination.jsp"/>
+
     <div class="postList">
         <c:forEach var="p" items="${cpage.getList()}">
         <div class="postItem">
@@ -86,6 +88,5 @@
         </div>
         </c:forEach>
     </div>
-    <jsp:include page="../page.jsp"/>
 </div>
 
