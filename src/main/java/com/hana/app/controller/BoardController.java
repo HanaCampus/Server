@@ -27,16 +27,16 @@ public class BoardController {
 
     @GetMapping("")
     public String main(Model model, @RequestParam("id") Integer boardId, @RequestParam("pageNo") Integer pageNo, HttpSession httpSession) throws Exception {
-        PageInfo<PostDto> p;
-        p = new PageInfo<>(postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, pageNo), 5); // navigatePages: 하단 네비게이션 개수
+        PageInfo<PostDto> pageInfo;
+        pageInfo = new PageInfo<>(postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, pageNo), 5); // navigatePages: 하단 네비게이션 개수
 
         // pagination.jsp 파일에서 path 설정 시 사용
         String paginationPath = "boards";
 
         model.addAttribute("paginationPath", paginationPath);
         model.addAttribute("boardId", boardId);
-        model.addAttribute("cpage", p);
-        model.addAttribute("center", dir + "index");
+        model.addAttribute("cpage", pageInfo);
+        model.addAttribute("center", dir + "board");
         return "index";
     }
 
@@ -47,16 +47,16 @@ public class BoardController {
                          @RequestParam("pageNo") Integer pageNo) throws Exception {
         Integer userId = (Integer) httpSession.getAttribute("id");
 
-        PageInfo<PostDto> p;
-        p = new PageInfo<>(postService.selectByKeyword(boardId, userId, searchKeyword, pageNo), 5);
+        PageInfo<PostDto> pageInfo;
+        pageInfo = new PageInfo<>(postService.selectByKeyword(boardId, userId, searchKeyword, pageNo), 5);
 
         // pagination.jsp 파일에서 path 설정 시 사용
         String paginationPath = "boards/search";
 
         model.addAttribute("paginationPath", paginationPath);
         model.addAttribute("boardId", boardId);
-        model.addAttribute("cpage", p);
-        model.addAttribute("center", dir + "index");
+        model.addAttribute("cpage", pageInfo);
+        model.addAttribute("center", dir + "board");
 
         return "index";
     }
