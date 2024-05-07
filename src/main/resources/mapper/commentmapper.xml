@@ -7,7 +7,7 @@
     <resultMap id="comment" type="commentDto">
         <id column="comment_id" property="commentId"/>
         <result column="content" property="content"/>
-        <result column="is_anonymous" property="isAnonymous"/>
+        <result column="is_anonymous" property="anonymous"/>
         <result column="status" property="status"/>
         <result column="likes" property="likes"/>
         <result column="post_id" property="postId"/>
