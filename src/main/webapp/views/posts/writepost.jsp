@@ -31,16 +31,10 @@
     });
 </script>
 
-<div class="header">
+<div class="header writeHeader">
     <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1">⇦</a></div>
     <h3 class="title">글쓰기</h3>
-    <div class="back"></div>
-</div>
-
-<div class="formContainer">
-    <input type="text" name="writeTitle" id="writeTitle" placeholder="제목" />
-    <div class="write">
-        <textarea name="writeTextArea" id="writeTextArea" placeholder="내용을 입력하세요"></textarea>
+    <div class="back">
         <div class="regist">
             <div class="anonymous">
                 <input
@@ -52,6 +46,14 @@
             </div>
             <button id="writeBtn">➤</button>
         </div>
+    </div>
+
+</div>
+
+<div class="formContainer">
+    <input type="text" name="writeTitle" id="writeTitle" placeholder="제목" />
+    <div class="write">
+        <textarea name="writeTextArea" id="summernote" placeholder="내용을 입력하세요"></textarea>
     </div>
 </div>
 
@@ -72,20 +74,15 @@
         },
         toolbar: [
             // [groupName, [list of button]]
-            ['fontname', ['fontname']],
-            ['fontsize', ['fontsize']],
-            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-            ['color', ['forecolor','color']],
-            ['table', ['table']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['insert',['picture','link','video']],
-            ['view', ['fullscreen', 'help']]
+
+            ['insert',['picture','link']]
         ],
-        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+        fontNames: ['Arial'],
+        fontSizes: ['16']
 
     });
+    $('#summernote').css('width', '600px');
+
     //이미지 파일 전송
     function sendFile(file, editor){
         var data = new FormData();
@@ -104,7 +101,9 @@
             }
         });
     }
-
+    $('#writeBtn').click(() => {
+        console.log($('#summernote').val());
+    });
 
 
 </script>
