@@ -13,24 +13,14 @@
 <link rel="stylesheet" href="<c:url value="/css/boards/board.css" />"/>
 <link rel="stylesheet" href="<c:url value="/css/posts/dropdown.css" />"/>
 
-
-
-<style>
-
-
-</style>
-
 <script>
     let post = {
-        init: function () {
-
-        }
+        init: function () {}
     };
 
     $(function () {
         post.init();
     });
-
 
     // 수정하기 버튼을 클릭하면 해당 내용을 textarea에 출력
     function editComment() {
@@ -57,9 +47,7 @@
             }
         }
     }
-
 </script>
-
 
 <div class="post">
     <div class="header">
@@ -71,7 +59,7 @@
     <div class="breadcrumbs">
         <a href="<c:url value="/"/>">게시판 목록</a>
         <span class="dot">></span>
-        <a href="<c:url value="/boards"/>?id=${boardId}">${boardId==1? "자유게시판" : "게시판 추가"}</a>
+        <a href="<c:url value="/boards"/>?id=${boardId}">${boardId == 1 ? "자유게시판" : "게시판 추가"}</a>
         <span class="dot">></span>
         <a href="<c:url value="/posts"/>?id=${postId}">게시글 상세</a>
     </div>

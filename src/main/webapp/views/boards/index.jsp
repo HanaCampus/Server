@@ -13,14 +13,25 @@
 <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
 
 <script>
-    let free = {
+    let board = {
         init: function () {
+            $('#searchBtn').click(() => {
+                // 유효성 체크
 
+                this.send();
+            });
+        },
+        send: function () {
+            $('#searchForm').attr({
+                'method': 'post',
+                'action': '<c:url value="/boards/search"/>?id=${boardId}&pageNo=1'
+            });
+            $('#searchForm').submit();
         }
     };
 
     $(function () {
-        free.init();
+        board.init();
     });
 
     function pleaseLogin() {
@@ -32,7 +43,7 @@
 <div class="freeBoard">
     <div class="header">
         <div class="back"><a class="backBtn" href="<c:url value="/"/>">⇦</a></div>
-        <h3 class="title">${boardId == 1? "자유 게시판": "게시판 추가"}</h3>
+        <h3 class="title">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</h3>
         <div class="back"></div>
     </div>
 
@@ -40,7 +51,7 @@
         <div>
             <a href="<c:url value="/"/>">게시판 목록</a>
             <span class="dot">></span>
-            <a href="<c:url value="/boards"/>?id=${boardId}">${boardId == 1? "자유 게시판": "게시판 추가"}</a>
+            <a href="<c:url value="/boards"/>?id=${boardId}">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</a>
         </div>
 
         <div class="button">
@@ -55,10 +66,12 @@
         </div>
     </div>
 
-    <div class="search">
-        <input type="text" name="searchInput" id="searchInput">
-        <button id="searchBtn">🔍</button>
-    </div>
+    <form id="searchForm">
+        <div class="search">
+            <input type="text" name="searchKeyword" id="searchInput">
+            <button id="searchBtn" type="button">🔍</button>
+        </div>
+    </form>
 
     <jsp:include page="../pagination.jsp"/>
 
