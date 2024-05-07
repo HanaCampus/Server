@@ -141,7 +141,7 @@
     <div class="menuContainer">
         <button onclick="onClickMyScrap()">
             <div>🏷️</div>
-            <span>나의 ㅇㅇ스크랩</span>
+            <span>나의 스크랩</span>
         </button>
         <button onclick="onClickMyPosts()">
             <div>📃</div>

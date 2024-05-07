@@ -14,6 +14,12 @@
 <link rel="stylesheet" href="<c:url value="/css/posts/dropdown.css" />"/>
 
 
+
+<style>
+
+
+</style>
+
 <script>
     let post = {
         init: function () {
@@ -72,11 +78,17 @@
 
     <div class="postInfo">
         <div class="userAndMenuBox">
-            <div class="user"><img src="#"/>
+            <div class="user big">
                 <c:if test="${post.anonymous == false}">
+                    <div class="userThumbnail">
+                            ${post.userDto.nickname.charAt(0)}
+                    </div>
                     ${post.userDto.nickname}
                 </c:if>
                 <c:if test="${post.anonymous == true}">
+                    <div class="userThumbnail">
+                        <img src="<c:url value="/img/anonymous.png"/>"/>
+                    </div>
                     익명
                 </c:if>
             </div>
@@ -120,13 +132,16 @@
                 <div class="comment">
                     <div class="innerBox">
                         <div class="user">
-                            <div class="userThumbnail">
-<%--                                <img src="<c:url value="/img/anonymous.png"/>"/>--%>
-                            </div>
                             <c:if test="${c.anonymous == false}">
+                                <div class="userThumbnail">
+                                    ${c.userDto.nickname.charAt(0)}
+                                </div>
                                 ${c.userDto.nickname}
                             </c:if>
                             <c:if test="${c.anonymous == true}">
+                                <div class="userThumbnail">
+                                    <img src="<c:url value="/img/anonymous.png"/>"/>
+                                </div>
                                 익명
                             </c:if>
                         </div>
