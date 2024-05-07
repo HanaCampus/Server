@@ -27,8 +27,8 @@ class InsertTests {
 
         ReportedPostDto reportedPostDto = ReportedPostDto.builder()
                 .userId(1)
-                .postDto(PostDto.builder().postId(1).build())
-                .reportCategoryDto(ReportCategoryDto.builder().reportCategoryId(1).build())
+                .postDto(PostDto.builder().postId(2).build())
+                .reportCategoryDto(ReportCategoryDto.builder().reportCategoryId(3).build())
                 .build();
 
         try {

@@ -19,7 +19,7 @@ class SelectOneTests {
     @Test
     void contextLoads() {
         try {
-            reportedCommentService.get(1);
+            reportedCommentService.get(3);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
