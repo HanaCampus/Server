@@ -176,3 +176,37 @@
         background: var(--board-hover-bg-color);
     }
 }
+
+.userThumbnail{
+    border-radius: 100px;
+    color: rgb(0, 0, 0);
+    border: 0.6px solid rgb(255, 255, 255);
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-direction: row;
+    display: flex;
+    font-family: Manrope, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Noto Sans KR", sans-serif;
+    width: 26px;
+    height: 26px;
+    background-color: #ffffff;
+    flex-shrink: 0;
+    margin-right: 5px;
+
+    img{
+        width: inherit;
+        height: inherit;
+    }
+}
+.user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.big{
+        .userThumbnail{
+            width: 30px;
+            height: 30px;
+        }
+    }
+}
