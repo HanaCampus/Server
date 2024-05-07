@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 public class ReportedPostDto {
     private int reportedPostId;
-    private int userId;
+    private int userId; // 신고자 정보
+    private UserDto writerDto; // Post 작성자 정보
     private PostDto postDto;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
