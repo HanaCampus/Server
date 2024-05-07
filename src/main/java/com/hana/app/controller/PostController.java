@@ -1,6 +1,7 @@
 package com.hana.app.controller;
 
 import com.hana.app.data.dto.PostDto;
+import com.hana.app.data.dto.UserDto;
 import com.hana.app.service.PostService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -28,23 +29,26 @@ public class PostController {
     }
 
     @GetMapping("/writepost")
-    public String writePost(Model model) {
+    public String writePost(Model model, @RequestParam("boardId") Integer boardId) {
+        model.addAttribute("boardId", boardId);
         model.addAttribute("center", dir + "writepost");
 
         return "index";
     }
-//    @ResponseBody
-//    @PostMapping("/writepost")
-//    public String writePost(Model model, HttpSession httpSession){
-//        if(){ // 익명 체크했으면
-//            model.addAttribute(httpSession.setAttribute("id", postService.addByAnonymous()));
-//        }
-//        else{ // 익명 체크 안했으면
-//            model.addAttribute(httpSession.setAttribute("id", postService.addByNotAnonymous()));
-//        }
-//
-//        model.addAttribute("center", dir + "writepost");
-//
-//        return "index";
-//    }
+
+    @PostMapping("/writepost")
+    public String writePost(Model model, PostDto postDto, HttpSession httpSession) throws Exception {
+        Object id = httpSession.getAttribute("id");
+        postDto.setUserDto((UserDto.builder().userId(Integer.parseInt(String.valueOf(id))).build()));
+
+        if(postDto.isAnonymous()) { // 익명 체크했으면
+            postService.addByAnonymous(postDto);
+        } else { // 익명 체크 안했으면
+            postService.addByNotAnonymous(postDto);
+        }
+
+        model.addAttribute("center", dir + "writepost");
+
+        return "redirect:/boards?id=" + postDto.getBoardId();
+    }
 }

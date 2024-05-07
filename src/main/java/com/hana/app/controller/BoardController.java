@@ -23,6 +23,7 @@ public class BoardController {
     public String main(Model model, @RequestParam("id") Integer boardId) {
         // 자유게시판
         if(boardId == 1) {
+            model.addAttribute("boardId", boardId);
             model.addAttribute("center", dir + "free");
         }
 

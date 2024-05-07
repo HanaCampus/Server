@@ -49,7 +49,7 @@
                     <a onclick="pleaseLogin()">글쓰기</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="<c:url value="/posts/writepost"/>">글쓰기</a>
+                    <a href="<c:url value="/posts/writepost"/>?boardId=${boardId}">글쓰기</a>
                 </c:otherwise>
             </c:choose>
         </div>
