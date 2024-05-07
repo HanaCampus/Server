@@ -20,7 +20,7 @@ public class SelectScrapListTests {
     @Test
     void contextLoads() {
         try {
-            List<PostDto> postDtoList= postService.getScrapList(9);
+            List<PostDto> postDtoList= postService.getScrapList(9,1);
             for(PostDto p : postDtoList){
                 log.info(p.toString());
             }
