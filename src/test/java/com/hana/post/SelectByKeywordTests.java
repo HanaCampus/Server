@@ -13,14 +13,15 @@ import java.util.List;
 
 @SpringBootTest
 @Slf4j
-public class SelectScrapListTests {
+public class SelectByKeywordTests {
+
     @Autowired
     PostService postService;
 
     @Test
     void contextLoads() {
         try {
-            List<PostDto> postDtoList= postService.getScrapList(9);
+            List<PostDto> postDtoList= postService.selectByKeyword(1, 1, "서윤");
             for(PostDto p : postDtoList){
                 log.info(p.toString());
             }

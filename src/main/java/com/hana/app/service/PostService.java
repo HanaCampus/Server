@@ -76,4 +76,8 @@ public class PostService implements HanaService<Integer, PostDto> {
         // 성공 시 1, 실패 시 0 return
         return postRepository.updateScrapCount(id);
     }
+
+    public List<PostDto> selectByKeyword(Integer boardId, Integer userId, String keyword) throws Exception {
+        return postRepository.selectByKeyword(boardId, userId, keyword);
+    }
 }

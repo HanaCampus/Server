@@ -20,5 +20,5 @@ public interface PostRepository extends HanaRepository<Integer, PostDto> {
     int insertByNotAnonymous(PostDto postDto) throws Exception;
     int updateLikeCount(Integer id) throws Exception;
     int updateScrapCount(Integer id) throws Exception;
-
+    List<PostDto> selectByKeyword(@Param("boardId") Integer boardId, @Param("userId") Integer userId, @Param("keyword") String keyword) throws Exception;
 }
