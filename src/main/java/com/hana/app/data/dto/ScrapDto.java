@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ScrapDto {
     private int scrapId;
     private int userId;
-    private ArrayList<PostDto> posts;
+    private int postId;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

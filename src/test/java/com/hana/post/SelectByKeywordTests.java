@@ -1,6 +1,6 @@
 package com.hana.post;
 
-import com.hana.app.service.CommentService;
+import com.hana.app.data.dto.PostDto;
 import com.hana.app.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -9,10 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @SpringBootTest
 @Slf4j
-class DeleteTests {
+public class SelectByKeywordTests {
 
     @Autowired
     PostService postService;
@@ -20,8 +21,10 @@ class DeleteTests {
     @Test
     void contextLoads() {
         try {
-            postService.del(3);
-            log.info("---------- SUCCESS ----------");
+            List<PostDto> postDtoList= postService.selectByKeyword(1, 1, "서윤");
+            for(PostDto p : postDtoList){
+                log.info(p.toString());
+            }
         } catch (Exception e) {
             if(e instanceof SQLException) {
                 log.info("---------- SQLException ----------");

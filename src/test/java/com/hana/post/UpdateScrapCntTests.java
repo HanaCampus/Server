@@ -1,6 +1,5 @@
 package com.hana.post;
 
-import com.hana.app.service.CommentService;
 import com.hana.app.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class DeleteTests {
+class UpdateScrapCntTests {
 
     @Autowired
     PostService postService;
@@ -20,7 +19,7 @@ class DeleteTests {
     @Test
     void contextLoads() {
         try {
-            postService.del(3);
+            postService.modifyScrapCount(3);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {

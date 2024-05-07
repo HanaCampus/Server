@@ -1,7 +1,6 @@
-package com.hana.post;
+package com.hana.comment;
 
 import com.hana.app.service.CommentService;
-import com.hana.app.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +11,15 @@ import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class DeleteTests {
+class ReportTests {
 
     @Autowired
-    PostService postService;
+    CommentService commentService;
 
     @Test
     void contextLoads() {
         try {
-            postService.del(3);
+            commentService.report(3);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
