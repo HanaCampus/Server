@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 @SpringBootTest
 @Slf4j
-class SelectTests {
+class SelectCommentTests {
 
     @Autowired
     CommentService commentService;
