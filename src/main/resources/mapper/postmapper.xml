@@ -127,18 +127,19 @@
         WHERE post_id=#{postId}
     </update>
 
-
     <select id="selectByKeyword" resultMap="post">
         SELECT p.*, COUNT(c.comment_id) AS comment_count, is_liked, u.email, u.nickname, u.gender
         FROM post p
         LEFT JOIN user u ON p.user_id = u.user_id
-         LEFT JOIN (SELECT *
-                    FROM comment
-                    WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
-         LEFT JOIN (SELECT post_id, user_id AS is_liked
-                    FROM liked_post
-                    WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
-        WHERE p.board_id = #{boardId} AND p.status = "ACTIVE" AND (p.title LIKE CONCAT('%', #{keyword}, '%') OR p.content LIKE CONCAT('%', #{keyword}, '%'))
+        LEFT JOIN (SELECT *
+                   FROM comment
+                   WHERE status &lt;&gt; "Deleted") AS c ON p.post_id = c.post_id
+        LEFT JOIN (SELECT post_id, user_id AS is_liked
+                   FROM liked_post
+                   WHERE user_id = #{userId}) AS lp ON p.post_id = lp.post_id
+        WHERE p.board_id = #{boardId}
+        AND p.status = "ACTIVE"
+        AND (p.title LIKE CONCAT('%', #{keyword}, '%') OR p.content LIKE CONCAT('%', #{keyword}, '%'))
         GROUP BY p.post_id, is_liked
         ORDER BY p.create_date DESC
     </select>

@@ -21,8 +21,8 @@ public class SelectByKeywordTests {
     @Test
     void contextLoads() {
         try {
-            List<PostDto> postDtoList= postService.selectByKeyword(1, 1, "서윤", 1);
-            for(PostDto p : postDtoList){
+            List<PostDto> postDtoList = postService.selectByKeyword(1, 1, "서윤", 1);
+            for(PostDto p : postDtoList) {
                 log.info(p.toString());
             }
         } catch (Exception e) {

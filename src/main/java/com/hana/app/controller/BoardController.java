@@ -30,13 +30,34 @@ public class BoardController {
         PageInfo<PostDto> p;
         p = new PageInfo<>(postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, pageNo), 5); // navigatePages: 하단 네비게이션 개수
 
-        List<PostDto> postDtoList = postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, 1);
+        // pagination.jsp 파일에서 path 설정 시 사용
+        String paginationPath = "boards";
 
+        model.addAttribute("paginationPath", paginationPath);
         model.addAttribute("boardId", boardId);
         model.addAttribute("cpage", p);
         model.addAttribute("center", dir + "index");
         return "index";
     }
 
+    @PostMapping("/search")
+    public String search(Model model, HttpSession httpSession,
+                         @RequestParam("searchKeyword") String searchKeyword,
+                         @RequestParam("id") Integer boardId,
+                         @RequestParam("pageNo") Integer pageNo) throws Exception {
+        Integer userId = (Integer) httpSession.getAttribute("id");
 
+        PageInfo<PostDto> p;
+        p = new PageInfo<>(postService.selectByKeyword(boardId, userId, searchKeyword, pageNo), 5);
+
+        // pagination.jsp 파일에서 path 설정 시 사용
+        String paginationPath = "boards/search";
+
+        model.addAttribute("paginationPath", paginationPath);
+        model.addAttribute("boardId", boardId);
+        model.addAttribute("cpage", p);
+        model.addAttribute("center", dir + "index");
+
+        return "index";
+    }
 }

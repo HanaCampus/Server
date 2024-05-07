@@ -1,5 +1,6 @@
 package com.hana.app.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.hana.app.data.dto.CommentDto;
 import com.hana.app.data.dto.PostDto;
 import com.hana.app.service.CommentService;
@@ -27,10 +28,10 @@ public class PostController {
 
     @GetMapping("")
     public String main(Model model, @RequestParam("id") Integer postId, HttpSession httpSession) throws Exception {
-        PostDto postDto = postService.getPostInfo(postId, (Integer) httpSession.getAttribute("id"));
-        List<CommentDto> commentDtoList = commentService.getIsLikedComment(postId, (Integer) httpSession.getAttribute("id"));
-        log.info(postDto.toString());
-        log.info(commentDtoList.toString());
+        Integer userId = (Integer) httpSession.getAttribute("id");
+
+        PostDto postDto = postService.getPostInfo(postId, userId);
+        List<CommentDto> commentDtoList = commentService.getIsLikedComment(postId, userId);
 
         model.addAttribute("id", httpSession.getAttribute("id"));
         model.addAttribute("postId", postId);
@@ -53,8 +54,8 @@ public class PostController {
 
     @PostMapping("/writepost")
     public String writePost(Model model, PostDto postDto, HttpSession httpSession) throws Exception {
-        Object id = httpSession.getAttribute("id");
-        postDto.setUserDto((UserDto.builder().userId(Integer.parseInt(String.valueOf(id))).build()));
+        Integer userId = (Integer) httpSession.getAttribute("id");
+        postDto.setUserDto((UserDto.builder().userId(userId).build()));
 
         if(postDto.isAnonymous()) { // 익명 체크했으면
             postService.addByAnonymous(postDto);
@@ -66,4 +67,5 @@ public class PostController {
 
         return "redirect:/boards?id=" + postDto.getBoardId();
     }
+
 }

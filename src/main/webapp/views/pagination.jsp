@@ -9,7 +9,7 @@
         <c:choose>
             <c:when test="${cpage.getPrePage() != 0}">
                 <li class="pageItem">
-                    <a href="<c:url value="${target}/boards?id=${boardId}&pageNo=${cpage.getPrePage()}" />" class="pageLink"><</a>
+                    <a href="<c:url value="${target}/${paginationPath}?id=${boardId}&pageNo=${cpage.getPrePage()}" />" class="pageLink"><</a>
                 </li>
             </c:when>
             <c:otherwise>
@@ -23,12 +23,12 @@
             <c:choose>
                 <c:when test="${cpage.getPageNum() == page}">
                     <li class="active pageItem">
-                        <a href="<c:url value="${target}/boards?id=${boardId}&pageNo=${page}" />" class="pageLink">${page}</a>
+                        <a href="<c:url value="${target}/${paginationPath}?id=${boardId}&pageNo=${page}" />" class="pageLink">${page}</a>
                     </li>
                 </c:when>
                 <c:otherwise>
                     <li class="pageItem">
-                        <a href="<c:url value="${target}/boards?id=${boardId}&pageNo=${page}" />" class="pageLink">${page}</a>
+                        <a href="<c:url value="${target}/${paginationPath}?id=${boardId}&pageNo=${page}" />" class="pageLink">${page}</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -37,7 +37,7 @@
         <c:choose>
             <c:when test="${cpage.getNextPage() != 0}">
                 <li class="pageItem">
-                    <a href="<c:url value="${target}/boards?id=${boardId}&pageNo=${cpage.getNextPage()}" />" class="pageLink">></a>
+                    <a href="<c:url value="${target}/${paginationPath}?id=${boardId}&pageNo=${cpage.getNextPage()}" />" class="pageLink">></a>
                 </li>
             </c:when>
             <c:otherwise>
