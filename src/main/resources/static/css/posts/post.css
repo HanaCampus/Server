@@ -139,6 +139,11 @@
     margin: 10px 0 10px 0;
     position: relative;
 
+    .note-frame, .note_editor {
+        width: 100%;
+        background-color: white;
+    }
+
     #writeTextArea {
         width: 100%;
         height: 80px;
