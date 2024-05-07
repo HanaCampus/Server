@@ -21,13 +21,13 @@
                 <p class="css-ftwqip">자유롭게 글을 작성</p>
             </div>
             <img
+                    src="<c:url value="/img/board1.png"/>"
                     alt="게시판 이미지"
                     loading="lazy"
-                    width="100"
-                    height="100"
+                    width="100px"
                     decoding="async"
                     data-nimg="1"
-                    class="css-1grjlwr"/>
+                    class="css-1grjlwr" />
         </a>
     </div>
 </div>
