@@ -24,6 +24,64 @@
 <script>
     let writepost = {
         init: function () {
+            // summernote
+            $('#summernote').summernote({
+                height: 300,
+                minHeight: null,
+                maxHeight: null,
+                focus: true,
+                lang: "ko-KR",
+                callbacks: {
+                    onImageUpload : function(files){
+                        for (var i = files.length - 1; i >= 0; i--) {
+                            sendFile(files[i],this);
+                        }
+                    }
+                },
+                toolbar: [
+                    // [groupName, [list of button]]
+
+                    ['insert',['picture','link']]
+                ],
+                fontNames: ['Arial'],
+                fontSizes: ['16']
+
+            });
+            $('#summernote').css('width', '600px');
+
+            // 이미지 파일 전송
+            function sendFile(file, editor){
+                var data = new FormData();
+                data.append("file", file);
+                console.log(file);
+                $.ajax({
+                    data : data,
+                    type : "POST",
+                    url : "<c:url value="/post/uploadImage"/>",
+                    contentType : false,
+                    processData : false,
+                    success : function(data){
+                        console.log(data);
+                        console.log(editor);
+                        $(editor).summernote("insertImage",data.url);
+                    }
+                });
+            }
+
+            // 전송 버튼 event handler
+            $('#writeBtn').click(() => {
+                // 제목이나 내용 안 쓰면 쓰라고 alert문 띄워주는 유효성 체크하기
+                if(window.confirm('게시물 등록하시겠습니까?')) {
+                    this.send();
+                }
+            });
+        },
+        send: function () {
+            $('#writePostForm').attr({
+                'method': 'post',
+                'action': '<c:url value="/posts/writepost"/>'
+            });
+            $('#writePostForm').submit();
         }
     };
     $(function () {
@@ -31,79 +89,35 @@
     });
 </script>
 
-<div class="header writeHeader">
-    <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1">⇦</a></div>
-    <h3 class="title">글쓰기</h3>
-    <div class="back">
-        <div class="regist">
-            <div class="anonymous">
-                <input
-                        type="checkbox"
-                        id="anonymousCheckBox"
-                        name="anonymousCheckBox"
-                        value="isAnonymous" />
-                <label for="anonymousCheckBox">익명</label>
+<form id="writePostForm">
+    <div class="header writeHeader">
+        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1">⇦</a></div>
+        <h3 class="title">글쓰기</h3>
+        <div class="back">
+            <div class="regist">
+                <%-- 익명 --%>
+                <div class="anonymous">
+                    <input
+                            type="checkbox"
+                            id="anonymousCheckBox"
+                            name="anonymous"/>
+                    <label for="anonymousCheckBox" style="color: white">익명</label>
+                </div>
+                <button id="writeBtn" type="button" style="color: white">➤</button>
             </div>
-            <button id="writeBtn">➤</button>
+        </div>
+
+    </div>
+
+    <div class="formContainer">
+        <%-- 제목 --%>
+        <input type="text" name="title" id="writeTitle" placeholder="제목" />
+        <%-- 내용 --%>
+        <div class="write">
+            <textarea name="content" id="summernote" placeholder="내용을 입력하세요"></textarea>
         </div>
     </div>
 
-</div>
-
-<div class="formContainer">
-    <input type="text" name="writeTitle" id="writeTitle" placeholder="제목" />
-    <div class="write">
-        <textarea name="writeTextArea" id="summernote" placeholder="내용을 입력하세요"></textarea>
-    </div>
-</div>
-
-
-<script type="text/javascript">
-    $('#summernote').summernote({
-        height: 300,
-        minHeight: null,
-        maxHeight: null,
-        focus: true,
-        lang: "ko-KR",
-        callbacks: {
-            onImageUpload : function(files){
-                for (var i = files.length - 1; i >= 0; i--) {
-                    sendFile(files[i],this);
-                }
-            }
-        },
-        toolbar: [
-            // [groupName, [list of button]]
-
-            ['insert',['picture','link']]
-        ],
-        fontNames: ['Arial'],
-        fontSizes: ['16']
-
-    });
-    $('#summernote').css('width', '600px');
-
-    //이미지 파일 전송
-    function sendFile(file, editor){
-        var data = new FormData();
-        data.append("file", file);
-        console.log(file);
-        $.ajax({
-            data : data,
-            type : "POST",
-            url : "uploadImage",
-            contentType : false,
-            processData : false,
-            success : function(data){
-                console.log(data);
-                console.log(editor);
-                $(editor).summernote("insertImage",data.url);
-            }
-        });
-    }
-    $('#writeBtn').click(() => {
-        console.log($('#summernote').val());
-    });
-
-
-</script>
+    <%--  board 정보  --%>
+    <input type="hidden" name="boardId" id="boardId" value="${boardId}"/>
+</form>

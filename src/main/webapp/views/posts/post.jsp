@@ -157,8 +157,7 @@
                     <input
                             type="checkbox"
                             id="anonymousCheckBox"
-                            name="anonymousCheckBox"
-                            value="isAnonymous" />
+                            name="anonymous"/>
                     <label for="anonymousCheckBox">익명</label>
                 </div>
                 <button id="writeBtn">➤</button>
