@@ -51,7 +51,7 @@
 
 <div class="post">
     <div class="header">
-        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1">⇦</a></div>
+        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>
         <h3 class="title">자유 게시판</h3>
         <div class="back"></div>
     </div>
@@ -59,7 +59,7 @@
     <div class="breadcrumbs">
         <a href="<c:url value="/"/>">게시판 목록</a>
         <span class="dot">></span>
-        <a href="<c:url value="/boards"/>?id=${boardId}">${boardId == 1 ? "자유게시판" : "게시판 추가"}</a>
+        <a href="<c:url value="/boards"/>?id=${boardId}&pageNo=1">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</a>
         <span class="dot">></span>
         <a href="<c:url value="/posts"/>?id=${postId}">게시글 상세</a>
     </div>
