@@ -312,7 +312,7 @@ a {
     min-width: 350px;
     max-width: 576px;
     min-height: 100vh;
-    background-color: #028e25;
+    background-color: #2b2f2b;
     margin: 0 auto;
     padding: 0 var(--mainLayoutPaddingX);
     box-shadow: 20px 20px 40px #f5ffed, -20px -20px 40px #f5ffed;
