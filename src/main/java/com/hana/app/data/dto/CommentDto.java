@@ -20,7 +20,7 @@ public class CommentDto {
     private UserDto userDto;
     private Integer postId;
     private int parentId;
-    private boolean isAnonymous;
+    private boolean anonymous;
 //    private ArrayList<CommentDto> children;
 
     // 좋아요 누른 사람 여부
