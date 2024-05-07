@@ -21,12 +21,10 @@ class InsertTests {
 
     @Test
     void contextLoads() {
-        ArrayList<PostDto> postDtoList = new ArrayList<>();
-        postDtoList.add(PostDto.builder().postId(1).build());
 
         ScrapDto scrapDto = ScrapDto.builder()
-                .posts(postDtoList)
-                .userId(2)
+                .postId(1)
+                .userId(9)
                 .build();
         try {
             scrapService.add(scrapDto);
