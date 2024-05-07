@@ -116,18 +116,6 @@
                 <div class="content" id="contentText" >내용1</div>
                 <div class="time">날짜 | 시간</div>
             </div>
-
-            <div class="comment">
-                <div class="innerBox">
-                    <div class="user"><img src="#"/>익명2</div>
-                    <div class="rightBox">
-                        <div class="cntItem"><span class="imoticon">❤️</span><span class="cnt">2</span></div>
-                        <button class="menuBtn">¦</button>
-                    </div>
-                </div>
-                <div class="content">내용2</div>
-                <div class="time">날짜 | 시간</div>
-            </div>
             <c:forEach var="c" items="${comments}">
                 <div class="comment">
                     <div class="innerBox">
