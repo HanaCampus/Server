@@ -1,5 +1,7 @@
 package com.hana.app.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.hana.app.data.dto.CommentDto;
 import com.hana.app.data.dto.PostDto;
 import com.hana.app.frame.HanaService;
@@ -45,15 +47,18 @@ public class PostService implements HanaService<Integer, PostDto> {
         return postRepository.selectOne(postId, userId);
     }
 
-    public List<PostDto> getPostList(Integer userId, Integer boardId) throws Exception {
+    public Page<PostDto> getPostList(Integer userId, Integer boardId, int pageNo) throws Exception {
+        PageHelper.startPage(pageNo, 8); // 3: 한화면에 출력되는 개수
         return postRepository.getPostList(userId, boardId);
     }
 
-    public List<PostDto> getMyPostList(Integer userId) throws Exception{
+    public Page<PostDto> getMyPostList(Integer userId, int pageNo) throws Exception{
+        PageHelper.startPage(pageNo, 8); // 3: 한화면에 출력되는 개수
         return postRepository.getMyPostList(userId);
     }
 
-    public List<PostDto> getScrapList(Integer userId) throws Exception{
+    public Page<PostDto> getScrapList(Integer userId, int pageNo) throws Exception{
+        PageHelper.startPage(pageNo, 8); // 3: 한화면에 출력되는 개수
         return postRepository.getScrapList(userId);
     }
 
@@ -77,7 +82,8 @@ public class PostService implements HanaService<Integer, PostDto> {
         return postRepository.updateScrapCount(id);
     }
 
-    public List<PostDto> selectByKeyword(Integer boardId, Integer userId, String keyword) throws Exception {
+    public Page<PostDto> selectByKeyword(Integer boardId, Integer userId, String keyword, int pageNo) throws Exception {
+        PageHelper.startPage(pageNo, 8); // 3: 한화면에 출력되는 개수
         return postRepository.selectByKeyword(boardId, userId, keyword);
     }
 }

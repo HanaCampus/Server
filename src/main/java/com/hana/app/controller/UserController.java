@@ -63,7 +63,7 @@ public class UserController {
     public String usermyscraps(Model model,HttpSession httpSession){
         try {
             Object id = httpSession.getAttribute("id");
-            List<PostDto> postDtoList= postService.getScrapList((Integer) id);
+            List<PostDto> postDtoList= postService.getScrapList((Integer) id, 1);
             log.info(postDtoList.toString());
             model.addAttribute("posts", postDtoList);
             model.addAttribute("center", dir+"myscraps");
@@ -78,7 +78,7 @@ public class UserController {
         try {
             Object id = httpSession.getAttribute("id");
             UserDto userDto = userService.get(String.valueOf(id));
-            List<PostDto> postDtoList= postService.getMyPostList((Integer) id);
+            List<PostDto> postDtoList= postService.getMyPostList((Integer) id, 1);
             model.addAttribute("user", userDto);
             model.addAttribute("posts", postDtoList);
             model.addAttribute("center", dir+"myposts");

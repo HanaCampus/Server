@@ -45,7 +45,7 @@
     </select>
 
     <select id="getPostList" resultMap="post">
-        SELECT *, COUNT(c.comment_id) AS comment_count
+        SELECT p.*, COUNT(c.comment_id) AS comment_count, is_liked, u.email, u.nickname, u.gender
         FROM post p
         LEFT JOIN user u ON p.user_id = u.user_id
         LEFT JOIN (SELECT *
@@ -60,7 +60,7 @@
     </select>
 
     <select id="getMyPostList" resultMap="post">
-        SELECT *, COUNT(c.comment_id) AS comment_count
+        SELECT p.*, COUNT(c.comment_id) AS comment_count, is_liked, u.email, u.nickname, u.gender
         FROM post p
         LEFT JOIN user u ON p.user_id = u.user_id
         LEFT JOIN (SELECT *
@@ -75,7 +75,7 @@
     </select>
 
     <select id="getScrapList" resultMap="post">
-        SELECT *, COUNT(c.comment_id) AS comment_count
+        SELECT p.*, COUNT(c.comment_id) AS comment_count, is_liked, u.email, u.nickname, u.gender
         FROM post p JOIN (SELECT post_id FROM scrap WHERE user_id = #{userId}) AS s ON p.post_id = s.post_id
         LEFT JOIN user u ON p.user_id = u.user_id
         LEFT JOIN (SELECT *
@@ -129,7 +129,7 @@
 
 
     <select id="selectByKeyword" resultMap="post">
-        SELECT *, COUNT(c.comment_id) AS comment_count
+        SELECT p.*, COUNT(c.comment_id) AS comment_count, is_liked, u.email, u.nickname, u.gender
         FROM post p
         LEFT JOIN user u ON p.user_id = u.user_id
          LEFT JOIN (SELECT *

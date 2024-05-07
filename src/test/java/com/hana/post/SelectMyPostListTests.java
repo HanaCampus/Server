@@ -21,7 +21,7 @@ public class SelectMyPostListTests {
     @Test
     void contextLoads() {
         try {
-            List<PostDto> postDtoList= postService.getMyPostList(1);
+            List<PostDto> postDtoList= postService.getMyPostList(1, 1);
             for(PostDto p : postDtoList){
                 log.info(p.toString());
             }
