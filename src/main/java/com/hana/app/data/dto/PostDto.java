@@ -16,7 +16,7 @@ public class PostDto {
     private int postId;
     private String title;
     private String content;
-    private boolean isAnonymous;
+    private boolean anonymous;
     private int scraps;
     private int likes;
     private String status; // 'Active', 'Deleted'
