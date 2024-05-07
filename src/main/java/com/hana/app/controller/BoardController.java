@@ -26,9 +26,7 @@ public class BoardController {
 
     @GetMapping("")
     public String main(Model model, @RequestParam("id") Integer boardId, HttpSession httpSession) throws Exception {
-
-        List<PostDto> postDtoList= postService.getPostList((Integer) httpSession.getAttribute("id"), boardId,1);
-        log.info("하하");
+        List<PostDto> postDtoList= postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, 2);
         log.info(postDtoList.toString());
         model.addAttribute("boardId", boardId);
         model.addAttribute("posts", postDtoList);
