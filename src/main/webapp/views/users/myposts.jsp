@@ -30,13 +30,13 @@
                 <div class="postItem">
                     <a href="<c:url value="/posts"/>?id=${p.postId}">
                         <h2 class="title">${p.title}</h2>
-                        <div class="content">${p.title}</div>
+                        <div class="content">${p.content}</div>
                         <div class="info">
                             <div class="textInfo">
                                 <span>${p.createDate}</span>
                                 <span class="division">|</span>
                                 <c:if test="${p.anonymous == false}">
-                                    <span>익명아님</span>
+                                    <span>${p.userDto.nickname}</span>
                                 </c:if>
                                 <c:if test="${p.anonymous == true}">
                                     <span>익명</span>

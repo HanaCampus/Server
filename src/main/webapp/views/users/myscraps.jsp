@@ -33,10 +33,9 @@
                         <div class="textInfo">
                             <span>${p.createDate}</span>
                             <span class="division">|</span>
-<%--                            TODO:수정해야 함--%>
                             <div></div>
                             <c:if test="${p.anonymous == false}">
-                                <span>익명아님</span>
+                                <span>${p.userDto.nickname}</span>
                             </c:if>
                             <c:if test="${p.anonymous == true}">
                                 <span>익명</span>
