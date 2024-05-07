@@ -61,7 +61,7 @@
     </div>
 
     <div class="postList">
-        <c:forEach var="p" items="${posts}">
+        <c:forEach var="p" items="${cpage.getList()}">
         <div class="postItem">
             <a href="<c:url value="/posts"/>?id=${p.postId}">
                 <h2 class="title">${p.title}</h2>
@@ -86,5 +86,6 @@
         </div>
         </c:forEach>
     </div>
+    <jsp:include page="../page.jsp"/>
 </div>
 

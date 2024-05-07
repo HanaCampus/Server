@@ -15,7 +15,7 @@
 <%--        <a data-theme="secondary" class="css-1rdqar8" href="/hot-articles">게시판</a>--%>
 <%--    </div>--%>
     <div class="css-65egb5">
-        <a class="css-hthzsn" href="<c:url value="/boards"/>?id=1">
+        <a class="css-hthzsn" href="<c:url value="/boards"/>?id=1&pageNo=1">
             <div>
                 <h2 class="css-kdssxn">자유 게시판</h2>
                 <p class="css-ftwqip">자유롭게 글을 작성</p>

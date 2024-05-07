@@ -1,5 +1,6 @@
 package com.hana.app.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.hana.app.data.dto.PostDto;
 import com.hana.app.data.dto.UserDto;
 import com.hana.app.service.BoardService;
@@ -25,11 +26,14 @@ public class BoardController {
     String dir = "boards/";
 
     @GetMapping("")
-    public String main(Model model, @RequestParam("id") Integer boardId, HttpSession httpSession) throws Exception {
-        List<PostDto> postDtoList= postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, 2);
-        log.info(postDtoList.toString());
+    public String main(Model model, @RequestParam("id") Integer boardId, @RequestParam("pageNo") Integer pageNo, HttpSession httpSession) throws Exception {
+        PageInfo<PostDto> p;
+        p = new PageInfo<>(postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, pageNo), 5); // navigatePages: 하단 네비게이션 개수
+
+        List<PostDto> postDtoList = postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, 1);
+
         model.addAttribute("boardId", boardId);
-        model.addAttribute("posts", postDtoList);
+        model.addAttribute("cpage", p);
         model.addAttribute("center", dir + "index");
         return "index";
     }
