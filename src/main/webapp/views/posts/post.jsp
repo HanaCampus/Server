@@ -87,7 +87,6 @@
                         url: '<c:url value="/likes/post"/>?id=' + postId,
                         success: function (response) {
                             let newCount = response;
-                            console.log(newCount,"?S?S");
                             // 좋아요 이미지 변경
                             likeButton.innerHTML = '<img src="<c:url value="/img/like.svg"/>" alt="like"/>';
                             likeButton.classList.add('liked'); // 좋아요 상태로 변경
@@ -103,7 +102,6 @@
     //COMMENT 좋아요
     document.addEventListener('DOMContentLoaded', function() {
         var likeButtons = document.querySelectorAll('.likePostEmoticon');
-        console.log("??", likeButtons);
         likeButtons.forEach(function(likeButton) {
             likeButton.addEventListener('click', function(event) {
                 event.stopPropagation();
@@ -127,7 +125,6 @@
                         url: '<c:url value="/likes/comment"/>?id='+commentId,
                         success: function (response) {
                             let newCount = response;
-                            console.log(newCount,"?S?S");
                             // 좋아요 이미지 변경
                             likeButton.innerHTML = '<img src="<c:url value="/img/like.svg"/>" alt="like"/>';
                             likeButton.classList.add('liked'); // 좋아요 상태로 변경
@@ -137,6 +134,38 @@
                 }
 
             });
+        });
+    });
+
+    //SCRAP 스크랩
+    document.addEventListener('DOMContentLoaded', function() {
+        var scrapBtn = document.querySelector('.scrapButton');
+        scrapBtn.addEventListener('click', function(event) {
+                var scrapId = this.getAttribute('data-scrap-id');
+                var isScrap = this.classList.contains('isScrap');
+                if(isScrap){
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "<c:url value="/scraps/post"/>?id="+scrapId,
+                        success: function (response) {
+                            let newCount = response;
+                            scrapBtn.innerHTML = '<img src="<c:url value="/img/scrapNone.svg"/>" alt="scrap"/>';
+                            scrapBtn.classList.remove('isScrap');
+                            scrapBtn.nextElementSibling.textContent = newCount;
+                        }
+                    });
+                }else{
+                    $.ajax({
+                        type: 'POST',
+                        url: '<c:url value="/scraps/post"/>?id='+scrapId,
+                        success: function (response) {
+                            let newCount = response;
+                            scrapBtn.innerHTML = '<img src="<c:url value="/img/scrap.svg"/>" alt="scrap"/>';
+                            scrapBtn.classList.add('isScrap'); // 좋아요 상태로 변경
+                            scrapBtn.nextElementSibling.textContent = newCount;
+                        }
+                    });
+                }
         });
     });
 </script>
@@ -219,11 +248,37 @@
                     <!-- 좋아요 수 -->
                     <span class="cnt">${post.likes}</span>
                 </div>
-                <div class="item"><span class="imoticon">🔖</span><span class="cnt">${post.commentCount}</span></div>
+
+                <c:choose>
+                    <c:when test="${sessionScope.id == null}">
+                        <!-- 로그인되지 않은 경우 -->
+                        <button class="scrapButton" onclick="pleaseLogin()">
+                            <img src="<c:url value='/img/scrapNone.svg'/>" alt="scrap"/>
+                        </button>
+                    </c:when>
+                    <c:otherwise>
+                        <!-- 로그인된 경우 -->
+                        <c:choose>
+                            <c:when test="${post.isScraped == null}">
+                                <!-- 스크랩을 하지 않은 경우 -->
+                                <button class="scrapButton" data-scrap-id="${post.postId}">
+                                    <img src="<c:url value='/img/scrapNone.svg'/>" alt="scrap"/>
+                                </button>
+                            </c:when>
+                            <c:otherwise>
+                                <!-- 스크랩을 이미 한 경우 -->
+                                <button class="scrapButton isScrap" data-scrap-id="${post.postId}">
+                                    <img src="<c:url value='/img/scrap.svg'/>" alt="scrap"/>
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
+                <span class="cnt">${post.scraps}</span>
             </div>
 
             <div class="BoxItem">
-                <div class="item noneMarginItem"><span class="imoticon">🔖</span><span class="cnt">${post.scraps}</span></div>
+                <div class="item"><span class="imoticon">🔖</span><span class="cnt">${post.commentCount}</span></div>
             </div>
         </div>
     </div>
