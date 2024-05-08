@@ -1,6 +1,7 @@
 package com.hana.app.repository;
 
 import com.hana.app.data.dto.CommentDto;
+import com.hana.app.data.dto.PostDto;
 import com.hana.app.frame.HanaRepository;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,5 +20,8 @@ public interface CommentRepository extends HanaRepository<Integer, CommentDto> {
     int updateLikeCount(Integer id) throws Exception;
 
     int report(Integer id) throws Exception;
+
+    int insertByAnonymous(CommentDto commentDto) throws Exception;
+    int insertByNotAnonymous(CommentDto commentDto) throws Exception;
 
 }

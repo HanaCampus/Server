@@ -1,8 +1,10 @@
 package com.hana.comment;
 
 import com.hana.app.data.dto.CommentDto;
+import com.hana.app.data.dto.PostDto;
 import com.hana.app.data.dto.UserDto;
 import com.hana.app.service.CommentService;
+import com.hana.app.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 @SpringBootTest
 @Slf4j
-class InsertTests {
+class InsertByNotAnonymousTests {
 
     @Autowired
     CommentService commentService;
@@ -22,12 +23,12 @@ class InsertTests {
     @Test
     void contextLoads() {
         CommentDto commentDto = CommentDto.builder()
-                .content("오늘은 5월4일 댓글~")
-                .userDto(UserDto.builder().userId(1).build())
-                .postId(1)
+                .content("내 댓글!!!!")
+                .userDto(UserDto.builder().userId(10).build())
+                .postId(14)
                 .build();
         try {
-            commentService.add(commentDto);
+            commentService.addByNotAnonymous(commentDto);
             log.info("---------- SUCCESS ----------");
         } catch (Exception e) {
             if(e instanceof SQLException) {
