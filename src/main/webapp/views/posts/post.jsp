@@ -83,7 +83,7 @@
             <div class="user big">
                 <c:if test="${post.anonymous == false}">
                     <div class="userThumbnail">
-                            ${post.userDto.nickname.charAt(0)}
+                        ${post.userDto.nickname.charAt(0)}
                     </div>
                     ${post.userDto.nickname}
                 </c:if>
@@ -97,8 +97,9 @@
 
             <c:if test="${id==post.userDto.userId}">
                 <div class="dropdown">
-                    <button onclick="toggleDropdownPost()" class="menuBtn dropbtn">|</button>
+                    <img onclick="toggleDropdownPost()" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
                     <div id="myDropdownPost" class="dropdown-content">
+                        <a href="<c:url value="/posts/updatepost?postId=${postId}"/>">수정하기</a>
                         <a href="<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>">삭제하기</a>
                     </div>
                 </div>
@@ -142,7 +143,7 @@
                             <div class="cntItem"><span class="imoticon">${c.isLiked==null ? "🩶️":"❤️"}</span><span class="cnt">${c.likes}</span></div>
                             <c:if test="${id==c.userDto.userId}">
                                 <div class="dropdown">
-                                    <button onclick="toggleDropdownComment(${c.commentId})" class="menuBtn dropbtn">|</button>
+                                    <img onclick="toggleDropdownComment(${c.commentId})" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
                                     <div id="myDropdownComment${c.commentId}" class="dropdown-content">
                                         <a href="<c:url value="/posts/deleteComment?commentId=${c.commentId}&postId=${postId}"/>">삭제하기</a>
                                     </div>

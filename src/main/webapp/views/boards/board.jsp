@@ -94,7 +94,7 @@
                     </div>
                     <div class="cntInfo">
                         <div class="like item"><span class="imoticon"><img src="<c:url value="/img/like.svg"/>"/></span><span class="cnt">${p.likes}</span></div>
-                        <div class="comment item"><span class="imoticon">◘</span><span class="cnt">${p.commentCount}</span></div>
+                        <div class="comment item"><span class="imoticon"><img src="<c:url value="/img/comment.svg"/>"/></span><span class="cnt">${p.commentCount}</span></div>
                     </div>
                 </div>
             </a>

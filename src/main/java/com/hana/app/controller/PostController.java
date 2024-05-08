@@ -68,7 +68,6 @@ public class PostController {
 
         return "index";
     }
-
     @PostMapping("/writepost")
     public String writePost(Model model, PostDto postDto, HttpSession httpSession) throws Exception {
         Object id = httpSession.getAttribute("id");
@@ -83,6 +82,26 @@ public class PostController {
         model.addAttribute("center", dir + "writepost");
 
         return "redirect:/boards?id=" + postDto.getBoardId() + "&pageNo=1";
+    }
+
+    @GetMapping("/updatepost")
+    public String updatePost(Model model, @RequestParam("postId") Integer postId, HttpSession httpSession) throws Exception {
+        Integer userId = (Integer) httpSession.getAttribute("id");
+        PostDto postDto = postService.getPostInfo(postId, userId);
+
+        model.addAttribute("postId", postId);
+        model.addAttribute("post", postDto);
+        model.addAttribute("center", dir + "updatepost");
+
+        return "index";
+    }
+    @PostMapping("/updatepost")
+    public String updatePost(Model model, PostDto postDto) throws Exception {
+        postService.modify(postDto);
+
+        model.addAttribute("center", dir + "updatepost");
+
+        return "redirect:/posts?id=" + postDto.getPostId();
     }
 
     @GetMapping("/deletePost")
