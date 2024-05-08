@@ -1,6 +1,7 @@
 package com.hana.app.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.PostDto;
 import com.hana.app.data.dto.UserDto;
 import com.hana.app.service.BoardService;
@@ -29,7 +30,8 @@ public class BoardController {
     public String main(Model model, @RequestParam("id") Integer boardId, @RequestParam("pageNo") Integer pageNo, HttpSession httpSession) throws Exception {
         PageInfo<PostDto> pageInfo;
         pageInfo = new PageInfo<>(postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, pageNo), 5); // navigatePages: 하단 네비게이션 개수
-
+        BoardDto boardDto = boardService.get(boardId);
+        String boardName= boardDto.getName();
         // pagination.jsp 파일에서 path 설정 시 사용
         String paginationPath = "boards";
 
@@ -37,6 +39,7 @@ public class BoardController {
         model.addAttribute("boardId", boardId);
         model.addAttribute("cpage", pageInfo);
         model.addAttribute("center", dir + "board");
+        model.addAttribute("boardName", boardName);
         return "index";
     }
 
@@ -59,5 +62,13 @@ public class BoardController {
         model.addAttribute("center", dir + "board");
 
         return "index";
+    }
+
+    @ResponseBody
+    @GetMapping("/list")
+    public List<BoardDto> boardList(Model model) throws Exception {
+        List<BoardDto> boardDtoList = boardService.get();
+        log.info(boardDtoList.toString());
+        return boardDtoList;
     }
 }
