@@ -1,6 +1,7 @@
 package com.hana.app.service;
 
 import com.hana.app.data.dto.CommentDto;
+import com.hana.app.data.dto.PostDto;
 import com.hana.app.frame.HanaService;
 import com.hana.app.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,16 @@ public class CommentService implements HanaService<Integer, CommentDto> {
 
     public List<CommentDto> getIsLikedComment(Integer postId, Integer userId) throws Exception {
         return commentRepository.selectIsLikedComment(postId, userId);
+    }
+
+    public int addByAnonymous(CommentDto commentDto) throws Exception {
+        // 성공 시 1, 실패 시 0 return
+        return commentRepository.insertByAnonymous(commentDto);
+    }
+
+    public int addByNotAnonymous(CommentDto commentDto) throws Exception {
+        // 성공 시 1, 실패 시 0 return
+        return commentRepository.insertByNotAnonymous(commentDto);
     }
 
     public int modifyLikeCount(Integer id) throws Exception {

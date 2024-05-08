@@ -60,7 +60,7 @@
                     <a onclick="pleaseLogin()">글쓰기</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="<c:url value="/posts/write"/>?boardId=${boardId}">글쓰기</a>
+                    <a href="<c:url value="/posts/writepost"/>?boardId=${boardId}&pageNo=1">글쓰기</a>
                 </c:otherwise>
             </c:choose>
         </div>
@@ -69,7 +69,7 @@
     <form id="searchForm">
         <div class="search">
             <input type="text" name="searchKeyword" id="searchInput">
-            <button id="searchBtn" type="button">🔍</button>
+            <button id="searchBtn" type="button"><img src="<c:url value="/img/search.svg"/>"/></button>
         </div>
     </form>
 
@@ -93,7 +93,7 @@
                         </c:if>
                     </div>
                     <div class="cntInfo">
-                        <div class="like item"><span class="imoticon">👍🏿</span><span class="cnt">${p.likes}</span></div>
+                        <div class="like item"><span class="imoticon"><img src="<c:url value="/img/like.svg"/>"/></span><span class="cnt">${p.likes}</span></div>
                         <div class="comment item"><span class="imoticon">◘</span><span class="cnt">${p.commentCount}</span></div>
                     </div>
                 </div>
