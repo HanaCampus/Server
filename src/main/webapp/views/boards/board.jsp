@@ -70,7 +70,6 @@
                         url: '<c:url value="/likes/post"/>?id=' + postId,
                         success: function (response) {
                             let newCount = response;
-                            console.log(newCount,"?S?S");
                         // 좋아요 이미지 변경
                             likeButton.innerHTML = '<img src="<c:url value="/img/like.svg"/>" alt="like"/>';
                             likeButton.classList.add('liked'); // 좋아요 상태로 변경
