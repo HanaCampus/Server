@@ -20,6 +20,11 @@
 
                 this.send();
             });
+
+            $('#writePostBtn').click(() => {
+                let boardId = $('#boardId').val();
+                location.href = "<c:url value="/posts/writepost"/>?boardId=" + boardId + "&pageNo=1";
+            })
         },
         send: function () {
             $('#searchForm').attr({
@@ -27,7 +32,7 @@
                 'action': '<c:url value="/boards/search"/>?id=${boardId}&pageNo=1'
             });
             $('#searchForm').submit();
-        }
+        },
     };
 
     $(function () {
@@ -47,22 +52,11 @@
         <div class="back"></div>
     </div>
 
-    <div class="breadcrumbs postHome">
+    <div class="breadcrumbs">
         <div>
             <a href="<c:url value="/"/>">게시판 목록</a>
             <span class="dot">></span>
             <a href="<c:url value="/boards"/>?id=${boardId}&pageNo=1">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</a>
-        </div>
-
-        <div class="button">
-            <c:choose>
-                <c:when test="${sessionScope.id == null}">
-                    <a onclick="pleaseLogin()">글쓰기</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="<c:url value="/posts/writepost"/>?boardId=${boardId}&pageNo=1">글쓰기</a>
-                </c:otherwise>
-            </c:choose>
         </div>
     </div>
 
@@ -103,3 +97,12 @@
     </div>
 </div>
 
+<c:if test="${sessionScope.id != null}">
+    <img id="writePostBtn" src="<c:url value="/img/writePostBtn.svg"/> ">
+</c:if>
+
+<%-- sesson_id 정보 --%>
+<input type="hidden" id="userId" value="${sessionScope.id}">
+
+<%-- board_id 정보 --%>
+<input type="hidden" id="boardId" value="${boardId}">
