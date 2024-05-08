@@ -43,6 +43,7 @@
         location.href = "<c:url value="/posts"/>?id=" + postId;
     }
 
+    // POST 좋아요
     document.addEventListener('DOMContentLoaded', function() {
         let likeButtons = document.querySelectorAll('.imoticon');
 
@@ -81,6 +82,8 @@
             });
         });
     });
+
+
 </script>
 
 <div class="board">
