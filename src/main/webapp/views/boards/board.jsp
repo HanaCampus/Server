@@ -43,8 +43,9 @@
     }
 
 
+    //POST 좋아요
     document.addEventListener('DOMContentLoaded', function() {
-        var likeButtons = document.querySelectorAll('.imoticon');
+        var likeButtons = document.querySelectorAll('.likeEmoticon');
 
         likeButtons.forEach(function(likeButton) {
             likeButton.addEventListener('click', function(event) {
