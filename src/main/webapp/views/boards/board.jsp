@@ -70,7 +70,7 @@
                         url: '<c:url value="/likes/post"/>?id=' + postId,
                         success: function (response) {
                             let newCount = response;
-                        // 좋아요 이미지 변경
+                            // 좋아요 이미지 변경
                             likeButton.innerHTML = '<img src="<c:url value="/img/like.svg"/>" alt="like"/>';
                             likeButton.classList.add('liked'); // 좋아요 상태로 변경
                             likeButton.nextElementSibling.textContent = newCount;
@@ -128,7 +128,7 @@
                         </div>
                         <div class="cntInfo">
                             <div class="like item">
-<%--                                좋아요 버튼--%>
+                                <%-- 좋아요 버튼--%>
                                 <c:choose>
                                     <c:when test="${sessionScope.id == null}">
                                         <button class="imoticon" onclick="pleaseLogin()">
@@ -137,13 +137,13 @@
                                     </c:when>
                                     <c:otherwise>
                                         <c:choose>
-<%--                                            좋아요를 하지 않은 경우--%>
+                                            <%-- 좋아요를 하지 않은 경우--%>
                                             <c:when test="${p.isLiked == null}">
                                                 <button class="imoticon likeButton" data-post-id="${p.postId}">
                                                     <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
                                                 </button>
                                             </c:when>
-<%--                                            좋아요를 이미 한 경우--%>
+                                            <%-- 좋아요를 이미 한 경우--%>
                                             <c:otherwise>
                                                 <button class="imoticon likeButton liked" data-post-id="${p.postId}">
                                                     <img src="<c:url value='/img/like.svg'/>" alt="like"/>
@@ -152,7 +152,7 @@
                                         </c:choose>
                                     </c:otherwise>
                                 </c:choose>
-<%--                                좋아요 수--%>
+                                <%-- 좋아요 수 --%>
                                 <span class="cnt">${p.likes}</span>
                             </div>
                             <div class="comment item">
