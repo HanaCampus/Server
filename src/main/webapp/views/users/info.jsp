@@ -84,6 +84,10 @@
             }
         })
     }
+    // 뒤로가기
+    function goBack() {
+        window.history.back();
+    }
 
     $(function () {
         info.init();
@@ -91,6 +95,11 @@
 
 </script>
 <div class="usersInfo">
+    <div class="header">
+        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="/img/back.svg" alt="back"></a></div>
+        <h3 class="title">닉네임 변경페이지</h3>
+        <div class="back"></div>
+    </div>
     <div class="breadcrumbs">
         <a href="<c:url value="/users/mypage"/>">프로필</a>
         <span class="dot">></span>
