@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 public class BoardDto {
     private int boardId;
     private String name;
+    private String content;
+    private String img;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }
