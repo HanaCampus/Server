@@ -13,14 +13,25 @@
 <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
 
 <script>
-    let free = {
+    let board = {
         init: function () {
+            $('#searchBtn').click(() => {
+                // 유효성 체크
 
+                this.send();
+            });
+        },
+        send: function () {
+            $('#searchForm').attr({
+                'method': 'post',
+                'action': '<c:url value="/boards/search"/>?id=${boardId}&pageNo=1'
+            });
+            $('#searchForm').submit();
         }
     };
 
     $(function () {
-        free.init();
+        board.init();
     });
 
     function pleaseLogin() {
@@ -29,10 +40,10 @@
     }
 </script>
 
-<div class="freeBoard">
-    <div class="header" style="font-weight: bold;">
+<div class="board">
+    <div class="header">
         <div class="back"><a class="backBtn" href="<c:url value="/"/>">⇦</a></div>
-        <h3 class="title">${boardId == 1? "자유 게시판": "게시판 추가"}</h3>
+        <h3 class="title">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</h3>
         <div class="back"></div>
     </div>
 
@@ -40,7 +51,7 @@
         <div>
             <a href="<c:url value="/"/>">게시판 목록</a>
             <span class="dot">></span>
-            <a href="<c:url value="/boards"/>?id=${boardId}">${boardId == 1? "자유 게시판": "게시판 추가"}</a>
+            <a href="<c:url value="/boards"/>?id=${boardId}&pageNo=1">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</a>
         </div>
 
         <div class="button">
@@ -49,22 +60,26 @@
                     <a onclick="pleaseLogin()">글쓰기</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="<c:url value="/posts/writepost"/>?boardId=${boardId}">글쓰기</a>
+                    <a href="<c:url value="/posts/write"/>?boardId=${boardId}">글쓰기</a>
                 </c:otherwise>
             </c:choose>
         </div>
     </div>
 
-    <div class="search">
-        <input type="text" name="searchInput" id="searchInput">
-        <button id="searchBtn">🔍</button>
-    </div>
+    <form id="searchForm">
+        <div class="search">
+            <input type="text" name="searchKeyword" id="searchInput">
+            <button id="searchBtn" type="button">🔍</button>
+        </div>
+    </form>
+
+    <jsp:include page="../pagination.jsp"/>
 
     <div class="postList">
-        <c:forEach var="p" items="${posts}">
+        <c:forEach var="p" items="${cpage.getList()}">
         <div class="postItem">
             <a href="<c:url value="/posts"/>?id=${p.postId}">
-                <h2 class="title" style="font-weight:bold;">${p.title}</h2>
+                <h2 class="title">${p.title}</h2>
                 <div class="content">${p.content}</div>
                 <div class="info">
                     <div class="textInfo">

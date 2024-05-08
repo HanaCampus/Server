@@ -91,7 +91,7 @@
 
 <form id="writePostForm">
     <div class="header writeHeader">
-        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1">⇦</a></div>
+        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>
         <h3 class="title">글쓰기</h3>
         <div class="back">
             <div class="regist">

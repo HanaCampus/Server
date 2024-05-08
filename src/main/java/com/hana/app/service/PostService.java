@@ -48,17 +48,17 @@ public class PostService implements HanaService<Integer, PostDto> {
     }
 
     public Page<PostDto> getPostList(Integer userId, Integer boardId, int pageNo) throws Exception {
-        PageHelper.startPage(pageNo, 8); // 3: 한화면에 출력되는 개수
+        PageHelper.startPage(pageNo, 8); // pageSize: 한 화면에 출력되는 개수
         return postRepository.getPostList(userId, boardId);
     }
 
     public Page<PostDto> getMyPostList(Integer userId, int pageNo) throws Exception{
-        PageHelper.startPage(pageNo, 8); // 3: 한화면에 출력되는 개수
+        PageHelper.startPage(pageNo, 8);
         return postRepository.getMyPostList(userId);
     }
 
     public Page<PostDto> getScrapList(Integer userId, int pageNo) throws Exception{
-        PageHelper.startPage(pageNo, 8); // 3: 한화면에 출력되는 개수
+        PageHelper.startPage(pageNo, 8);
         return postRepository.getScrapList(userId);
     }
 
@@ -83,7 +83,7 @@ public class PostService implements HanaService<Integer, PostDto> {
     }
 
     public Page<PostDto> selectByKeyword(Integer boardId, Integer userId, String keyword, int pageNo) throws Exception {
-        PageHelper.startPage(pageNo, 8); // 3: 한화면에 출력되는 개수
+        PageHelper.startPage(pageNo, 8);
         return postRepository.selectByKeyword(boardId, userId, keyword);
     }
 }

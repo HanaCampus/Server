@@ -16,23 +16,7 @@
 
 <script>
     let post = {
-        init: function () {
-            // 전송 버튼 event handler
-            $('#writeBtn').click(() => {
-                // 제목이나 내용 안 쓰면 쓰라고 alert문 띄워주는 유효성 체크하기
-                if(window.confirm('댓글을 등록하시겠습니까?')) {
-                    this.send();
-                }
-            });
-        },
-        send: function () {
-            $('#writeCommentForm').attr({
-                'method': 'post',
-                'action': '<c:url value="/posts/writecomment"/>'
-                <%--'action': '<c:url value="/posts?id="/>'+${postId}--%>
-            });
-            $('#writeCommentForm').submit();
-        }
+        init: function () {}
     };
 
     $(function () {
@@ -63,12 +47,13 @@
             }
         }
     }
+
 </script>
 
 
 <div class="post">
-    <div class="header" style="font-weight: bold;">
-        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1">⇦</a></div>
+    <div class="header">
+        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>
         <h3 class="title">자유 게시판</h3>
         <div class="back"></div>
     </div>
@@ -76,18 +61,24 @@
     <div class="breadcrumbs">
         <a href="<c:url value="/"/>">게시판 목록</a>
         <span class="dot">></span>
-        <a href="<c:url value="/boards"/>?id=${boardId}">${boardId==1? "자유게시판" : "게시판 추가"}</a>
+        <a href="<c:url value="/boards"/>?id=${boardId}&pageNo=1">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</a>
         <span class="dot">></span>
         <a href="<c:url value="/posts"/>?id=${postId}">게시글 상세</a>
     </div>
 
     <div class="postInfo">
         <div class="userAndMenuBox">
-            <div class="user"><img src="#"/>
+            <div class="user big">
                 <c:if test="${post.anonymous == false}">
+                    <div class="userThumbnail">
+                            ${post.userDto.nickname.charAt(0)}
+                    </div>
                     ${post.userDto.nickname}
                 </c:if>
                 <c:if test="${post.anonymous == true}">
+                    <div class="userThumbnail">
+                        <img src="<c:url value="/img/anonymous.png"/>"/>
+                    </div>
                     익명
                 </c:if>
             </div>
@@ -122,13 +113,16 @@
                 <div class="comment">
                     <div class="innerBox">
                         <div class="user">
-                            <div class="userThumbnail">
-<%--                                <img src="<c:url value="/img/anonymous.png"/>"/>--%>
-                            </div>
                             <c:if test="${c.anonymous == false}">
+                                <div class="userThumbnail">
+                                    ${c.userDto.nickname.charAt(0)}
+                                </div>
                                 ${c.userDto.nickname}
                             </c:if>
                             <c:if test="${c.anonymous == true}">
+                                <div class="userThumbnail">
+                                    <img src="<c:url value="/img/anonymous.png"/>"/>
+                                </div>
                                 익명
                             </c:if>
                         </div>

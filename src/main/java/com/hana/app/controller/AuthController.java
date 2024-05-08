@@ -56,6 +56,9 @@ public class AuthController {
                     redirectAttributes.addFlashAttribute("alert", "탈퇴한 회원입니다.");
                     return "redirect:/";
                 }
+                if (userDto.isAdmin()){
+                    return "redirect:/admin";
+                }
                 httpSession.setAttribute("id", userDto.getUserId());
                 return "redirect:/";
             }

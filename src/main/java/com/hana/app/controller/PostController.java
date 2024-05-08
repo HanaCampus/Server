@@ -1,5 +1,6 @@
 package com.hana.app.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.hana.app.data.dto.CommentDto;
 import com.hana.app.data.dto.PostDto;
 import com.hana.app.service.CommentService;
@@ -27,10 +28,10 @@ public class PostController {
 
     @GetMapping("")
     public String main(Model model, @RequestParam("id") Integer postId, HttpSession httpSession) throws Exception {
-        PostDto postDto = postService.getPostInfo(postId, (Integer) httpSession.getAttribute("id"));
-        List<CommentDto> commentDtoList = commentService.getIsLikedComment(postId, (Integer) httpSession.getAttribute("id"));
-        log.info(postDto.toString());
-        log.info(commentDtoList.toString());
+        Integer userId = (Integer) httpSession.getAttribute("id");
+
+        PostDto postDto = postService.getPostInfo(postId, userId);
+        List<CommentDto> commentDtoList = commentService.getIsLikedComment(postId, userId);
 
         model.addAttribute("id", httpSession.getAttribute("id"));
         model.addAttribute("postId", postId);
