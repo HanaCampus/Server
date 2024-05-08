@@ -20,6 +20,7 @@ public class ReportedPostDto {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private ReportCategoryDto reportCategoryDto;
+    private String status; // 활성 : Active , 완료 : Completed
 
     // 신고 받은 각 category 개수
     private int cntCategory1;

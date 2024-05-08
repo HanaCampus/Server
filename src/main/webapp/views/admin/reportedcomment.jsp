@@ -94,8 +94,8 @@
 
 <div class="post">
     <div class="header">
-        <div class="back"><a class="backBtn" href="<c:url value="/admins/reportedposts"/>"><img src="/img/back.svg"/></a></div>
-        <h3 class="title">게시글 신고 내역</h3>
+        <div class="back"><a class="backBtn" href="<c:url value="/admins/reportedcomments"/>"><img src="/img/back.svg"/></a></div>
+        <h3 class="title">댓글 신고 내역</h3>
         <div class="back"></div>
     </div>
 
@@ -103,9 +103,9 @@
         <div>
             <a href="<c:url value="/admins"/>">신고 목록</a>
             <span class="dot">></span>
-            <a href="<c:url value="/admins/reportedposts"/>">게시글 신고 내역</a>
+            <a href="<c:url value="/admins/reportedcomments"/>">댓글 신고 내역</a>
             <span class="dot">></span>
-            <a href="<c:url value="/admins/postInfo"/>?id=${post.postDto.postId}">신고 상세</a>
+            <a href="<c:url value="/admins/commentInfo"/>?id=${comment.commentDto.commentId}">신고 상세</a>
         </div>
     </div>
 
@@ -113,24 +113,24 @@
         <div class="userAndMenuBox">
             <div class="user big">
                 <div class="userThumbnail">
-                        ${post.writerDto.nickname.charAt(0)}
+                        ${comment.writerDto.nickname.charAt(0)}
                 </div>
-                ${post.writerDto.nickname}
+                ${comment.writerDto.nickname}
             </div>
-            <div class="time">${post.createDate}</div>
+            <div class="time">${comment.createDate}</div>
         </div>
-        <div class="title">${post.postDto.title}</div>
-        <div class="content">${post.postDto.content}</div>
+
+        <div class="content">${comment.commentDto.content}</div>
     </div>
 
     <div class="reports">
-            <div class="report"><span class="cnt">${category[0].getName()} : ${post.cntCategory1}</span></div>
-            <div class="report"><span class="cnt">${category[1].getName()} : ${post.cntCategory2}</span></div>
-            <div class="report"><span class="cnt">${category[2].getName()} : ${post.cntCategory3}</span></div>
-            <div class="report"><span class="cnt">${category[3].getName()} : ${post.cntCategory4}</span></div>
-            <div class="report"><span class="cnt">${category[4].getName()} : ${post.cntCategory5}</span></div>
-            <div class="report"><span class="cnt">${category[5].getName()} : ${post.cntCategory6}</span></div>
-            <div class="report"><span class="cnt">${category[6].getName()} : ${post.cntCategory7}</span></div>
+            <div class="report"><span class="cnt">${category[0].getName()} : ${comment.cntCategory1}</span></div>
+            <div class="report"><span class="cnt">${category[1].getName()} : ${comment.cntCategory2}</span></div>
+            <div class="report"><span class="cnt">${category[2].getName()} : ${comment.cntCategory3}</span></div>
+            <div class="report"><span class="cnt">${category[3].getName()} : ${comment.cntCategory4}</span></div>
+            <div class="report"><span class="cnt">${category[4].getName()} : ${comment.cntCategory5}</span></div>
+            <div class="report"><span class="cnt">${category[5].getName()} : ${comment.cntCategory6}</span></div>
+            <div class="report"><span class="cnt">${category[6].getName()} : ${comment.cntCategory7}</span></div>
     </div>
 
     <form id="suspendForm" action="/admins/updateSuspendDate" method="post">
@@ -143,8 +143,8 @@
                 <option value="영구 정지">영구 정지</option>
             </select>
             <button id="suspendBtn" type="submit">확인</button>
-            <input name="userId" value="${post.writerDto.userId}" type="hidden" />
-            <input name="postId" value="${post.postDto.postId}" type="hidden" />
+            <input name="userId" value="${comment.writerDto.userId}" type="hidden" />
+            <input name="commentId" value="${comment.commentDto.commentId}" type="hidden" />
         </div>
     </form>
 </div>
