@@ -43,7 +43,7 @@
 <div class="board">
     <div class="header">
         <div class="back"><a class="backBtn" href="<c:url value="/"/>">⇦</a></div>
-        <h3 class="title">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</h3>
+        <h3 class="title">${boardName}</h3>
         <div class="back"></div>
     </div>
 
@@ -51,7 +51,7 @@
         <div>
             <a href="<c:url value="/"/>">게시판 목록</a>
             <span class="dot">></span>
-            <a href="<c:url value="/boards"/>?id=${boardId}&pageNo=1">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</a>
+            <a href="<c:url value="/boards"/>?id=${boardId}&pageNo=1">${boardName}</a>
         </div>
 
         <div class="button">

@@ -1,8 +1,10 @@
 package com.hana.app.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.CommentDto;
 import com.hana.app.data.dto.PostDto;
+import com.hana.app.service.BoardService;
 import com.hana.app.service.CommentService;
 import com.hana.app.data.dto.UserDto;
 import com.hana.app.service.PostService;
@@ -23,6 +25,7 @@ public class PostController {
 
     final PostService postService;
     final CommentService commentService;
+    final BoardService boardService;
 
     String dir = "posts/";
 
@@ -32,12 +35,15 @@ public class PostController {
 
         PostDto postDto = postService.getPostInfo(postId, userId);
         List<CommentDto> commentDtoList = commentService.getIsLikedComment(postId, userId);
-
+        BoardDto boardDto = boardService.get(postDto.getBoardId());
+        String boardName= boardDto.getName();
         model.addAttribute("id", httpSession.getAttribute("id"));
         model.addAttribute("postId", postId);
         model.addAttribute("post", postDto);
         model.addAttribute("boardId", postDto.getBoardId());
         model.addAttribute("comments", commentDtoList);
+        model.addAttribute("boardName", boardName);
+
         model.addAttribute("center", dir + "post");
 
 
