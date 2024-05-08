@@ -30,7 +30,7 @@
 </script>
 
 <div class="freeBoard">
-    <div class="header">
+    <div class="header" style="font-weight: bold;">
         <div class="back"><a class="backBtn" href="<c:url value="/"/>">⇦</a></div>
         <h3 class="title">${boardId == 1? "자유 게시판": "게시판 추가"}</h3>
         <div class="back"></div>
@@ -64,7 +64,7 @@
         <c:forEach var="p" items="${posts}">
         <div class="postItem">
             <a href="<c:url value="/posts"/>?id=${p.postId}">
-                <h2 class="title">${p.title}</h2>
+                <h2 class="title" style="font-weight:bold;">${p.title}</h2>
                 <div class="content">${p.content}</div>
                 <div class="info">
                     <div class="textInfo">

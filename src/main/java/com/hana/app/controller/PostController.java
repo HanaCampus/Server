@@ -43,6 +43,27 @@ public class PostController {
         return "index";
     }
 
+    @PostMapping("/writecomment")
+    public String writeComment(PostDto postDto, CommentDto commentDto, HttpSession httpSession) throws Exception {
+        Object id = httpSession.getAttribute("id");
+        commentDto.setUserDto((UserDto.builder().userId(Integer.parseInt(String.valueOf(id))).build()));
+        commentDto.setPostId(postDto.getPostId());
+
+        log.info(commentDto.toString());
+
+        if(commentDto.isAnonymous()) { // 익명 체크했으면
+            commentService.addByAnonymous(commentDto);
+        } else { // 익명 체크 안했으면
+            commentService.addByNotAnonymous(commentDto);
+        }
+
+
+        //model.addAttribute("center", dir + "writecomment");
+
+
+        return "redirect:/posts/?id=" + postDto.getPostId();
+    }
+
     @GetMapping("/writepost")
     public String writePost(Model model, @RequestParam("boardId") Integer boardId) {
         model.addAttribute("boardId", boardId);
@@ -65,5 +86,18 @@ public class PostController {
         model.addAttribute("center", dir + "writepost");
 
         return "redirect:/boards?id=" + postDto.getBoardId();
+    }
+
+    @GetMapping("/deletePost")
+    public String deletePost(@RequestParam("postId") int postId, @RequestParam("boardId") int boardId) throws Exception {
+        postService.del(postId);
+
+        return "redirect:/boards?id=" + boardId;
+    }
+    @GetMapping("/deleteComment")
+    public String deleteComment(@RequestParam("commentId") int commentId, @RequestParam("postId") int postId) throws Exception {
+        commentService.del(commentId);
+
+        return "redirect:/posts?id=" + postId;
     }
 }

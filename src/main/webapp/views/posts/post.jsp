@@ -17,7 +17,21 @@
 <script>
     let post = {
         init: function () {
-
+            // 전송 버튼 event handler
+            $('#writeBtn').click(() => {
+                // 제목이나 내용 안 쓰면 쓰라고 alert문 띄워주는 유효성 체크하기
+                if(window.confirm('댓글을 등록하시겠습니까?')) {
+                    this.send();
+                }
+            });
+        },
+        send: function () {
+            $('#writeCommentForm').attr({
+                'method': 'post',
+                'action': '<c:url value="/posts/writecomment"/>'
+                <%--'action': '<c:url value="/posts?id="/>'+${postId}--%>
+            });
+            $('#writeCommentForm').submit();
         }
     };
 
@@ -26,16 +40,14 @@
     });
 
 
-    // 수정하기 버튼을 클릭하면 해당 내용을 textarea에 출력
-    function editComment() {
-        let originalContent = document.getElementById("contentText").innerHTML; // 초기 내용 변수
-        document.getElementById("writeTextArea").value = originalContent;
-    }
-
     /* Dropdown을 토글하는 함수 */
-    function toggleDropdown() {
-        var dropdownContent = document.getElementById("myDropdown");
-        dropdownContent.classList.toggle("show");
+    function toggleDropdownPost() {
+        let dropdownContent1 = document.getElementById("myDropdownPost");
+        dropdownContent1.classList.toggle("show");
+    }
+    function toggleDropdownComment() {
+        let dropdownContent2 = document.getElementById("myDropdownComment");
+        dropdownContent2.classList.toggle("show");
     }
 
     /* Dropdown이 열려 있을 때 다른 곳을 클릭하면 닫히도록 함 */
@@ -51,12 +63,11 @@
             }
         }
     }
-
 </script>
 
 
 <div class="post">
-    <div class="header">
+    <div class="header" style="font-weight: bold;">
         <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1">⇦</a></div>
         <h3 class="title">자유 게시판</h3>
         <div class="back"></div>
@@ -80,7 +91,15 @@
                     익명
                 </c:if>
             </div>
-            <button class="menuBtn">¦</button>
+
+            <c:if test="${id==post.userDto.userId}">
+                <div class="dropdown">
+                    <button onclick="toggleDropdownPost()" class="menuBtn dropbtn" style="color:black">¦</button>
+                    <div id="myDropdownPost" class="dropdown-content">
+                        <a href="<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>">삭제하기</a>
+                    </div>
+                </div>
+            </c:if>
         </div>
         <div class="time">${post.createDate}</div>
         <div class="title">${post.title}</div>
@@ -99,23 +118,6 @@
 
     <div class="commentContainer">
         <div class="commentList">
-            <div class="comment">
-                <div class="innerBox">
-                    <div class="user"><img src="#"/>익명1</div>
-                    <div class="rightBox">
-                        <div class="cntItem"><span class="imoticon">❤️</span><span class="cnt">8</span></div>
-                        <div class="dropdown">
-                            <button onclick="toggleDropdown()" class="menuBtn dropbtn">¦</button>
-                            <div id="myDropdown" class="dropdown-content">
-                                <a href="#" onclick="editComment()">수정하기</a>
-                                <a href="#">삭제하기</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content" id="contentText" >내용1</div>
-                <div class="time">날짜 | 시간</div>
-            </div>
             <c:forEach var="c" items="${comments}">
                 <div class="comment">
                     <div class="innerBox">
@@ -132,37 +134,46 @@
                         </div>
                         <div class="rightBox">
                             <div class="cntItem"><span class="imoticon">${c.isLiked==null ? "🩶️":"❤️"}</span><span class="cnt">${c.likes}</span></div>
-                            <button class="menuBtn">¦</button>
+                            <c:if test="${id==c.userDto.userId}">
+                                <div class="dropdown">
+                                    <button onclick="toggleDropdownComment()" class="menuBtn dropbtn" style="color:black">¦</button>
+                                    <div id="myDropdownComment" class="dropdown-content">
+                                        <a href="<c:url value="/posts/deleteComment?commentId=${c.commentId}&postId=${postId}"/>">삭제하기</a>
+                                    </div>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
-                    <div class="content">${c.content}</div>
+                    <div class="content" id="contentText">${c.content}</div>
                     <div class="time">${c.createDate}</div>
                 </div>
             </c:forEach>
 
         </div>
 
-        <div class="write">
-            <c:choose>
-                <c:when test="${sessionScope.id == null}">
-                  <textarea type="text" name="writeTextArea" id="writeTextArea" placeholder="로그인 먼저 해주세요!" disabled></textarea>
-                </c:when>
-              <c:otherwise>
-                  <textarea type="text" name="writeTextArea" id="writeTextArea"></textarea>
-              </c:otherwise>
-            </c:choose>
-          
-            <div class="regist">
-                <div class="anonymous">
-                    <input
-                            type="checkbox"
-                            id="anonymousCheckBox"
-                            name="anonymous"/>
-                    <label for="anonymousCheckBox">익명</label>
+        <form id="writeCommentForm">
+            <div class="write">
+                <c:choose>
+                    <c:when test="${sessionScope.id == null}">
+                        <textarea type="text" name="content" id="writeTextArea" placeholder="로그인 먼저 해주세요!" disabled></textarea>
+                    </c:when>
+                    <c:otherwise>
+                        <textarea type="text" name="content" id="writeTextArea"></textarea>
+                    </c:otherwise>
+                </c:choose>
+
+                <div class="regist">
+                    <div class="anonymous">
+                        <input
+                                type="checkbox"
+                                id="anonymousCheckBox"
+                                name="anonymous"/>
+                        <label for="anonymousCheckBox">익명</label>
+                    </div>
+                    <button id="writeBtn" type="button">➤</button>
                 </div>
-                <button id="writeBtn">➤</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 

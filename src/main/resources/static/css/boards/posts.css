@@ -8,7 +8,9 @@
         /*min-height: 20vh;*/
         margin: 10px 0 10px 0;
         padding: 10px;
-        border: 1px solid rgba(222, 222, 222, 0.5);
+        border: 5px solid rgba(222, 222, 222, 1);
+        background-color: whitesmoke;
+        color: black;
         border-radius: 12px;
         cursor: pointer;
 
@@ -57,9 +59,9 @@
         }
     }
 
-    .postItem:hover {
-        border: 1px solid rgba(222, 222, 222, 1);
-    }
+    /*.postItem:hover {*/
+    /*    border: 1px solid rgba(222, 222, 222, 1);*/
+    /*}*/
 }
 
 .postHome {

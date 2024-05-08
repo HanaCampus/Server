@@ -34,9 +34,14 @@
         FROM comment
     </select>
 
-    <insert id="insert" parameterType="commentDto">
+    <insert id="insertByAnonymous" parameterType="commentDto">
         INSERT INTO comment (content, user_id, post_id, create_date)
-        VALUES (#{content}, #{userDto.userId}, #{postId}, NOW());
+        VALUES (#{content}, #{userDto.userId}, #{postId}, NOW())
+    </insert>
+
+    <insert id="insertByNotAnonymous" parameterType="commentDto">
+        INSERT INTO comment (content, is_anonymous, user_id, post_id, create_date)
+        VALUES (#{content}, 0, #{userDto.userId}, #{postId}, NOW())
     </insert>
 
     <update id="update" parameterType="commentDto">

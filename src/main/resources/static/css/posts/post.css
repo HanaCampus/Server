@@ -1,7 +1,10 @@
 .postInfo {
     padding: 20px;
-    border: 2px solid rgba(222, 222, 222, 1);
+    border: 5px solid rgba(222, 222, 222, 1);
     border-radius: 10px;
+    background-color: whitesmoke;
+    color: black;
+    /*font-weight: bold;*/
 
     display: flex;
     flex-direction: column;
