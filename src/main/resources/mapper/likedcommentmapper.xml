@@ -24,4 +24,10 @@
         DELETE FROM liked_comment WHERE liked_comment_id=#{likedCommentId}
     </delete>
 
+
+    <select id="isLikedCommentByUserId" parameterType="Integer" resultType="likedCommentDto">
+        SELECT *
+        FROM liked_comment
+        WHERE comment_id=#{commentId} AND user_id=#{userId}
+    </select>
 </mapper>
