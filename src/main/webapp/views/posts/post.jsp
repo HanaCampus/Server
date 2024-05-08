@@ -83,8 +83,8 @@
         let reportDropdownPost = document.getElementById("reportDropdownPost");
         reportDropdownPost.classList.toggle("show");
     }
-    function toggleReportDropdownComment() {
-        let reportDropdownComment = document.getElementById("reportDropdownComment");
+    function toggleReportDropdownComment(commentId) {
+        let reportDropdownComment = document.getElementById("reportDropdownComment" + commentId);
         reportDropdownComment.classList.toggle("show");
     }
 
@@ -406,8 +406,8 @@
                                     <div class="dropdown">
                                         <img onclick="toggleDropdownOtherComment(${c.commentId})" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
                                         <div id="otherDropdownComment${c.commentId}" class="dropdown-content">
-                                            <a class="dropbtn" onclick="toggleReportDropdownComment()">신고하기⬇️</a>
-                                            <div id="reportDropdownComment" class="dropdown-content">
+                                            <a class="dropbtn" onclick="toggleReportDropdownComment(${c.commentId})">신고하기⬇️</a>
+                                            <div id="reportDropdownComment${c.commentId}" class="dropdown-content">
                                                 <a onclick="post.report('comment', ${c.commentId}, 1)">게시판 및 성격 부적절함</a>
                                                 <a onclick="post.report('comment', ${c.commentId}, 2)">욕설/비하</a>
                                                 <a onclick="post.report('comment', ${c.commentId}, 3)">음란물/불건전 만남 및 대화</a>
