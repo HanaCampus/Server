@@ -40,15 +40,14 @@ public class PostController {
         model.addAttribute("comments", commentDtoList);
         model.addAttribute("center", dir + "post");
 
-
         return "index";
     }
 
     @PostMapping("/writecomment")
-    public String writeComment(PostDto postDto, CommentDto commentDto, HttpSession httpSession) throws Exception {
+    public String writeComment(@RequestParam("postId") Integer postId, CommentDto commentDto, HttpSession httpSession) throws Exception {
         Object id = httpSession.getAttribute("id");
         commentDto.setUserDto((UserDto.builder().userId(Integer.parseInt(String.valueOf(id))).build()));
-        commentDto.setPostId(postDto.getPostId());
+        commentDto.setPostId(postId);
 
         log.info(commentDto.toString());
 
@@ -58,16 +57,13 @@ public class PostController {
             commentService.addByNotAnonymous(commentDto);
         }
 
-
-        //model.addAttribute("center", dir + "writecomment");
-
-
-        return "redirect:/posts/?id=" + postDto.getPostId();
+        return "redirect:/posts?id=" + postId;
     }
 
     @GetMapping("/writepost")
-    public String writePost(Model model, @RequestParam("boardId") Integer boardId) {
+    public String writePost(Model model, @RequestParam("boardId") Integer boardId, @RequestParam("pageNo") Integer pageNo) {
         model.addAttribute("boardId", boardId);
+        model.addAttribute("pageNo", pageNo);
         model.addAttribute("center", dir + "writepost");
 
         return "index";
@@ -86,14 +82,14 @@ public class PostController {
 
         model.addAttribute("center", dir + "writepost");
 
-        return "redirect:/boards?id=" + postDto.getBoardId();
+        return "redirect:/boards?id=" + postDto.getBoardId() + "&pageNo=1";
     }
 
     @GetMapping("/deletePost")
     public String deletePost(@RequestParam("postId") int postId, @RequestParam("boardId") int boardId) throws Exception {
         postService.del(postId);
 
-        return "redirect:/boards?id=" + boardId;
+        return "redirect:/boards?id=" + boardId + "&pageNo=1";
     }
     @GetMapping("/deleteComment")
     public String deleteComment(@RequestParam("commentId") int commentId, @RequestParam("postId") int postId) throws Exception {

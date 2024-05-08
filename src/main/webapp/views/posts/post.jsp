@@ -16,22 +16,35 @@
 
 <script>
     let post = {
-        init: function () {}
+        init: function () {
+            // 전송 버튼 event handler
+            $('#writeBtn').click(() => {
+                // 제목이나 내용 안 쓰면 쓰라고 alert문 띄워주는 유효성 체크하기
+                if(window.confirm('댓글 등록하시겠습니까?')) {
+                    this.send();
+                }
+            });
+        },
+        send: function () {
+            $('#writeCommentForm').attr({
+                'method': 'post',
+                'action': '<c:url value="/posts/writecomment?postId=${postId}"/>'
+            });
+            $('#writeCommentForm').submit();
+        }
     };
-
     $(function () {
         post.init();
     });
 
-
     /* Dropdown을 토글하는 함수 */
     function toggleDropdownPost() {
-        let dropdownContent1 = document.getElementById("myDropdownPost");
-        dropdownContent1.classList.toggle("show");
+        let dropdownPostContent = document.getElementById("myDropdownPost");
+        dropdownPostContent.classList.toggle("show");
     }
-    function toggleDropdownComment() {
-        let dropdownContent2 = document.getElementById("myDropdownComment");
-        dropdownContent2.classList.toggle("show");
+    function toggleDropdownComment(commentId) {
+        let dropdownCommentContent = document.getElementById("myDropdownComment" + commentId);
+        dropdownCommentContent.classList.toggle("show");
     }
 
     /* Dropdown이 열려 있을 때 다른 곳을 클릭하면 닫히도록 함 */
@@ -47,7 +60,6 @@
             }
         }
     }
-
 </script>
 
 
@@ -85,7 +97,7 @@
 
             <c:if test="${id==post.userDto.userId}">
                 <div class="dropdown">
-                    <button onclick="toggleDropdownPost()" class="menuBtn dropbtn" style="color:black">¦</button>
+                    <button onclick="toggleDropdownPost()" class="menuBtn dropbtn">|</button>
                     <div id="myDropdownPost" class="dropdown-content">
                         <a href="<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>">삭제하기</a>
                     </div>
@@ -130,8 +142,8 @@
                             <div class="cntItem"><span class="imoticon">${c.isLiked==null ? "🩶️":"❤️"}</span><span class="cnt">${c.likes}</span></div>
                             <c:if test="${id==c.userDto.userId}">
                                 <div class="dropdown">
-                                    <button onclick="toggleDropdownComment()" class="menuBtn dropbtn" style="color:black">¦</button>
-                                    <div id="myDropdownComment" class="dropdown-content">
+                                    <button onclick="toggleDropdownComment(${c.commentId})" class="menuBtn dropbtn">|</button>
+                                    <div id="myDropdownComment${c.commentId}" class="dropdown-content">
                                         <a href="<c:url value="/posts/deleteComment?commentId=${c.commentId}&postId=${postId}"/>">삭제하기</a>
                                     </div>
                                 </div>
@@ -142,7 +154,6 @@
                     <div class="time">${c.createDate}</div>
                 </div>
             </c:forEach>
-
         </div>
 
         <form id="writeCommentForm">

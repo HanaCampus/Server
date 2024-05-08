@@ -23,9 +23,9 @@ class InsertByNotAnonymousTests {
     @Test
     void contextLoads() {
         CommentDto commentDto = CommentDto.builder()
-                .content("내 댓글!!!!")
+                .content("내 댓글3333")
                 .userDto(UserDto.builder().userId(10).build())
-                .postId(14)
+                .postId(29)
                 .build();
         try {
             commentService.addByNotAnonymous(commentDto);
