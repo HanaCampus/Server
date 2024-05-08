@@ -16,8 +16,6 @@
     let board = {
         init: function () {
             $('#searchBtn').click(() => {
-                // 유효성 체크
-
                 this.send();
             });
 
@@ -42,6 +40,17 @@
     function onClickPostDetail(postId){
         location.href = "<c:url value="/posts"/>?id=" + postId;
     }
+
+    // Enter 키를 눌렀을 때 폼 제출 막기
+    document.addEventListener("DOMContentLoaded", function() {
+        let searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // 기본 동작 막기
+                return false;
+            }
+        });
+    });
 
     // POST 좋아요
     document.addEventListener('DOMContentLoaded', function() {
@@ -77,7 +86,6 @@
                         }
                     });
                 }
-
             });
         });
     });
