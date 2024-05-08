@@ -13,5 +13,5 @@ import java.time.LocalDate;
 @Builder
 public class ReportCategoryDto {
     private int reportCategoryId;
-    private int name;
+    private String name;
 }

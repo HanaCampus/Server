@@ -16,6 +16,7 @@
         <result column="cnt_category_5" property="cntCategory5"/>
         <result column="cnt_category_6" property="cntCategory6"/>
         <result column="cnt_category_7" property="cntCategory7"/>
+        <result column="total" property="total"/>
         <association property="writerDto" javaType="userDto">
             <id column="writer_id" property="userId"/>
             <result column="writer_email" property="email"/>
@@ -33,7 +34,7 @@
     </resultMap>
 
     <select id="selectOne" parameterType="Integer" resultMap="reportedPost">
-        SELECT rp.create_date, p.post_id, p.title, p.content, wu.user_id AS writer_id, wu.email AS writer_email, wu.nickname AS writer_nickname,
+        SELECT rp.create_date, rp.reported_post_id, p.post_id, p.title, p.content, wu.user_id AS writer_id, wu.email AS writer_email, wu.nickname AS writer_nickname,
                COUNT(CASE WHEN rp.report_category_id = 1 THEN 1 ELSE NULL END) AS cnt_category_1,
                COUNT(CASE WHEN rp.report_category_id = 2 THEN 1 ELSE NULL END) AS cnt_category_2,
                COUNT(CASE WHEN rp.report_category_id = 3 THEN 1 ELSE NULL END) AS cnt_category_3,
@@ -49,7 +50,8 @@
     </select>
 
     <select id="select" resultMap="reportedPost">
-        SELECT rp.create_date, p.post_id, p.title, p.content, wu.user_id AS writer_id, wu.email AS writer_email, wu.nickname AS writer_nickname,
+        SELECT rp.create_date, rp.reported_post_id, p.post_id, p.title, p.content, wu.user_id AS writer_id, wu.email AS writer_email, wu.nickname AS writer_nickname,
+               COUNT(p.post_id) AS total,
                COUNT(CASE WHEN rp.report_category_id = 1 THEN 1 ELSE NULL END) AS cnt_category_1,
                COUNT(CASE WHEN rp.report_category_id = 2 THEN 1 ELSE NULL END) AS cnt_category_2,
                COUNT(CASE WHEN rp.report_category_id = 3 THEN 1 ELSE NULL END) AS cnt_category_3,
