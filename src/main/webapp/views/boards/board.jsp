@@ -1,4 +1,4 @@
-<%@ page import="static org.eclipse.tags.shaded.org.apache.regexp.RETest.test" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: es
   Date: 5/3/24
@@ -8,7 +8,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="static org.eclipse.tags.shaded.org.apache.regexp.RETest.test" %>
 <link rel="stylesheet" href="<c:url value="/css/boards/board.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
 
@@ -128,24 +128,22 @@
                         </div>
                         <div class="cntInfo">
                             <div class="like item">
-                                <!-- 좋아요 버튼 -->
+<%--                                좋아요 버튼--%>
                                 <c:choose>
-                                    <!-- 로그인되지 않은 경우 -->
                                     <c:when test="${sessionScope.id == null}">
                                         <button class="imoticon" onclick="pleaseLogin()">
                                             <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
                                         </button>
                                     </c:when>
-                                    <!-- 로그인된 경우 -->
                                     <c:otherwise>
                                         <c:choose>
-                                            <!-- 좋아요를 하지 않은 경우 -->
+<%--                                            좋아요를 하지 않은 경우--%>
                                             <c:when test="${p.isLiked == null}">
                                                 <button class="imoticon likeButton" data-post-id="${p.postId}">
                                                     <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
                                                 </button>
                                             </c:when>
-                                            <!-- 좋아요를 이미 한 경우 -->
+<%--                                            좋아요를 이미 한 경우--%>
                                             <c:otherwise>
                                                 <button class="imoticon likeButton liked" data-post-id="${p.postId}">
                                                     <img src="<c:url value='/img/like.svg'/>" alt="like"/>
@@ -154,7 +152,7 @@
                                         </c:choose>
                                     </c:otherwise>
                                 </c:choose>
-                                <!-- 좋아요 수 -->
+<%--                                좋아요 수--%>
                                 <span class="cnt">${p.likes}</span>
                             </div>
                             <div class="comment item">
