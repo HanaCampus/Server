@@ -118,7 +118,7 @@
 
     <form id="searchForm">
         <div class="search">
-            <input type="text" name="searchKeyword" id="searchInput">
+            <input type="text" name="searchKeyword" id="searchInput" value="${searchKeyword}">
             <button id="searchBtn" type="button"><img src="<c:url value="/img/search.svg"/>"/></button>
         </div>
     </form>
