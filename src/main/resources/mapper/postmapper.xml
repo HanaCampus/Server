@@ -101,7 +101,7 @@
 
     <update id="update" parameterType="postDto">
         UPDATE post
-        SET title=#{title}, is_anonymous=#{isAnonymous}, content=#{content}, update_date=NOW()
+        SET title=#{title}, is_anonymous=#{anonymous}, content=#{content}, update_date=NOW()
         WHERE post_id=#{postId}
     </update>
 

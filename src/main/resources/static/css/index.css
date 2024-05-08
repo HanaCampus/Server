@@ -1,6 +1,6 @@
 /* 전역 변수 설정 */
 :root {
-    --board-hover-bg-color: #5d5d5d;
+    --board-hover-bg-color: rgba(210, 255, 220, 0.2);
 }
 
 /* 기본 Tag 속성 */
@@ -937,6 +937,7 @@ a {
     -ms-flex-direction: column;
     flex-direction: column;
     gap: 12px;
+    margin-bottom: 12px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -1008,7 +1009,6 @@ a {
 .css-1grjlwr {
     position: absolute;
     border-radius: 8px;
-    bottom: -8px;
     right: 12px;
 }
 
