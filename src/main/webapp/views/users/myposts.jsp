@@ -16,21 +16,73 @@
     $(function () {
         mypage.init();
     });
+
+    function goBack() {
+        window.history.back();
+    }
+
+    function onClickPostDetail(postId){
+        location.href = "<c:url value="/posts"/>?id=" + postId;
+    }
+
+    // POST 좋아요
+    document.addEventListener('DOMContentLoaded', function() {
+        let likeButtons = document.querySelectorAll('.imoticon');
+
+        likeButtons.forEach(function(likeButton) {
+            likeButton.addEventListener('click', function(event) {
+                event.stopPropagation();
+                let postId = this.getAttribute('data-post-id');
+                let isLiked = this.classList.contains('liked');
+                if(isLiked) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "<c:url value="/likes/post"/>?id=" + postId,
+                        success: function (response) {
+                            let newCount = response;
+
+                            likeButton.innerHTML = '<img src="<c:url value="/img/likeNone.svg"/>" alt="like"/>';
+                            likeButton.classList.remove('liked');
+                            likeButton.nextElementSibling.textContent = newCount;
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '<c:url value="/likes/post"/>?id=' + postId,
+                        success: function (response) {
+                            let newCount = response;
+                            // 좋아요 이미지 변경
+                            likeButton.innerHTML = '<img src="<c:url value="/img/like.svg"/>" alt="like"/>';
+                            likeButton.classList.add('liked'); // 좋아요 상태로 변경
+                            likeButton.nextElementSibling.textContent = newCount;
+                        }
+                    });
+                }
+
+            });
+        });
+    });
 </script>
 
 <div class="myposts">
+    <div class="header">
+        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="/img/back.svg" alt="back"></a></div>
+        <h3 class="title">내가 작성한 게시글</h3>
+        <div class="back"></div>
+    </div>
     <div class="myposts">
         <div class="breadcrumbs">
             <a href="<c:url value="/users/mypage"/>">프로필</a>
             <span class="dot">></span>
-            <a href="<c:url value="/users/myposts"/>">내가 작성한 게시글1</a>
+            <a href="<c:url value="/users/myposts"/>">내가 작성한 게시글</a>
         </div>
         <div class="postList">
             <c:forEach var="p" items="${posts}">
                 <div class="postItem">
-                    <a href="<c:url value="/posts"/>?id=${p.postId}">
+                    <div onclick="onClickPostDetail(${p.postId})">
                         <h2 class="title">${p.title}</h2>
-                        <div class="content">${p.content}</div>
+                        <div class="content">${p.title}</div>
                         <div class="info">
                             <div class="textInfo">
                                 <span>${p.createDate}</span>
@@ -43,11 +95,41 @@
                                 </c:if>
                             </div>
                             <div class="cntInfo">
-                                <div class="like item"><span class="imoticon">👍🏿</span><span class="cnt">${p.likes}</span></div>
-                                <div class="comment item"><span class="imoticon">◘</span><span class="cnt">${p.commentCount}</span></div>
+                                <div class="like item">
+                                        <%--                                좋아요 버튼--%>
+                                    <c:choose>
+                                        <c:when test="${sessionScope.id == null}">
+                                            <button class="imoticon" onclick="pleaseLogin()">
+                                                <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
+                                            </button>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:choose>
+                                                <%--                                            좋아요를 하지 않은 경우--%>
+                                                <c:when test="${p.isLiked == null}">
+                                                    <button class="imoticon likeButton" data-post-id="${p.postId}">
+                                                        <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
+                                                    </button>
+                                                </c:when>
+                                                <%--                                            좋아요를 이미 한 경우--%>
+                                                <c:otherwise>
+                                                    <button class="imoticon likeButton liked" data-post-id="${p.postId}">
+                                                        <img src="<c:url value='/img/like.svg'/>" alt="like"/>
+                                                    </button>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:otherwise>
+                                    </c:choose>
+                                        <%--                                좋아요 수--%>
+                                    <span class="cnt">${p.likes}</span>
+                                </div>
+                                <div class="comment item">
+                                    <span class="imoticon"><img src="<c:url value="/img/comment.svg"/>"/></span>
+                                    <span class="cnt">${p.commentCount}</span>
+                                </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </c:forEach>
         </div>

@@ -37,7 +37,7 @@
         post.init();
     });
 
-// 뒤로가기
+    // 뒤로가기
     function goBack() {
         window.history.back();
     }
@@ -176,10 +176,11 @@
 </script>
 
 
+
 <div class="post">
     <div class="header">
 <%--        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>--%>
-        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="<c:url value='/img/back.svg'/>" alt="like"/></a></div>
+        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="<c:url value='/img/back.svg'/>" alt="back"/></a></div>
         <h3 class="title">자유 게시판</h3>
         <div class="back"></div>
     </div>
