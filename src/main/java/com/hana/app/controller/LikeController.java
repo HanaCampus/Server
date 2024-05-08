@@ -68,7 +68,9 @@ public class LikeController {
         LikedCommentDto likedCommentDto = LikedCommentDto.builder().userId(userId).commentId(id).build();
         likedCommentService.add(likedCommentDto);
         commentService.modifyLikeCount(id);
-        return "";
+        CommentDto commentDto = commentService.get(id);
+        String likeNum = String.valueOf(commentDto.getLikes());
+        return likeNum;
     }
 
 
@@ -80,7 +82,11 @@ public class LikeController {
             LikedCommentDto likedCommentDto = likedCommentService.isLikedCommentByUserId(id, userId);
             log.info("서윤3");
             log.info(likedCommentDto.toString());
+            likedCommentService.del(likedCommentDto.getLikedCommentId());
             commentService.modifyLikeCount(likedCommentDto.getCommentId());
+            CommentDto commentDto = commentService.get(id);
+            String likeNum = String.valueOf(commentDto.getLikes());
+            return likeNum;
         }catch (Exception e){
             e.printStackTrace();
         }
