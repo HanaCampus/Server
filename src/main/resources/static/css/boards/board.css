@@ -29,3 +29,21 @@
         background: var(--board-hover-bg-color);
     }
 }
+
+.postItem {
+    .title {
+        width: 100%;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .content {
+        display:-webkit-box;
+        -webkit-line-clamp:1;
+        -webkit-box-orient:vertical;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+}

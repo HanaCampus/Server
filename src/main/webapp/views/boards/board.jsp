@@ -77,28 +77,28 @@
 
     <div class="postList">
         <c:forEach var="p" items="${cpage.getList()}">
-        <div class="postItem">
-            <a href="<c:url value="/posts"/>?id=${p.postId}">
-                <h2 class="title">${p.title}</h2>
-                <div class="content">${p.content}</div>
-                <div class="info">
-                    <div class="textInfo">
-                        <span>${p.createDate}</span>
-                        <span class="division">|</span>
-                        <c:if test="${p.anonymous == false}">
-                            <span>${p.userDto.nickname}</span>
-                        </c:if>
-                        <c:if test="${p.anonymous == true}">
-                            <span>익명</span>
-                        </c:if>
+            <div class="postItem">
+                <a href="<c:url value="/posts"/>?id=${p.postId}">
+                    <h2 class="title">${p.title}</h2>
+                    <div class="content">${p.content}</div>
+                    <div class="info">
+                        <div class="textInfo">
+                            <span>${p.createDate}</span>
+                            <span class="division">|</span>
+                            <c:if test="${p.anonymous == false}">
+                                <span>${p.userDto.nickname}</span>
+                            </c:if>
+                            <c:if test="${p.anonymous == true}">
+                                <span>익명</span>
+                            </c:if>
+                        </div>
+                        <div class="cntInfo">
+                            <div class="like item"><span class="imoticon"><img src="<c:url value="/img/like.svg"/>"/></span><span class="cnt">${p.likes}</span></div>
+                            <div class="comment item"><span class="imoticon">◘</span><span class="cnt">${p.commentCount}</span></div>
+                        </div>
                     </div>
-                    <div class="cntInfo">
-                        <div class="like item"><span class="imoticon"><img src="<c:url value="/img/like.svg"/>"/></span><span class="cnt">${p.likes}</span></div>
-                        <div class="comment item"><span class="imoticon">◘</span><span class="cnt">${p.commentCount}</span></div>
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
         </c:forEach>
     </div>
 </div>
