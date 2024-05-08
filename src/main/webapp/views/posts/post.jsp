@@ -31,13 +31,33 @@
                 'action': '<c:url value="/posts/writecomment?postId=${postId}"/>'
             });
             $('#writeCommentForm').submit();
+        },
+        report: function (type, typeId, reportCategoryId) {
+            console.log(type);
+            console.log(typeId);
+            console.log(reportCategoryId);
+            // type: post or comment
+            $.ajax({
+                type: 'post',
+                url: '<c:url value="/reports/"/>' + type,
+                data: {'id': typeId, 'reportCategoryId': reportCategoryId},
+                success: function (data) {
+                    if(data === "0") {
+                        alert("해당 게시물의 신고가 이미 접수됐습니다.");
+                        return;
+                    }
+
+                    alert("신고가 성공적으로 접수됐습니다.");
+                }
+            });
         }
     };
+
     $(function () {
         post.init();
     });
 
-// 뒤로가기
+    // 뒤로가기
     function goBack() {
         window.history.back();
     }
@@ -158,7 +178,7 @@
         });
     });
 
-    //SCRAP 스크랩
+    // SCRAP 스크랩
     document.addEventListener('DOMContentLoaded', function() {
         var scrapBtn = document.querySelector('.scrapButton');
         scrapBtn.addEventListener('click', function(event) {
@@ -241,13 +261,13 @@
                         <div id="otherDropdownPost" class="dropdown-content">
                             <a class="dropbtn" onclick="toggleReportDropdownPost()">신고하기⬇️</a>
                             <div id="reportDropdownPost" class="dropdown-content">
-                                <a href="#">게시판 및 성격 부적절함</a>
-                                <a href="#">욕설/비하</a>
-                                <a href="#">음란물/불건전 만남 및 대화</a>
-                                <a href="#">상업적 광고 및 판매</a>
-                                <a href="#">유출/사칭/사기</a>
-                                <a href="#">낚시/놀람/도배</a>
-                                <a href="#">정당/정치인 비하 및 운동</a>
+                                <a onclick="post.report('post', ${postId}, 1)">게시판 및 성격 부적절함</a>
+                                <a onclick="post.report('post', ${postId}, 2)">욕설/비하</a>
+                                <a onclick="post.report('post', ${postId}, 3)">음란물/불건전 만남 및 대화</a>
+                                <a onclick="post.report('post', ${postId}, 4)">상업적 광고 및 판매</a>
+                                <a onclick="post.report('post', ${postId}, 5)">유출/사칭/사기</a>
+                                <a onclick="post.report('post', ${postId}, 6)">낚시/놀람/도배</a>
+                                <a onclick="post.report('post', ${postId}, 7)">정당/정치인 비하 및 운동</a>
                             </div>
                         </div>
                     </div>
@@ -387,13 +407,13 @@
                                         <div id="otherDropdownComment${c.commentId}" class="dropdown-content">
                                             <a class="dropbtn" onclick="toggleReportDropdownComment()">신고하기⬇️</a>
                                             <div id="reportDropdownComment" class="dropdown-content">
-                                                <a href="#">게시판 및 성격 부적절함</a>
-                                                <a href="#">욕설/비하</a>
-                                                <a href="#">음란물/불건전 만남 및 대화</a>
-                                                <a href="#">상업적 광고 및 판매</a>
-                                                <a href="#">유출/사칭/사기</a>
-                                                <a href="#">낚시/놀람/도배</a>
-                                                <a href="#">정당/정치인 비하 및 운동</a>
+                                                <a onclick="post.report('comment', ${c.commentId}, 1)">게시판 및 성격 부적절함</a>
+                                                <a onclick="post.report('comment', ${c.commentId}, 2)">욕설/비하</a>
+                                                <a onclick="post.report('comment', ${c.commentId}, 3)">음란물/불건전 만남 및 대화</a>
+                                                <a onclick="post.report('comment', ${c.commentId}, 4)">상업적 광고 및 판매</a>
+                                                <a onclick="post.report('comment', ${c.commentId}, 5)">유출/사칭/사기</a>
+                                                <a onclick="post.report('comment', ${c.commentId}, 6)">낚시/놀람/도배</a>
+                                                <a onclick="post.report('comment', ${c.commentId}, 7)">정당/정치인 비하 및 운동</a>
                                             </div>
                                         </div>
                                     </div>
