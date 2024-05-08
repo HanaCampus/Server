@@ -9,25 +9,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
-<div>
-<%--    <div class="css-1hgree4">--%>
-<%--        <a data-theme="primary" class="css-3hax7m" href="/all-articles">게시판</a>--%>
-<%--        <a data-theme="secondary" class="css-1rdqar8" href="/hot-articles">게시판</a>--%>
-<%--    </div>--%>
-    <div class="css-65egb5">
-        <a class="css-hthzsn" href="<c:url value="/boards"/>?id=1&pageNo=1">
-            <div>
-                <h2 class="css-kdssxn">자유 게시판</h2>
-                <p class="css-ftwqip">자유롭게 글을 작성</p>
-            </div>
-            <img
-                    src="<c:url value="/img/board1.png"/>"
-                    alt="게시판 이미지"
-                    loading="lazy"
-                    width="100px"
-                    decoding="async"
-                    data-nimg="1"
-                    class="css-1grjlwr" />
-        </a>
-    </div>
+
+<script>
+
+    $(function () {
+        $.ajax({
+            type: 'GET',
+            url: '<c:url value="/boards/list"/>',
+            success: function (response) {
+                response.forEach(function (board) {
+                    var imgSrc = '<c:url value="/img/' + board.img + '"/>';
+                    var boardHtml = '<div class="css-65egb5">' +
+                        '<a class="css-hthzsn" href="/boards?id=' + board.boardId + '&pageNo=1">' +
+                        // '<div class="boardContainer">'+
+                            '<div>' +
+                                '<h2 class="css-kdssxn">' + board.name + '</h2>' +
+                                '<p class="css-ftwqip">' + board.content+ '</p>' +
+                            '</div>' +
+                            '<img src="' + imgSrc + '" alt="게시판 이미지" loading="lazy" height="100px" decoding="async" data-nimg="1" class="css-1grjlwr" />' +
+                        // '</div>'+
+                        '</a>' +
+                        '</div>';
+
+                    // 생성된 HTML을 center 아래에 추가
+                    $('.center').append(boardHtml);
+                });
+            }
+        });
+    });
+
+</script>
+
+<div class="center">
 </div>

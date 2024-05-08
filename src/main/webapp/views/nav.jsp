@@ -31,13 +31,13 @@
             <c:choose>
                 <c:when test="${sessionScope.id == null}">
                     <button onclick="onClickLoginPage()">
-                        <div>로그인</div>
+                        <img src="<c:url value="/img/login.svg"/>" alt="로그인"/>
                     </button>
                 </c:when>
                 <c:otherwise>
                     <button>
                         <a href="<c:url value="/users/mypage"/>">
-                            <div>마이페이지</div>
+                            <img src="<c:url value="/img/mypage.svg"/>" alt="마이페이지"/>
                         </a>
                     </button>
                 </c:otherwise>
