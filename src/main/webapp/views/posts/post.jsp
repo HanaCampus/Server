@@ -73,7 +73,7 @@
     <div class="breadcrumbs">
         <a href="<c:url value="/"/>">게시판 목록</a>
         <span class="dot">></span>
-        <a href="<c:url value="/boards"/>?id=${boardId}&pageNo=1">${boardId == 1 ? "자유 게시판" : "게시판 추가"}</a>
+        <a href="<c:url value="/boards"/>?id=${boardId}&pageNo=1">${boardName}</a>
         <span class="dot">></span>
         <a href="<c:url value="/posts"/>?id=${postId}">게시글 상세</a>
     </div>
