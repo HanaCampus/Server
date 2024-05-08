@@ -39,7 +39,7 @@
     }
     .termOfService{
         font-size: 20px;
-        background-color: #8890a8;
+        background-color: #208C65;
         padding: 6px 12px;
         border-radius: 12px;
         -webkit-box-align: center;
@@ -79,9 +79,11 @@
         }
     }
     .termContent{
-        background-color: #8890a8;
+        background-color: #208C65;
         border-radius: 12px;
         padding:20px;
+        max-height: 300px;
+        overflow: scroll;
         h2{
             font-size: 24px;
             line-height: 36px;
@@ -122,23 +124,25 @@
 
         $(".term1").click(function () {
             var article = $(this).closest(".termListDiv").find(".first");
-            $(this).text(article.is(":visible") ? "🔽" : "🔼");
+            $(this).html(article.is(":visible") ? '<img src="/img/buttonDown.svg"/>' : '<img src="/img/buttonUp.svg"/>');
             article.slideToggle();
         });
+
         $(".term2").click(function () {
             var article = $(this).closest(".termListDiv").find(".second");
-            $(this).text(article.is(":visible") ? "🔽" : "🔼");
+            $(this).html(article.is(":visible") ? '<img src="/img/buttonDown.svg"/>' : '<img src="/img/buttonUp.svg"/>');
             article.slideToggle();
         });
+
         $(".term3").click(function () {
             var article = $(this).closest(".termListDiv").find(".third");
-            $(this).text(article.is(":visible") ? "🔽" : "🔼");
+            $(this).html(article.is(":visible") ? '<img src="/img/buttonDown.svg"/>' : '<img src="/img/buttonUp.svg"/>');
             article.slideToggle();
         });
 
 
         // 전체 동의 체크박스 선택/해제
-        $('#agreeAll').prop('checked', function(i, val) {
+        $('#agreeAll').prop('checked', function (i, val) {
             $('input[type="checkbox"]').prop('checked', val);
         });
         $('#agreeAll').on('click', function() {
@@ -154,7 +158,6 @@
             var checkedCheckboxes = $('input[type="checkbox"]').not('#agreeAll').filter(':checked').length;
             $('.nextButton').prop('disabled', totalCheckboxes !== checkedCheckboxes);
 
-            console.log("tjdbs", totalCheckboxes === checkedCheckboxes);
             // 전체 동의 체크박스 상태 변경
             $('#agreeAll').prop('checked', totalCheckboxes === checkedCheckboxes);
         });
@@ -188,7 +191,7 @@
                     <label>
                         <input type="checkbox" name="agreement"> <span class="require">(필수)</span> <span class="content">서비스 이용 약관</span>
                     </label>
-                    <span class="toggle term1">🔽</span>
+                    <span class="toggle term1"><img src="<c:url value="/img/buttonDown.svg"/>"/></span>
                 </div>
                 <article class="termContent first"><h2>제1조 (목적)</h2>
                     <p>
@@ -496,7 +499,7 @@
                     <label>
                         <input type="checkbox" name="agreement"><span class="require">(필수)</span> <span class="content">개인정보 이용 약관</span>
                     </label>
-                    <span class="toggle term2">🔽</span>
+                    <span class="toggle term2"><img src="<c:url value="/img/buttonDown.svg"/>"/></span>
                 </div>
                 <article class="termContent second"><h2>HANACAMPUS 개인정보 처리방침</h2>
 
@@ -543,7 +546,7 @@
                     <label>
                         <input type="checkbox" name="agreement"><span class="require">(필수)</span> <span class="content"> 커뮤니티 이용 약관</span>
                     </label>
-                    <span class="toggle term3">🔽</span>
+                    <span class="toggle term3"><img src="<c:url value="/img/buttonDown.svg"/>"/></span>
                 </div>
                 <article class="termContent third"><h2> 제1조 (목적)</h2>
                     <p>이 규칙은 단체 HANACAMPUS(이하 "단체"라 합니다.)가 운영하는

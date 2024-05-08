@@ -81,7 +81,7 @@
                 gap: 10px;
                 display: flex;
                 &:hover{
-                 background-color: #04B404;
+                 background-color: #208C6E;
                 }
             }
             button:hover {
@@ -140,11 +140,11 @@
     <h3 class="containerTitle">정보</h3>
     <div class="menuContainer">
         <button onclick="onClickMyScrap()">
-            <div>🏷️</div>
+<%--            <div>🏷️</div>--%>
             <span>나의 스크랩</span>
         </button>
         <button onclick="onClickMyPosts()">
-            <div>📃</div>
+<%--            <div>📃</div>--%>
             <span>내가 작성한 글</span>
         </button>
     </div>
@@ -152,7 +152,7 @@
     <h3 class="containerTitle">내 정보</h3>
     <div class="menuContainer">
         <button onclick="onClickChangeNicknamePage()">
-            <div>🧸</div>
+<%--            <div>💾</div>--%>
             <span>닉네임 변경페이지</span>
         </button>
     </div>
@@ -160,11 +160,11 @@
     <h3 class="containerTitle">정보</h3>
     <div class="menuContainer">
         <button onclick="onClickLogout()">
-            <div>🎈</div>
+<%--            <div>🔓</div>--%>
             <span>로그아웃</span>
         </button>
         <button onclick="onClickSignout()">
-            <div>🧹</div>
+<%--            <div>🚪</div>--%>
             <span>탈퇴하기</span>
         </button>
     </div>
