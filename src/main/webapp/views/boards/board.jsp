@@ -20,6 +20,11 @@
 
                 this.send();
             });
+
+            $('#writePostBtn').click(() => {
+                let boardId = $('#boardId').val();
+                location.href = "<c:url value="/posts/writepost"/>?boardId=" + boardId + "&pageNo=1";
+            })
         },
         send: function () {
             $('#searchForm').attr({
@@ -37,25 +42,20 @@
     function onClickPostDetail(postId){
         location.href = "<c:url value="/posts"/>?id=" + postId;
     }
-    function pleaseLogin() {
-        alert("로그인 후, 이용해주세요!");
-        location.reload();
-    }
 
-
-    //POST 좋아요
+    // POST 좋아요
     document.addEventListener('DOMContentLoaded', function() {
-        var likeButtons = document.querySelectorAll('.likeEmoticon');
+        let likeButtons = document.querySelectorAll('.imoticon');
 
         likeButtons.forEach(function(likeButton) {
             likeButton.addEventListener('click', function(event) {
                 event.stopPropagation();
-                var postId = this.getAttribute('data-post-id');
-                var isLiked = this.classList.contains('liked');
-                if(isLiked){
+                let postId = this.getAttribute('data-post-id');
+                let isLiked = this.classList.contains('liked');
+                if(isLiked) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "<c:url value="/likes/post"/>?id="+postId,
+                        url: "<c:url value="/likes/post"/>?id=" + postId,
                         success: function (response) {
                             let newCount = response;
 
@@ -64,7 +64,7 @@
                             likeButton.nextElementSibling.textContent = newCount;
                         }
                     });
-                }else{
+                } else {
                     $.ajax({
                         type: 'POST',
                         url: '<c:url value="/likes/post"/>?id=' + postId,
@@ -92,22 +92,11 @@
         <div class="back"></div>
     </div>
 
-    <div class="breadcrumbs postHome">
+    <div class="breadcrumbs">
         <div>
             <a href="<c:url value="/"/>">게시판 목록</a>
             <span class="dot">></span>
             <a href="<c:url value="/boards"/>?id=${boardId}&pageNo=1">${boardName}</a>
-        </div>
-
-        <div class="button">
-            <c:choose>
-                <c:when test="${sessionScope.id == null}">
-                    <a onclick="pleaseLogin()">글쓰기</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="<c:url value="/posts/writepost"/>?boardId=${boardId}&pageNo=1">글쓰기</a>
-                </c:otherwise>
-            </c:choose>
         </div>
     </div>
 
@@ -141,23 +130,23 @@
                             <div class="like item">
                                 <!-- 좋아요 버튼 -->
                                 <c:choose>
+                                    <!-- 로그인되지 않은 경우 -->
                                     <c:when test="${sessionScope.id == null}">
-                                        <!-- 로그인되지 않은 경우 -->
                                         <button class="imoticon" onclick="pleaseLogin()">
                                             <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
                                         </button>
                                     </c:when>
+                                    <!-- 로그인된 경우 -->
                                     <c:otherwise>
-                                        <!-- 로그인된 경우 -->
                                         <c:choose>
+                                            <!-- 좋아요를 하지 않은 경우 -->
                                             <c:when test="${p.isLiked == null}">
-                                                <!-- 좋아요를 하지 않은 경우 -->
                                                 <button class="imoticon likeButton" data-post-id="${p.postId}">
                                                     <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
                                                 </button>
                                             </c:when>
+                                            <!-- 좋아요를 이미 한 경우 -->
                                             <c:otherwise>
-                                                <!-- 좋아요를 이미 한 경우 -->
                                                 <button class="imoticon likeButton liked" data-post-id="${p.postId}">
                                                     <img src="<c:url value='/img/like.svg'/>" alt="like"/>
                                                 </button>
@@ -180,3 +169,12 @@
     </div>
 </div>
 
+<c:if test="${sessionScope.id != null}">
+    <img id="writePostBtn" src="<c:url value="/img/writePostBtn.svg"/> ">
+</c:if>
+
+<%-- sesson_id 정보 --%>
+<input type="hidden" id="userId" value="${sessionScope.id}">
+
+<%-- board_id 정보 --%>
+<input type="hidden" id="boardId" value="${boardId}">
