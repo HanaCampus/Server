@@ -37,6 +37,11 @@
         post.init();
     });
 
+// 뒤로가기
+    function goBack() {
+        window.history.back();
+    }
+
     /* Dropdown을 토글하는 함수 */
     function toggleDropdownPost() {
         let dropdownPostContent = document.getElementById("myDropdownPost");
@@ -114,7 +119,7 @@
                         success: function (response) {
                             let newCount = response;
 
-                            likeButton.innerHTML = '<img src="<c:url value="/img/likeNone.svg"/>" alt="like"/>';
+                            likeButton.innerHTML = '<img src="<c:url value="/img/likeCommentNone.svg"/>" alt="like"/>';
                             likeButton.classList.remove('liked');
                             likeButton.nextElementSibling.textContent = newCount;
                         }
@@ -126,7 +131,7 @@
                         success: function (response) {
                             let newCount = response;
                             // 좋아요 이미지 변경
-                            likeButton.innerHTML = '<img src="<c:url value="/img/like.svg"/>" alt="like"/>';
+                            likeButton.innerHTML = '<img src="<c:url value="/img/likeComment.svg"/>" alt="like"/>';
                             likeButton.classList.add('liked'); // 좋아요 상태로 변경
                             likeButton.nextElementSibling.textContent = newCount;
                         }
@@ -173,7 +178,8 @@
 
 <div class="post">
     <div class="header">
-        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>
+<%--        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>--%>
+        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="<c:url value='/img/back.svg'/>" alt="like"/></a></div>
         <h3 class="title">자유 게시판</h3>
         <div class="back"></div>
     </div>
@@ -232,13 +238,13 @@
                             <c:choose>
                                 <c:when test="${post.isLiked == null}">
                                     <!-- 좋아요를 하지 않은 경우 -->
-                                    <button class="likeEmoticon likeButton" data-post-id="${post.postId}">
+                                    <button class="likeEmoticon imoticon likeButton" data-post-id="${post.postId}">
                                         <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
                                     </button>
                                 </c:when>
                                 <c:otherwise>
                                     <!-- 좋아요를 이미 한 경우 -->
-                                    <button class="likeEmoticon likeButton liked" data-post-id="${post.postId}">
+                                    <button class="likeEmoticon imoticon likeButton liked" data-post-id="${post.postId}">
                                         <img src="<c:url value='/img/like.svg'/>" alt="like"/>
                                     </button>
                                 </c:otherwise>
@@ -251,23 +257,23 @@
 
                 <c:choose>
                     <c:when test="${sessionScope.id == null}">
-                        <!-- 로그인되지 않은 경우 -->
+<%--                        로그인되지 않은 경우--%>
                         <button class="scrapButton" onclick="pleaseLogin()">
                             <img src="<c:url value='/img/scrapNone.svg'/>" alt="scrap"/>
                         </button>
                     </c:when>
                     <c:otherwise>
-                        <!-- 로그인된 경우 -->
+<%--                        로그인된 경우--%>
                         <c:choose>
                             <c:when test="${post.isScraped == null}">
-                                <!-- 스크랩을 하지 않은 경우 -->
-                                <button class="scrapButton" data-scrap-id="${post.postId}">
+<%--                                스크랩을 하지 않은 경우--%>
+                                <button class="scrapButton imoticon" data-scrap-id="${post.postId}">
                                     <img src="<c:url value='/img/scrapNone.svg'/>" alt="scrap"/>
                                 </button>
                             </c:when>
                             <c:otherwise>
-                                <!-- 스크랩을 이미 한 경우 -->
-                                <button class="scrapButton isScrap" data-scrap-id="${post.postId}">
+<%--                                스크랩을 이미 한 경우--%>
+                                <button class="scrapButton imoticon isScrap" data-scrap-id="${post.postId}">
                                     <img src="<c:url value='/img/scrap.svg'/>" alt="scrap"/>
                                 </button>
                             </c:otherwise>
@@ -277,9 +283,6 @@
                 <span class="cnt">${post.scraps}</span>
             </div>
 
-            <div class="BoxItem">
-                <div class="item"><span class="imoticon">🔖</span><span class="cnt">${post.commentCount}</span></div>
-            </div>
         </div>
     </div>
 
@@ -304,33 +307,33 @@
                         </div>
                         <div class="rightBox">
                             <div class="cntItem">
-                                    <!-- 좋아요 버튼 -->
+<%--                                    좋아요 버튼--%>
                                     <c:choose>
                                         <c:when test="${sessionScope.id == null}">
-                                            <!-- 로그인되지 않은 경우 -->
+<%--                                            로그인되지 않은 경우--%>
                                             <button class="likePostEmoticon" onclick="pleaseLogin()">
-                                                <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
+                                                <img src="<c:url value='/img/likeCommentNone.svg'/>" alt="like"/>
                                             </button>
                                         </c:when>
                                         <c:otherwise>
-                                            <!-- 로그인된 경우 -->
+<%--                                            로그인된 경우--%>
                                             <c:choose>
                                                 <c:when test="${c.isLiked == null}">
-                                                    <!-- 좋아요를 하지 않은 경우 -->
+<%--                                                    좋아요를 하지 않은 경우 --%>
                                                     <button class="likePostEmoticon likeButton" data-comment-id="${c.commentId}">
-                                                        <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
+                                                        <img src="<c:url value='/img/likeCommentNone.svg'/>" alt="like"/>
                                                     </button>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <!-- 좋아요를 이미 한 경우 -->
+<%--                                                    좋아요를 이미 한 경우 --%>
                                                     <button class="likePostEmoticon likeButton liked" data-comment-id="${c.commentId}">
-                                                        <img src="<c:url value='/img/like.svg'/>" alt="like"/>
+                                                        <img src="<c:url value='/img/likeComment.svg'/>" alt="like"/>
                                                     </button>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:otherwise>
                                     </c:choose>
-                                    <!-- 좋아요 수 -->
+<%--                                    좋아요 수--%>
                                     <span class="cnt">${c.likes}</span>
 
                             </div>
