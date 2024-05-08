@@ -57,7 +57,7 @@ public class AuthController {
                     return "redirect:/";
                 }
                 if (userDto.isAdmin()){
-                    return "redirect:/admin";
+                    return "redirect:/admins";
                 }
                 httpSession.setAttribute("id", userDto.getUserId());
                 return "redirect:/";
