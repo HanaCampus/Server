@@ -1,6 +1,6 @@
 /* 전역 변수 설정 */
 :root {
-    --board-hover-bg-color: #5d5d5d;
+    --board-hover-bg-color: rgba(210, 255, 220, 0.2);
 }
 
 /* 기본 Tag 속성 */
