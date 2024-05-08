@@ -58,6 +58,7 @@ public class BoardController {
 
         model.addAttribute("paginationPath", paginationPath);
         model.addAttribute("boardId", boardId);
+        model.addAttribute("boardName", boardService.get(boardId).getName());
         model.addAttribute("cpage", pageInfo);
         model.addAttribute("center", dir + "board");
 
