@@ -122,56 +122,60 @@
 
     <div class="postList">
         <c:forEach var="p" items="${cpage.getList()}">
-        <div class="postItem">
-<%--            <a href="#">--%>
-            <div onclick="onClickPostDetail(${p.postId})">
-                <h2 class="title">${p.title}</h2>
-                <div class="content">${p.content}</div>
-                <div class="info">
-                    <div class="textInfo">
-                        <span>${p.createDate}</span>
-                        <span class="division">|</span>
-                        <c:if test="${p.anonymous == false}">
-                            <span>${p.userDto.nickname}</span>
-                        </c:if>
-                        <c:if test="${p.anonymous == true}">
-                            <span>익명</span>
-                        </c:if>
-                    </div>
-                    <div class="cntInfo">
-                        <div class="like item">
-                            <c:choose>
-                                <c:when test="${sessionScope.id == null}">
-                                    <!-- 로그인되지 않은 경우 -->
-                                    <button class="imoticon" onclick="pleaseLogin()">
-                                        <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
-                                    </button>
-                                </c:when>
-                                <c:otherwise>
-                                    <!-- 로그인된 경우 -->
-                                    <c:choose>
-                                        <c:when test="${p.isLiked == null}">
-                                            <!-- 좋아요를 하지 않은 경우 -->
-                                            <button class="imoticon likeButton" data-post-id="${p.postId}">
-                                                <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
-                                            </button>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <!-- 좋아요를 이미 한 경우 -->
-                                            <button class="imoticon likeButton liked" data-post-id="${p.postId}">
-                                                <img src="<c:url value='/img/like.svg'/>" alt="like"/>
-                                            </button>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:otherwise>
-                            </c:choose>
-                            <span class="cnt">${p.likes}</span>
+            <div class="postItem">
+                <div onclick="onClickPostDetail(${p.postId})">
+                    <h2 class="title">${p.title}</h2>
+                    <div class="content">${p.content}</div>
+                    <div class="info">
+                        <div class="textInfo">
+                            <span>${p.createDate}</span>
+                            <span class="division">|</span>
+                            <c:if test="${p.anonymous == false}">
+                                <span>${p.userDto.nickname}</span>
+                            </c:if>
+                            <c:if test="${p.anonymous == true}">
+                                <span>익명</span>
+                            </c:if>
                         </div>
-                        <div class="comment item"><span class="imoticon"><img src="<c:url value="/img/comment.svg"/>"/></span><span class="cnt">${p.commentCount}</span></div>
+                        <div class="cntInfo">
+                            <div class="like item">
+                                <!-- 좋아요 버튼 -->
+                                <c:choose>
+                                    <c:when test="${sessionScope.id == null}">
+                                        <!-- 로그인되지 않은 경우 -->
+                                        <button class="imoticon" onclick="pleaseLogin()">
+                                            <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
+                                        </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- 로그인된 경우 -->
+                                        <c:choose>
+                                            <c:when test="${p.isLiked == null}">
+                                                <!-- 좋아요를 하지 않은 경우 -->
+                                                <button class="imoticon likeButton" data-post-id="${p.postId}">
+                                                    <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <!-- 좋아요를 이미 한 경우 -->
+                                                <button class="imoticon likeButton liked" data-post-id="${p.postId}">
+                                                    <img src="<c:url value='/img/like.svg'/>" alt="like"/>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
+                                <!-- 좋아요 수 -->
+                                <span class="cnt">${p.likes}</span>
+                            </div>
+                            <div class="comment item">
+                                <span class="imoticon"><img src="<c:url value="/img/comment.svg"/>"/></span>
+                                <span class="cnt">${p.commentCount}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </a>
-        </div>
+            </div>
         </c:forEach>
     </div>
 </div>
