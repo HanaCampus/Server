@@ -44,4 +44,12 @@ public class ReportedPostService implements HanaService<Integer, ReportedPostDto
     public ReportedPostDto findDuplicateOne(Integer postId, Integer userId) throws Exception {
         return reportedPostRepository.selectDuplicateOne(postId, userId);
     }
+
+    public int completeReport(Integer postId) throws Exception {
+        return reportedPostRepository.completeReport(postId);
+    }
+
+    public List<ReportedPostDto> completedReports() throws Exception{
+        return reportedPostRepository.completedReports();
+    }
 }

@@ -15,7 +15,7 @@
 <%--        <a data-theme="secondary" class="css-1rdqar8" href="/hot-articles">게시판</a>--%>
 <%--    </div>--%>
     <div class="css-65egb5">
-        <a class="css-hthzsn" href="<c:url value="/admin/reportedposts"/>">
+        <a class="css-hthzsn" href="<c:url value="/admins/reportedposts"/>">
             <div>
                 <h2 class="css-kdssxn">게시글 신고 내역</h2>
             </div>
@@ -28,7 +28,7 @@
                     data-nimg="1"
                     class="css-1grjlwr" />
         </a>
-        <a class="css-hthzsn" href="<c:url value="/admin/reportedcomments"/>">
+        <a class="css-hthzsn" href="<c:url value="/admins/reportedcomments"/>">
             <div>
                 <h2 class="css-kdssxn">댓글 신고 내역</h2>
             </div>
@@ -41,7 +41,7 @@
                     data-nimg="1"
                     class="css-1grjlwr" />
         </a>
-        <a class="css-hthzsn" href="<c:url value="/boards"/>?id=1">
+        <a class="css-hthzsn" href="<c:url value="#"/>">
             <div>
                 <h2 class="css-kdssxn">공지사항 관리</h2>
             </div>

@@ -6,7 +6,6 @@
 
     <resultMap id="reportedComment" type="reportedCommentDto">
         <id column="reported_comment_id" property="reportedCommentId"/>
-<!--        <result column="user_id" property="userId"/>-->
         <result column="create_date" property="createDate"/>
         <result column="update_date" property="updateDate"/>
         <result column="cnt_category_1" property="cntCategory1"/>
@@ -16,6 +15,7 @@
         <result column="cnt_category_5" property="cntCategory5"/>
         <result column="cnt_category_6" property="cntCategory6"/>
         <result column="cnt_category_7" property="cntCategory7"/>
+        <result column="total" property="total"/>
         <association property="writerDto" javaType="userDto">
             <id column="writer_id" property="userId"/>
             <result column="writer_email" property="email"/>
@@ -32,7 +32,7 @@
     </resultMap>
 
     <select id="selectOne" parameterType="Integer" resultMap="reportedComment">
-        SELECT c.comment_id, c.content, wu.user_id AS writer_id, wu.email AS writer_email, wu.nickname AS writer_nickname,
+        SELECT rc.create_date, rc.reported_comment_id, c.comment_id, c.content, wu.user_id AS writer_id, wu.email AS writer_email, wu.nickname AS writer_nickname,
                COUNT(CASE WHEN rc.report_category_id = 1 THEN 1 ELSE NULL END) AS cnt_category_1,
                COUNT(CASE WHEN rc.report_category_id = 2 THEN 1 ELSE NULL END) AS cnt_category_2,
                COUNT(CASE WHEN rc.report_category_id = 3 THEN 1 ELSE NULL END) AS cnt_category_3,
@@ -48,7 +48,8 @@
     </select>
 
     <select id="select" resultMap="reportedComment">
-        SELECT c.comment_id, c.content, wu.user_id AS writer_id, wu.email AS writer_email, wu.nickname AS writer_nickname,
+        SELECT rc.create_date, rc.reported_comment_id, c.comment_id, c.content, wu.user_id AS writer_id, wu.email AS writer_email, wu.nickname AS writer_nickname,
+               COUNT(c.comment_id) AS total,
                COUNT(CASE WHEN rc.report_category_id = 1 THEN 1 ELSE NULL END) AS cnt_category_1,
                COUNT(CASE WHEN rc.report_category_id = 2 THEN 1 ELSE NULL END) AS cnt_category_2,
                COUNT(CASE WHEN rc.report_category_id = 3 THEN 1 ELSE NULL END) AS cnt_category_3,
@@ -56,9 +57,25 @@
                COUNT(CASE WHEN rc.report_category_id = 5 THEN 1 ELSE NULL END) AS cnt_category_5,
                COUNT(CASE WHEN rc.report_category_id = 6 THEN 1 ELSE NULL END) AS cnt_category_6,
                COUNT(CASE WHEN rc.report_category_id = 7 THEN 1 ELSE NULL END) AS cnt_category_7
-        FROM reported_comment AS rc
+        FROM (SELECT * FROM reported_comment WHERE status = 'Active') AS rc
         JOIN comment AS c ON rc.comment_id = c.comment_id
         JOIN user AS wu ON c.user_id = wu.user_id
+        GROUP BY rc.comment_id
+    </select>
+
+    <select id="completedReports" resultMap="reportedComment">
+        SELECT rc.create_date, rc.reported_comment_id, c.comment_id, c.content, wu.user_id AS writer_id, wu.email AS writer_email, wu.nickname AS writer_nickname,
+               COUNT(c.comment_id) AS total,
+               COUNT(CASE WHEN rc.report_category_id = 1 THEN 1 ELSE NULL END) AS cnt_category_1,
+               COUNT(CASE WHEN rc.report_category_id = 2 THEN 1 ELSE NULL END) AS cnt_category_2,
+               COUNT(CASE WHEN rc.report_category_id = 3 THEN 1 ELSE NULL END) AS cnt_category_3,
+               COUNT(CASE WHEN rc.report_category_id = 4 THEN 1 ELSE NULL END) AS cnt_category_4,
+               COUNT(CASE WHEN rc.report_category_id = 5 THEN 1 ELSE NULL END) AS cnt_category_5,
+               COUNT(CASE WHEN rc.report_category_id = 6 THEN 1 ELSE NULL END) AS cnt_category_6,
+               COUNT(CASE WHEN rc.report_category_id = 7 THEN 1 ELSE NULL END) AS cnt_category_7
+        FROM (SELECT * FROM reported_comment WHERE status = 'Completed') AS rc
+                 JOIN comment AS c ON rc.comment_id = c.comment_id
+                 JOIN user AS wu ON c.user_id = wu.user_id
         GROUP BY rc.comment_id
     </select>
 
@@ -70,6 +87,12 @@
     <delete id="delete" parameterType="Integer">
         DELETE FROM reported_comment WHERE reported_comment_id=#{reportedCommentId}
     </delete>
+
+    <update id="completeReport" parameterType="Integer">
+        UPDATE reported_comment
+        SET status="Completed", update_date=NOW()
+        WHERE comment_id=#{commentId}
+    </update>
 
     <select id="selectDuplicateOne" resultType="reportedCommentDto">
         SELECT *
