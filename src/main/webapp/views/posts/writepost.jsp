@@ -71,8 +71,16 @@
             // 전송 버튼 event handler
             $('#writeBtn').click(() => {
                 // 제목이나 내용 안 쓰면 쓰라고 alert문 띄워주는 유효성 체크하기
-                if(window.confirm('게시물 등록하시겠습니까?')) {
-                    this.send();
+                let title = document.getElementById('writeTitle').value;
+                let content = document.getElementById('summernote').value;
+
+                if (title.trim() === '' || content.trim() === '') {
+                    alert('제목과 내용을 모두 입력해주세요.');
+                }
+                else{
+                    if(window.confirm('게시물 등록하시겠습니까?')) {
+                        this.send();
+                    }
                 }
             });
         },
