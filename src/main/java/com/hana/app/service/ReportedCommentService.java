@@ -1,6 +1,7 @@
 package com.hana.app.service;
 
 import com.hana.app.data.dto.ReportedCommentDto;
+import com.hana.app.data.dto.ReportedPostDto;
 import com.hana.app.frame.HanaService;
 import com.hana.app.repository.ReportedCommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,5 +42,13 @@ public class ReportedCommentService implements HanaService<Integer, ReportedComm
 
     public ReportedCommentDto findDuplicateOne(Integer commentId, Integer userId) throws Exception {
         return reportedCommentRepository.selectDuplicateOne(commentId, userId);
+    }
+
+    public int completeReport(Integer commentId) throws Exception {
+        return reportedCommentRepository.completeReport(commentId);
+    }
+
+    public List<ReportedCommentDto> completedReports() throws Exception{
+        return reportedCommentRepository.completedReports();
     }
 }

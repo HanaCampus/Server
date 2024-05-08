@@ -51,18 +51,30 @@
         let dropdownPostContent = document.getElementById("otherDropdownPost");
         dropdownPostContent.classList.toggle("show");
     }
-    function toggleDropdownComment(commentId) {
+    function toggleDropdownMyComment(commentId) {
         let dropdownCommentContent = document.getElementById("myDropdownComment" + commentId);
         dropdownCommentContent.classList.toggle("show");
+    }
+    function toggleDropdownOtherComment(commentId) {
+        let dropdownCommentContent = document.getElementById("otherDropdownComment" + commentId);
+        dropdownCommentContent.classList.toggle("show");
+    }
+    function toggleReportDropdownPost() {
+        let reportDropdownPost = document.getElementById("reportDropdownPost");
+        reportDropdownPost.classList.toggle("show");
+    }
+    function toggleReportDropdownComment() {
+        let reportDropdownComment = document.getElementById("reportDropdownComment");
+        reportDropdownComment.classList.toggle("show");
     }
 
     /* Dropdown이 열려 있을 때 다른 곳을 클릭하면 닫히도록 함 */
     window.onclick = function(event) {
         if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
+            let dropdowns = document.getElementsByClassName("dropdown-content");
+            let i;
             for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
+                let openDropdown = dropdowns[i];
                 if (openDropdown.classList.contains('show')) {
                     openDropdown.classList.remove('show');
                 }
@@ -227,7 +239,16 @@
                     <div class="dropdown">
                         <img onclick="toggleDropdownOtherPost()" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
                         <div id="otherDropdownPost" class="dropdown-content">
-                            <a href="#">신고하기</a>
+                            <a class="dropbtn" onclick="toggleReportDropdownPost()">신고하기⬇️</a>
+                            <div id="reportDropdownPost" class="dropdown-content">
+                                <a href="#">게시판 및 성격 부적절함</a>
+                                <a href="#">욕설/비하</a>
+                                <a href="#">음란물/불건전 만남 및 대화</a>
+                                <a href="#">상업적 광고 및 판매</a>
+                                <a href="#">유출/사칭/사기</a>
+                                <a href="#">낚시/놀람/도배</a>
+                                <a href="#">정당/정치인 비하 및 운동</a>
+                            </div>
                         </div>
                     </div>
                 </c:otherwise>
@@ -351,14 +372,33 @@
                                     <span class="cnt">${c.likes}</span>
 
                             </div>
-                            <c:if test="${id==c.userDto.userId}">
-                                <div class="dropdown">
-                                    <img onclick="toggleDropdownComment(${c.commentId})" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
-                                    <div id="myDropdownComment${c.commentId}" class="dropdown-content">
-                                        <a href="<c:url value="/posts/deleteComment?commentId=${c.commentId}&postId=${postId}"/>">삭제하기</a>
+                            <c:choose>
+                                <c:when test="${id==c.userDto.userId}">
+                                    <div class="dropdown">
+                                        <img onclick="toggleDropdownMyComment(${c.commentId})" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
+                                        <div id="myDropdownComment${c.commentId}" class="dropdown-content">
+                                            <a href="<c:url value="/posts/deleteComment?commentId=${c.commentId}&postId=${postId}"/>">삭제하기</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </c:if>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="dropdown">
+                                        <img onclick="toggleDropdownOtherComment(${c.commentId})" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
+                                        <div id="otherDropdownComment${c.commentId}" class="dropdown-content">
+                                            <a class="dropbtn" onclick="toggleReportDropdownComment()">신고하기⬇️</a>
+                                            <div id="reportDropdownComment" class="dropdown-content">
+                                                <a href="#">게시판 및 성격 부적절함</a>
+                                                <a href="#">욕설/비하</a>
+                                                <a href="#">음란물/불건전 만남 및 대화</a>
+                                                <a href="#">상업적 광고 및 판매</a>
+                                                <a href="#">유출/사칭/사기</a>
+                                                <a href="#">낚시/놀람/도배</a>
+                                                <a href="#">정당/정치인 비하 및 운동</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div class="content" id="contentText">${c.content}</div>

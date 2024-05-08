@@ -16,9 +16,11 @@ public class ReportedPostDto {
     private int userId; // 신고자 정보
     private UserDto writerDto; // Post 작성자 정보
     private PostDto postDto;
+    private int total;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private ReportCategoryDto reportCategoryDto;
+    private String status; // 활성 : Active , 완료 : Completed
 
     // 신고 받은 각 category 개수
     private int cntCategory1;
