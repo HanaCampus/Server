@@ -89,10 +89,9 @@ public class UserController {
     }
     @GetMapping("/agree")
     public String userAgree(Model model,HttpSession httpSession){
-//        TODO: 개발 후 주석 해제
-//        if (httpSession.getAttribute("id"){
-//            return "redirect:/";
-//        }
+        if (httpSession.getAttribute("id") !=null){
+            return "redirect:/";
+        }
         if (httpSession.getAttribute("email") == null){
             return "redirect:/auth/sign-in";
         }

@@ -43,6 +43,11 @@
         location.href = "<c:url value="/posts"/>?id=" + postId;
     }
 
+    // 뒤로가기
+    function goBack() {
+        window.history.back();
+    }
+
     // POST 좋아요
     document.addEventListener('DOMContentLoaded', function() {
         let likeButtons = document.querySelectorAll('.imoticon');
@@ -87,7 +92,7 @@
 
 <div class="board">
     <div class="header">
-        <div class="back"><a class="backBtn" href="<c:url value="/"/>">⇦</a></div>
+        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="<c:url value='/img/back.svg'/>" alt="back"/></a></div>
         <h3 class="title">${boardName}</h3>
         <div class="back"></div>
     </div>
