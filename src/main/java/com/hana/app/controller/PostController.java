@@ -61,7 +61,7 @@ public class PostController {
     }
 
     @GetMapping("/writepost")
-    public String writePost(Model model, @RequestParam("boardId") Integer boardId, @RequestParam("pageNo") Integer pageNo) {
+    public String writePost(Model model, @RequestParam(value = "boardId") Integer boardId , @RequestParam("pageNo") Integer pageNo) {
         model.addAttribute("boardId", boardId);
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("center", dir + "writepost");
@@ -98,8 +98,8 @@ public class PostController {
     @PostMapping("/updatepost")
     public String updatePost(Model model, PostDto postDto) throws Exception {
         postService.modify(postDto);
-
-        model.addAttribute("center", dir + "updatepost");
+        log.info(postDto.toString());
+//        model.addAttribute("center", dir + "updatepost");
 
         return "redirect:/posts?id=" + postDto.getPostId();
     }

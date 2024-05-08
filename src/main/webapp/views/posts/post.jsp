@@ -38,8 +38,12 @@
     });
 
     /* Dropdown을 토글하는 함수 */
-    function toggleDropdownPost() {
+    function toggleDropdownMyPost() {
         let dropdownPostContent = document.getElementById("myDropdownPost");
+        dropdownPostContent.classList.toggle("show");
+    }
+    function toggleDropdownOtherPost() {
+        let dropdownPostContent = document.getElementById("otherDropdownPost");
         dropdownPostContent.classList.toggle("show");
     }
     function toggleDropdownComment(commentId) {
@@ -95,15 +99,25 @@
                 </c:if>
             </div>
 
-            <c:if test="${id==post.userDto.userId}">
-                <div class="dropdown">
-                    <img onclick="toggleDropdownPost()" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
-                    <div id="myDropdownPost" class="dropdown-content">
-                        <a href="<c:url value="/posts/updatepost?postId=${postId}"/>">수정하기</a>
-                        <a href="<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>">삭제하기</a>
+            <c:choose>
+                <c:when test="${id==post.userDto.userId}">
+                    <div class="dropdown">
+                        <img onclick="toggleDropdownMyPost()" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
+                        <div id="myDropdownPost" class="dropdown-content">
+                            <a href="<c:url value="/posts/updatepost?postId=${postId}"/>">수정하기</a>
+                            <a href="<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>">삭제하기</a>
+                        </div>
                     </div>
-                </div>
-            </c:if>
+                </c:when>
+                <c:otherwise>
+                    <div class="dropdown">
+                        <img onclick="toggleDropdownOtherPost()" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
+                        <div id="otherDropdownPost" class="dropdown-content">
+                            <a href="#">신고하기</a>
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="time">${post.createDate}</div>
         <div class="title">${post.title}</div>
