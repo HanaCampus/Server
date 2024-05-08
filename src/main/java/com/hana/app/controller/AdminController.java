@@ -30,9 +30,21 @@ public class AdminController {
     final ReportCategoryService reportCategoryService;
 
     @RequestMapping("")
-    public String main(Model model, @ModelAttribute("alert") String alertMessage) throws Exception {
-        if (alertMessage != null && !alertMessage.isEmpty()) {
-            model.addAttribute("alertMessage", alertMessage);
+    public String main(Model model, @ModelAttribute("alert") String alertMessage,HttpSession httpSession) {
+        try{
+            Integer userId = (Integer) httpSession.getAttribute("id");
+            if (userId != null) {
+                UserDto userDto = userService.get(String.valueOf(userId));
+                log.info(userDto.toString());
+                 if(!userDto.isAdmin()){
+                    return "redirect:/";
+                 }
+            }
+            if (alertMessage != null && !alertMessage.isEmpty()) {
+                model.addAttribute("alertMessage", alertMessage);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
         }
         return dir + "index";
     }
