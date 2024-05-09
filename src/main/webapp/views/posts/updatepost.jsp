@@ -69,27 +69,40 @@
             }
 
             //전송 버튼 event handler
-            $('#writeBtn').click(() => {
+            $('#writeModifyBtn').click(() => {
                 // 제목이나 내용 안 쓰면 쓰라고 alert문 띄워주는 유효성 체크하기
                 if(window.confirm('게시물 수정하시겠습니까?')) {
-                    this.send();
+
+                    sendUpdatePost();
                 }
             });
         },
-        send: function () {
-            $('#writePostForm').attr({
-                'method': 'post',
-                'action': '<c:url value="/posts/updatepost"/>'
-            });
-            $('#writePostForm').submit();
-        }
     };
     $(function () {
         updatepost.init();
     });
+
+    //게시글 수정
+    function sendUpdatePost(){
+        var formData = $('#modifyPostForm').serialize();
+        console.log("??", formData);
+        $.ajax({
+            type: 'POST',
+            url: '<c:url value="/posts/updatepost"/>',
+            data: formData,
+            success: function(response) {
+                <%--window.location.replace('/posts?id='+${postId});--%>
+                goBack();
+            },
+            error: function(xhr, status, error) {
+                alert('게시글 수정에 실패했습니다.');
+            }
+        });
+    }
+
 </script>
 
-<form method="post" action="<c:url value="/posts/updatepost"/>">
+<form id="modifyPostForm">
     <div class="header writeHeader">
         <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="/img/back.svg" alt="back"></a></div>
         <h3 class="title">글 수정하기</h3>
@@ -107,7 +120,7 @@
                     />
                     <label for="anonymousCheckBox" style="color: white">익명</label>
                 </div>
-                <button id="writeBtn" type="submit" style="color: white">➤</button>
+                <button type=button id="writeModifyBtn" style="color: white">➤</button>
             </div>
         </div>
     </div>
