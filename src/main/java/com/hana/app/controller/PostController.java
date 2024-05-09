@@ -49,6 +49,9 @@ public class PostController {
         return "index";
     }
 
+
+
+    @ResponseBody
     @PostMapping("/writecomment")
     public String writeComment(@RequestParam("postId") Integer postId, CommentDto commentDto, HttpSession httpSession) throws Exception {
         Object id = httpSession.getAttribute("id");
@@ -62,8 +65,7 @@ public class PostController {
         } else { // 익명 체크 안했으면
             commentService.addByNotAnonymous(commentDto);
         }
-
-        return "redirect:/posts?id=" + postId;
+        return "1";
     }
 
     @GetMapping("/writepost")
@@ -74,6 +76,8 @@ public class PostController {
 
         return "index";
     }
+
+    @ResponseBody
     @PostMapping("/writepost")
     public String writePost(Model model, PostDto postDto, HttpSession httpSession) throws Exception {
         Object id = httpSession.getAttribute("id");
@@ -85,9 +89,7 @@ public class PostController {
             postService.addByNotAnonymous(postDto);
         }
 
-        model.addAttribute("center", dir + "writepost");
-
-        return "redirect:/boards?id=" + postDto.getBoardId() + "&pageNo=1";
+        return "1";
     }
 
     @GetMapping("/updatepost")
@@ -101,25 +103,31 @@ public class PostController {
 
         return "index";
     }
+
+    @ResponseBody
     @PostMapping("/updatepost")
     public String updatePost(Model model, PostDto postDto) throws Exception {
         postService.modify(postDto);
         log.info(postDto.toString());
 //        model.addAttribute("center", dir + "updatepost");
 
-        return "redirect:/posts?id=" + postDto.getPostId();
+//        return "redirect:/posts?id=" + postDto.getPostId();
+        return "1";
     }
 
-    @GetMapping("/deletePost")
+    @ResponseBody
+    @DeleteMapping("/deletePost")
     public String deletePost(@RequestParam("postId") int postId, @RequestParam("boardId") int boardId) throws Exception {
         postService.del(postId);
 
-        return "redirect:/boards?id=" + boardId + "&pageNo=1";
+        return "1";
     }
-    @GetMapping("/deleteComment")
+
+    @ResponseBody
+    @DeleteMapping("/deleteComment")
     public String deleteComment(@RequestParam("commentId") int commentId, @RequestParam("postId") int postId) throws Exception {
         commentService.del(commentId);
 
-        return "redirect:/posts?id=" + postId;
+        return "1";
     }
 }

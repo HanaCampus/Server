@@ -21,21 +21,60 @@
             $('#writeBtn').click(() => {
                 // 제목이나 내용 안 쓰면 쓰라고 alert문 띄워주는 유효성 체크하기
                 if(window.confirm('댓글 등록하시겠습니까?')) {
-                    this.send();
+                    sendComment();
                 }
             });
         },
-        send: function () {
-            $('#writeCommentForm').attr({
-                'method': 'post',
-                'action': '<c:url value="/posts/writecomment?postId=${postId}"/>'
-            });
-            $('#writeCommentForm').submit();
-        }
+
     };
+
     $(function () {
         post.init();
     });
+
+    //댓글 쓰기
+    function sendComment(){
+        var formData = $('#writeCommentForm').serialize();
+        $.ajax({
+            type: 'POST',
+            url: '<c:url value="/posts/writecomment?postId=${postId}"/>',
+            data: formData,
+            success: function(response) {
+                window.location.replace('/posts?id='+${postId});
+            },
+            error: function(xhr, status, error) {
+                alert('댓글 추가에 실패했습니다.');
+            }
+        });
+    }
+
+    //댓글 삭제
+    function onClickDeleteComment(commentId){
+        $.ajax({
+            type: 'DELETE',
+            url: '<c:url value="/posts/deleteComment?"/>'+'commentId='+commentId+'&postId=${postId}',
+            success: function(response) {
+                window.location.replace('/posts?id='+${postId});
+            },
+            error: function(xhr, status, error) {
+                alert('댓글 삭제에 실패했습니다.');
+            }
+        });
+    }
+
+    //게시글 삭제
+    function onClickDeletePost(){
+        $.ajax({
+            type: 'DELETE',
+            url: '<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>',
+            success: function(response) {
+                window.location.replace('<c:url value="/boards?id=${boardId}&pageNo=1"/>');
+            },
+            error: function(xhr, status, error) {
+                alert('게시글 삭제에 실패했습니다.');
+            }
+        });
+    }
 
     // 뒤로가기
     function goBack() {
@@ -232,7 +271,7 @@
                         <img onclick="toggleDropdownMyPost()" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
                         <div id="myDropdownPost" class="dropdown-content">
                             <a href="<c:url value="/posts/updatepost?postId=${postId}"/>">수정하기</a>
-                            <a href="<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>">삭제하기</a>
+                            <button onclick="onClickDeletePost()">삭제하기</button>
                         </div>
                     </div>
                 </c:when>
@@ -378,7 +417,7 @@
                                     <div class="dropdown">
                                         <img onclick="toggleDropdownMyComment(${c.commentId})" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
                                         <div id="myDropdownComment${c.commentId}" class="dropdown-content">
-                                            <a href="<c:url value="/posts/deleteComment?commentId=${c.commentId}&postId=${postId}"/>">삭제하기</a>
+                                            <button onclick="onClickDeleteComment(${c.commentId})" >삭제하기</button>
                                         </div>
                                     </div>
                                 </c:when>
