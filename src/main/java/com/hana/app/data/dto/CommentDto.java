@@ -35,6 +35,6 @@ public class CommentDto {
             return ""; // createDate가 null인 경우 빈 문자열 반환
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH시 mm분");
-        return createDate.format(formatter);
+        return createDate.plusHours(9).format(formatter);
     }
 }

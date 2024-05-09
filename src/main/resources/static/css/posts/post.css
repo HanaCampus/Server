@@ -162,6 +162,7 @@
         padding: 5px 90px 5px 15px;
         border-radius: 20px;
         border: none;
+        resize: none;
     }
 
     .regist {
