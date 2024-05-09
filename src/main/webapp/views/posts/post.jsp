@@ -263,36 +263,39 @@
                 </c:if>
             </div>
 
-            <c:choose>
-                <c:when test="${id==post.userDto.userId}">
-                    <div class="dropdown">
-                        <img onclick="toggleDropdownMyPost()" class="menuBtn dropbtn"
-                             src="<c:url value="/img/menu.svg"/>"/>
-                        <div id="myDropdownPost" class="dropdown-content">
-                            <a href="<c:url value="/posts/updatepost?postId=${postId}"/>">수정하기</a>
-                            <a href="<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>">삭제하기</a>
-                        </div>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="dropdown">
-                        <img onclick="toggleDropdownOtherPost()" class="menuBtn dropbtn"
-                             src="<c:url value="/img/menu.svg"/>"/>
-                        <div id="otherDropdownPost" class="dropdown-content">
-                            <a class="dropbtn" onclick="toggleReportDropdownPost()">신고하기⬇️</a>
-                            <div id="reportDropdownPost" class="dropdown-content">
-                                <a onclick="post.reportPost(1)">게시판 및 성격 부적절함</a>
-                                <a onclick="post.reportPost(2)">욕설/비하</a>
-                                <a onclick="post.reportPost(3)">음란물/불건전 만남 및 대화</a>
-                                <a onclick="post.reportPost(4)">상업적 광고 및 판매</a>
-                                <a onclick="post.reportPost(5)">유출/사칭/사기</a>
-                                <a onclick="post.reportPost(6)">낚시/놀람/도배</a>
-                                <a onclick="post.reportPost(7)">정당/정치인 비하 및 운동</a>
+            <c:if test="${sessionScope.id != null}">
+                <c:choose>
+                    <c:when test="${id==post.userDto.userId}">
+                        <div class="dropdown">
+                            <img onclick="toggleDropdownMyPost()" class="menuBtn dropbtn"
+                                 src="<c:url value="/img/menu.svg"/>"/>
+                            <div id="myDropdownPost" class="dropdown-content">
+                                <a href="<c:url value="/posts/updatepost?postId=${postId}"/>">수정하기</a>
+                                <a href="<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>">삭제하기</a>
                             </div>
                         </div>
-                    </div>
-                </c:otherwise>
-            </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="dropdown">
+                            <img onclick="toggleDropdownOtherPost()" class="menuBtn dropbtn"
+                                 src="<c:url value="/img/menu.svg"/>"/>
+                            <div id="otherDropdownPost" class="dropdown-content">
+                                <a class="dropbtn" onclick="toggleReportDropdownPost()">신고하기⬇️</a>
+                                <div id="reportDropdownPost" class="dropdown-content">
+                                    <a onclick="post.reportPost(1)">게시판 및 성격 부적절함</a>
+                                    <a onclick="post.reportPost(2)">욕설/비하</a>
+                                    <a onclick="post.reportPost(3)">음란물/불건전 만남 및 대화</a>
+                                    <a onclick="post.reportPost(4)">상업적 광고 및 판매</a>
+                                    <a onclick="post.reportPost(5)">유출/사칭/사기</a>
+                                    <a onclick="post.reportPost(6)">낚시/놀람/도배</a>
+                                    <a onclick="post.reportPost(7)">정당/정치인 비하 및 운동</a>
+                                </div>
+                            </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+
         </div>
         <div class="time">${post.createDate}</div>
         <div class="title">${post.title}</div>
@@ -412,35 +415,38 @@
                                 </c:choose><%-- 좋아요 수 --%>
                                 <span class="cnt">${c.likes}</span>
                             </div>
-                            <c:choose>
-                                <c:when test="${id==c.userDto.userId}">
-                                    <div class="dropdown">
-                                        <img onclick="toggleDropdownMyComment(${c.commentId})" class="menuBtn dropbtn"
-                                             src="<c:url value="/img/menu.svg"/>"/>
-                                        <div id="myDropdownComment${c.commentId}" class="dropdown-content">
-                                            <a href="<c:url value="/posts/deleteComment?commentId=${c.commentId}&postId=${postId}"/>">삭제하기</a>
-                                        </div>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="dropdown">
-                                        <img onclick="toggleDropdownOtherComment(${c.commentId})"
-                                             class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
-                                        <div id="otherDropdownComment${c.commentId}" class="dropdown-content">
-                                            <a class="dropbtn" onclick="toggleReportDropdownComment(${c.commentId})">신고하기⬇️</a>
-                                            <div id="reportDropdownComment${c.commentId}" class="dropdown-content">
-                                                <a onclick="post.reportComment(${c.commentId}, 1)">게시판 및 성격 부적절함</a>
-                                                <a onclick="post.reportComment(${c.commentId}, 2)">욕설/비하</a>
-                                                <a onclick="post.reportComment(${c.commentId}, 3)">음란물/불건전 만남 및 대화</a>
-                                                <a onclick="post.reportComment(${c.commentId}, 4)">상업적 광고 및 판매</a>
-                                                <a onclick="post.reportComment(${c.commentId}, 5)">유출/사칭/사기</a>
-                                                <a onclick="post.reportComment(${c.commentId}, 6)">낚시/놀람/도배</a>
-                                                <a onclick="post.reportComment(${c.commentId}, 7)">정당/정치인 비하 및 운동</a>
+
+                            <c:if test="${sessionScope.id != null}">
+                                <c:choose>
+                                    <c:when test="${id==c.userDto.userId}">
+                                        <div class="dropdown">
+                                            <img onclick="toggleDropdownMyComment(${c.commentId})" class="menuBtn dropbtn"
+                                                 src="<c:url value="/img/menu.svg"/>"/>
+                                            <div id="myDropdownComment${c.commentId}" class="dropdown-content">
+                                                <a href="<c:url value="/posts/deleteComment?commentId=${c.commentId}&postId=${postId}"/>">삭제하기</a>
                                             </div>
                                         </div>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="dropdown">
+                                            <img onclick="toggleDropdownOtherComment(${c.commentId})"
+                                                 class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
+                                            <div id="otherDropdownComment${c.commentId}" class="dropdown-content">
+                                                <a class="dropbtn" onclick="toggleReportDropdownComment(${c.commentId})">신고하기⬇️</a>
+                                                <div id="reportDropdownComment${c.commentId}" class="dropdown-content">
+                                                    <a onclick="post.reportComment(${c.commentId}, 1)">게시판 및 성격 부적절함</a>
+                                                    <a onclick="post.reportComment(${c.commentId}, 2)">욕설/비하</a>
+                                                    <a onclick="post.reportComment(${c.commentId}, 3)">음란물/불건전 만남 및 대화</a>
+                                                    <a onclick="post.reportComment(${c.commentId}, 4)">상업적 광고 및 판매</a>
+                                                    <a onclick="post.reportComment(${c.commentId}, 5)">유출/사칭/사기</a>
+                                                    <a onclick="post.reportComment(${c.commentId}, 6)">낚시/놀람/도배</a>
+                                                    <a onclick="post.reportComment(${c.commentId}, 7)">정당/정치인 비하 및 운동</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
                         </div>
                     </div>
                     <div class="content" id="contentText">${c.content}</div>
