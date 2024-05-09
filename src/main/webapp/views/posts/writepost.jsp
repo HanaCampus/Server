@@ -79,27 +79,35 @@
                 }
                 else{
                     if(window.confirm('게시물 등록하시겠습니까?')) {
-                        this.send();
+                        onClickWritePost();
                     }
                 }
             });
         },
-        send: function () {
-            $('#writePostForm').attr({
-                'method': 'post',
-                'action': '<c:url value="/posts/writepost"/>'
-            });
-            $('#writePostForm').submit();
-        }
     };
     $(function () {
         writepost.init();
     });
+
+    function onClickWritePost(){
+        var formData = $('#writePostForm').serialize();
+        $.ajax({
+            type: 'POST',
+            url: '<c:url value="/posts/writepost"/>',
+            data: formData,
+            success: function(response) {
+                window.location.replace('/boards?id=${boardId}&pageNo=1');
+            },
+            error: function(xhr, status, error) {
+                alert('게시글 추가에 실패했습니다.');
+            }
+        });
+    }
 </script>
 
 <form id="writePostForm">
     <div class="header writeHeader">
-        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>
+        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="/img/back.svg" alt="back"></a></div>
         <h3 class="title">글쓰기</h3>
         <div class="back">
             <div class="regist">

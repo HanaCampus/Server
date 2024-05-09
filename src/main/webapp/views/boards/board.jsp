@@ -23,7 +23,7 @@
 
             $('#writePostBtn').click(() => {
                 let boardId = $('#boardId').val();
-                location.href = "<c:url value="/posts/writepost"/>?boardId=" + boardId + "&pageNo=1";
+                window.location.replace("<c:url value="/posts/writepost"/>?boardId=" + boardId + "&pageNo=1");
             })
         },
         send: function () {
