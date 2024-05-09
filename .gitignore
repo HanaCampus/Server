@@ -38,3 +38,7 @@ out/
 
 ### README.md ###
 README.md
+
+### yml ###
+src/main/resources/application-pro.yml
+src/main/resources/application.yml

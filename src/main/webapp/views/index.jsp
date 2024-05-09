@@ -32,12 +32,16 @@
 <%--    TODO:posts.css 중복 삭제--%>
     <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <%--  카카오톡 공유 썸네일 설정  --%>
+    <meta property="og:url" content="http://43.203.197.213/">
+    <meta property="og:title" content="게시판 모음">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="<c:url value="/img/logo.png"/>">
+    <meta property="og:description" content="HANA CAMPUS는 디지털 하나로 교육생들의 커뮤니티 공간입니다.">
     <title>게시판 모음 | HANA CAMPUS</title>
-    <meta property="og:type" content="website" />
-    <meta
-            property="og:image"
-            content="/_next/static/media/og-image.aec7a121.png"
-    />
+    <%--  카카오톡 공유 썸네일 설정  --%>
+
     <meta property="og:site_name" content="HANA CAMPUS" />
     <meta property="og:locale" content="ko_KR" />
     <meta property="og:image:width" content="1200" />
@@ -46,19 +50,6 @@
     <meta
             name="twitter:image"
             content="/_next/static/media/og-image.aec7a121.png"
-    />
-    <meta
-            name="description"
-            content="HANA CAMPUS는 디지털 하나로 교육생들의 커뮤니티 공간입니다."
-    />
-    <meta property="og:title" content="게시판 모음" />
-    <meta
-            property="og:description"
-            content="HANA CAMPUS는 디지털 하나로 교육생들의 커뮤니티 공간입니다."
-    />
-    <meta
-            property="og:url"
-            content="https://hanacampus.com/articles/categories"
     />
     <meta name="twitter:title" content="게시판 모음" />
     <meta
