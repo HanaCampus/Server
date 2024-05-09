@@ -21,7 +21,7 @@ class SelectOneTests {
     @Test
     void contextLoads() {
         try {
-            PostDto postDto = postService.getPostInfo(3, 2);
+            PostDto postDto = postService.getPostInfo(71, 2);
             log.info(postDto.toString());
             log.info(postDto.getUserDto().toString());
             log.info("---------- SUCCESS ----------");

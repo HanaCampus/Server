@@ -32,33 +32,27 @@ public class PostController {
     @GetMapping("")
     public String main(Model model, @RequestParam("id") Integer postId, HttpSession httpSession) throws Exception {
         Integer userId = (Integer) httpSession.getAttribute("id");
-
         PostDto postDto = postService.getPostInfo(postId, userId);
         List<CommentDto> commentDtoList = commentService.getIsLikedComment(postId, userId);
         BoardDto boardDto = boardService.get(postDto.getBoardId());
         String boardName= boardDto.getName();
+
         model.addAttribute("id", httpSession.getAttribute("id"));
         model.addAttribute("postId", postId);
         model.addAttribute("post", postDto);
         model.addAttribute("boardId", postDto.getBoardId());
         model.addAttribute("comments", commentDtoList);
         model.addAttribute("boardName", boardName);
-
         model.addAttribute("center", dir + "post");
 
         return "index";
     }
 
-
-
-    @ResponseBody
     @PostMapping("/writecomment")
     public String writeComment(@RequestParam("postId") Integer postId, CommentDto commentDto, HttpSession httpSession) throws Exception {
-        Object id = httpSession.getAttribute("id");
-        commentDto.setUserDto((UserDto.builder().userId(Integer.parseInt(String.valueOf(id))).build()));
+        Integer id = (Integer) httpSession.getAttribute("id");
+        commentDto.setUserDto((UserDto.builder().userId(id).build()));
         commentDto.setPostId(postId);
-
-        log.info(commentDto.toString());
 
         if(commentDto.isAnonymous()) { // 익명 체크했으면
             commentService.addByAnonymous(commentDto);
@@ -80,8 +74,8 @@ public class PostController {
     @ResponseBody
     @PostMapping("/writepost")
     public String writePost(Model model, PostDto postDto, HttpSession httpSession) throws Exception {
-        Object id = httpSession.getAttribute("id");
-        postDto.setUserDto((UserDto.builder().userId(Integer.parseInt(String.valueOf(id))).build()));
+        Integer id = (Integer) httpSession.getAttribute("id");
+        postDto.setUserDto((UserDto.builder().userId(id).build()));
 
         if(postDto.isAnonymous()) { // 익명 체크했으면
             postService.addByAnonymous(postDto);
@@ -106,10 +100,8 @@ public class PostController {
 
     @ResponseBody
     @PostMapping("/updatepost")
-    public String updatePost(Model model, PostDto postDto) throws Exception {
+    public String updatePost(PostDto postDto) throws Exception {
         postService.modify(postDto);
-        log.info(postDto.toString());
-//        model.addAttribute("center", dir + "updatepost");
 
 //        return "redirect:/posts?id=" + postDto.getPostId();
         return "1";
