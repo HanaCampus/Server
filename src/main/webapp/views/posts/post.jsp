@@ -19,10 +19,14 @@
         init: function () {
             // 전송 버튼 event handler
             $('#writeBtn').click(() => {
-                // 제목이나 내용 안 쓰면 쓰라고 alert문 띄워주는 유효성 체크하기
-                if (window.confirm('댓글 등록하시겠습니까?')) {
-                    this.send();
+                let content = document.getElementById('writeTextArea').value;
+
+                if (content.trim() === '') {
+                    alert('내용을 입력해주세요.');
+                    return;
                 }
+
+                this.send();
             });
         },
         send: function () {
@@ -454,18 +458,17 @@
                     </c:when>
                     <c:otherwise>
                         <textarea type="text" name="content" id="writeTextArea"></textarea>
+                        <div class="regist">
+                            <div class="anonymous">
+                                <input type="checkbox"
+                                       id="anonymousCheckBox"
+                                       name="anonymous" />
+                                <label for="anonymousCheckBox">익명</label>
+                            </div>
+                            <button id="writeBtn" type="button">➤</button>
+                        </div>
                     </c:otherwise>
                 </c:choose>
-
-                <div class="regist">
-                    <div class="anonymous">
-                        <input type="checkbox"
-                               id="anonymousCheckBox"
-                               name="anonymous" />
-                        <label for="anonymousCheckBox">익명</label>
-                    </div>
-                    <button id="writeBtn" type="button">➤</button>
-                </div>
             </div>
         </form>
     </div>
