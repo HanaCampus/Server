@@ -28,6 +28,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="<c:url value="/css/index.css" />" />
+    <link rel="stylesheet" href="<c:url value="/css/boards/board.css" />"/>
 <%--    TODO:posts.css 중복 삭제--%>
     <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -118,37 +119,6 @@
             </c:choose>
         </main>
         <footer class="hana-footer">
-            <h2 class="css-1wvv5q9">
-                <a href="/"
-                ><div class="css-1icvysg">
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 124 19"
-                            aria-hidden="true"
-                            focusable="false"
-                            class="nav-icon"
-                    >
-                        <circle cx="49.5" cy="14.5" r="2.5" fill="#61A3F3"></circle>
-                    </svg>
-                    <span
-                            style="
-                    position: absolute;
-                    border: 0px;
-                    width: 1px;
-                    height: 1px;
-                    padding: 0px;
-                    margin: -1px;
-                    overflow: hidden;
-                    clip: rect(0px, 0px, 0px, 0px);
-                    white-space: nowrap;
-                    overflow-wrap: normal;
-                  "
-                    >HANA CAMPUS</span
-                    >
-                </div></a
-                >
-            </h2>
             <div class="css-uewl2b">
                 <a class="css-1vfruvg" href="/legal/1"
                 >커뮤니티 이용 약관 및 개인정보 처리 방침</a

@@ -56,10 +56,10 @@ public class AuthController {
                     redirectAttributes.addFlashAttribute("alert", "탈퇴한 회원입니다.");
                     return "redirect:/";
                 }
-                if (userDto.isAdmin()){
-                    return "redirect:/admin";
-                }
                 httpSession.setAttribute("id", userDto.getUserId());
+                if (userDto.isAdmin()){
+                    return "redirect:/admins";
+                }
                 return "redirect:/";
             }
         } catch (Exception e) {
@@ -69,10 +69,9 @@ public class AuthController {
     }
     @GetMapping("/register")
     public String register(Model model, HttpSession httpSession){
-        //        TODO: 개발 후 주석 해제
-//        if (httpSession.getAttribute("id"){
-//            return "redirect:/";
-//        }
+        if (httpSession.getAttribute("id")!=null){
+            return "redirect:/";
+        }
         model.addAttribute("email", httpSession.getAttribute("email"));
         model.addAttribute("center", dir+"register");
         return "index";

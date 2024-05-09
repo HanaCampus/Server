@@ -105,7 +105,7 @@
         const gender = $('input[name="gender"]:checked').val();
         const nickname = $('#nickname').val();
         if (!isValidateNickname(nickname)) {
-            alert("닉네임 규칙에 맞게 입력해주세요");
+            alert("닉네임은 1~20자 사이로 입력해주세요. 특수 기호는 사용할 수 없습니다.");
             return;
         }
         const formData = {
@@ -128,8 +128,6 @@
                 }
             },
             error: function (_, _, error) {
-                //TODO: 로그인 실패 로직
-                <%--location.href = "<c:url value="/"/>"--%>
             }
         });
 

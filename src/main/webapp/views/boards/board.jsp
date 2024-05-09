@@ -43,6 +43,22 @@
         location.href = "<c:url value="/posts"/>?id=" + postId;
     }
 
+    // Enter 키를 눌렀을 때 폼 제출 막기
+    document.addEventListener("DOMContentLoaded", function() {
+        let searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // 기본 동작 막기
+                return false;
+            }
+        });
+    });
+
+    // 뒤로가기
+    function goBack() {
+        window.history.back();
+    }
+
     // POST 좋아요
     document.addEventListener('DOMContentLoaded', function() {
         let likeButtons = document.querySelectorAll('.imoticon');
@@ -87,7 +103,7 @@
 
 <div class="board">
     <div class="header">
-        <div class="back"><a class="backBtn" href="<c:url value="/"/>">⇦</a></div>
+        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="<c:url value='/img/back.svg'/>" alt="back"/></a></div>
         <h3 class="title">${boardName}</h3>
         <div class="back"></div>
     </div>
@@ -102,7 +118,7 @@
 
     <form id="searchForm">
         <div class="search">
-            <input type="text" name="searchKeyword" id="searchInput">
+            <input type="text" name="searchKeyword" id="searchInput" value="${searchKeyword}">
             <button id="searchBtn" type="button"><img src="<c:url value="/img/search.svg"/>"/></button>
         </div>
     </form>

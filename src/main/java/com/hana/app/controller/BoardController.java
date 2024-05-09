@@ -56,8 +56,10 @@ public class BoardController {
         // pagination.jsp 파일에서 path 설정 시 사용
         String paginationPath = "boards/search";
 
+        model.addAttribute("searchKeyword", searchKeyword);
         model.addAttribute("paginationPath", paginationPath);
         model.addAttribute("boardId", boardId);
+        model.addAttribute("boardName", boardService.get(boardId).getName());
         model.addAttribute("cpage", pageInfo);
         model.addAttribute("center", dir + "board");
 
