@@ -81,7 +81,7 @@
 
     <insert id="insert" parameterType="reportedCommentDto">
         INSERT INTO reported_comment (user_id, comment_id, create_date, report_category_id)
-        VALUES (#{userDto.userId}, #{commentDto.commentId}, NOW(), #{reportCategoryDto.reportCategoryId})
+        VALUES (#{userId}, #{commentDto.commentId}, NOW(), #{reportCategoryDto.reportCategoryId})
     </insert>
 
     <delete id="delete" parameterType="Integer">
