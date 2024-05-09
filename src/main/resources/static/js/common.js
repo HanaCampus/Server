@@ -8,3 +8,9 @@ function isValidateNickname(nickname) {
         return true;
     }
 }
+
+
+// 뒤로가기
+function goBack() {
+    window.history.back();
+}
