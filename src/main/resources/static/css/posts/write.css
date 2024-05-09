@@ -24,5 +24,6 @@
 
     .anonymous, #writeBtn {
         margin-left: 5px;
+        width: max-content;
     }
 }
