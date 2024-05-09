@@ -48,6 +48,8 @@ public class PostController {
         return "index";
     }
 
+
+    @ResponseBody
     @PostMapping("/writecomment")
     public String writeComment(@RequestParam("postId") Integer postId, CommentDto commentDto, HttpSession httpSession) throws Exception {
         Integer id = (Integer) httpSession.getAttribute("id");
