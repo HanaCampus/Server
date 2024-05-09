@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="<c:url value="/css/posts/post.css" />" />
+<link rel="stylesheet" href="<c:url value="/css/posts/post.css" />"/>
 <link rel="stylesheet" href="<c:url value="/css/boards/board.css" />"/>
 <link rel="stylesheet" href="<c:url value="/css/posts/dropdown.css" />"/>
 
@@ -20,7 +20,7 @@
             // 전송 버튼 event handler
             $('#writeBtn').click(() => {
                 // 제목이나 내용 안 쓰면 쓰라고 alert문 띄워주는 유효성 체크하기
-                if(window.confirm('댓글 등록하시겠습니까?')) {
+                if (window.confirm('댓글 등록하시겠습니까?')) {
                     this.send();
                 }
             });
@@ -32,17 +32,28 @@
             });
             $('#writeCommentForm').submit();
         },
-        report: function (type, typeId, reportCategoryId) {
-            console.log(type);
-            console.log(typeId);
-            console.log(reportCategoryId);
-            // type: post or comment
+        reportPost: function (reportCategoryId) {
             $.ajax({
                 type: 'post',
-                url: '<c:url value="/reports/"/>' + type,
-                data: {'id': typeId, 'reportCategoryId': reportCategoryId},
+                url: '<c:url value="/reports/post"/>',
+                data: {'id': ${postId}, 'reportCategoryId': reportCategoryId},
                 success: function (data) {
-                    if(data === "0") {
+                    if (data === "0") {
+                        alert("해당 게시물의 신고가 이미 접수됐습니다.");
+                        return;
+                    }
+
+                    alert("신고가 성공적으로 접수됐습니다.");
+                }
+            });
+        },
+        reportComment: function (commentId, reportCategoryId) {
+            $.ajax({
+                type: 'post',
+                url: '<c:url value="/reports/comment"/>',
+                data: {'id': commentId, 'reportCategoryId': reportCategoryId},
+                success: function (data) {
+                    if (data === "0") {
                         alert("해당 게시물의 신고가 이미 접수됐습니다.");
                         return;
                     }
@@ -67,29 +78,34 @@
         let dropdownPostContent = document.getElementById("myDropdownPost");
         dropdownPostContent.classList.toggle("show");
     }
+
     function toggleDropdownOtherPost() {
         let dropdownPostContent = document.getElementById("otherDropdownPost");
         dropdownPostContent.classList.toggle("show");
     }
+
     function toggleDropdownMyComment(commentId) {
         let dropdownCommentContent = document.getElementById("myDropdownComment" + commentId);
         dropdownCommentContent.classList.toggle("show");
     }
+
     function toggleDropdownOtherComment(commentId) {
         let dropdownCommentContent = document.getElementById("otherDropdownComment" + commentId);
         dropdownCommentContent.classList.toggle("show");
     }
+
     function toggleReportDropdownPost() {
         let reportDropdownPost = document.getElementById("reportDropdownPost");
         reportDropdownPost.classList.toggle("show");
     }
+
     function toggleReportDropdownComment(commentId) {
         let reportDropdownComment = document.getElementById("reportDropdownComment" + commentId);
         reportDropdownComment.classList.toggle("show");
     }
 
     /* Dropdown이 열려 있을 때 다른 곳을 클릭하면 닫히도록 함 */
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (!event.target.matches('.dropbtn')) {
             let dropdowns = document.getElementsByClassName("dropdown-content");
             let i;
@@ -102,18 +118,18 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var likeButtons = document.querySelectorAll('.likeEmoticon');
+    document.addEventListener('DOMContentLoaded', function () {
+        let likeButtons = document.querySelectorAll('.likeEmoticon');
 
-        likeButtons.forEach(function(likeButton) {
-            likeButton.addEventListener('click', function(event) {
+        likeButtons.forEach(function (likeButton) {
+            likeButton.addEventListener('click', function (event) {
                 event.stopPropagation();
-                var postId = this.getAttribute('data-post-id');
-                var isLiked = this.classList.contains('liked');
-                if(isLiked){
+                let postId = this.getAttribute('data-post-id');
+                let isLiked = this.classList.contains('liked');
+                if (isLiked) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "<c:url value="/likes/post"/>?id="+postId,
+                        url: "<c:url value="/likes/post"/>?id=" + postId,
                         success: function (response) {
                             let newCount = response;
 
@@ -122,7 +138,7 @@
                             likeButton.nextElementSibling.textContent = newCount;
                         }
                     });
-                }else{
+                } else {
                     $.ajax({
                         type: 'POST',
                         url: '<c:url value="/likes/post"/>?id=' + postId,
@@ -135,23 +151,22 @@
                         }
                     });
                 }
-
             });
         });
     });
 
-    //COMMENT 좋아요
-    document.addEventListener('DOMContentLoaded', function() {
-        var likeButtons = document.querySelectorAll('.likePostEmoticon');
-        likeButtons.forEach(function(likeButton) {
-            likeButton.addEventListener('click', function(event) {
+    // comment 좋아요
+    document.addEventListener('DOMContentLoaded', function () {
+        let likeButtons = document.querySelectorAll('.likePostEmoticon');
+        likeButtons.forEach(function (likeButton) {
+            likeButton.addEventListener('click', function (event) {
                 event.stopPropagation();
-                var commentId = this.getAttribute('data-comment-id');
-                var isLiked = this.classList.contains('liked');
-                if(isLiked){
+                let commentId = this.getAttribute('data-comment-id');
+                let isLiked = this.classList.contains('liked');
+                if (isLiked) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "<c:url value="/likes/comment"/>?id="+commentId,
+                        url: "<c:url value="/likes/comment"/>?id=" + commentId,
                         success: function (response) {
                             let newCount = response;
 
@@ -160,10 +175,10 @@
                             likeButton.nextElementSibling.textContent = newCount;
                         }
                     });
-                }else{
+                } else {
                     $.ajax({
                         type: 'POST',
-                        url: '<c:url value="/likes/comment"/>?id='+commentId,
+                        url: '<c:url value="/likes/comment"/>?id=' + commentId,
                         success: function (response) {
                             let newCount = response;
                             // 좋아요 이미지 변경
@@ -173,50 +188,48 @@
                         }
                     });
                 }
-
             });
         });
     });
 
-    // SCRAP 스크랩
-    document.addEventListener('DOMContentLoaded', function() {
-        var scrapBtn = document.querySelector('.scrapButton');
-        scrapBtn.addEventListener('click', function(event) {
-                var scrapId = this.getAttribute('data-scrap-id');
-                var isScrap = this.classList.contains('isScrap');
-                if(isScrap){
-                    $.ajax({
-                        type: 'DELETE',
-                        url: "<c:url value="/scraps/post"/>?id="+scrapId,
-                        success: function (response) {
-                            let newCount = response;
-                            scrapBtn.innerHTML = '<img src="<c:url value="/img/scrapNone.svg"/>" alt="scrap"/>';
-                            scrapBtn.classList.remove('isScrap');
-                            scrapBtn.nextElementSibling.textContent = newCount;
-                        }
-                    });
-                }else{
-                    $.ajax({
-                        type: 'POST',
-                        url: '<c:url value="/scraps/post"/>?id='+scrapId,
-                        success: function (response) {
-                            let newCount = response;
-                            scrapBtn.innerHTML = '<img src="<c:url value="/img/scrap.svg"/>" alt="scrap"/>';
-                            scrapBtn.classList.add('isScrap'); // 좋아요 상태로 변경
-                            scrapBtn.nextElementSibling.textContent = newCount;
-                        }
-                    });
-                }
+    // scrap 스크랩
+    document.addEventListener('DOMContentLoaded', function () {
+        let scrapBtn = document.querySelector('.scrapButton');
+        scrapBtn.addEventListener('click', function (event) {
+            let scrapId = this.getAttribute('data-scrap-id');
+            let isScrap = this.classList.contains('isScrap');
+            if (isScrap) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: "<c:url value="/scraps/post"/>?id=" + scrapId,
+                    success: function (response) {
+                        let newCount = response;
+                        scrapBtn.innerHTML = '<img src="<c:url value="/img/scrapNone.svg"/>" alt="scrap"/>';
+                        scrapBtn.classList.remove('isScrap');
+                        scrapBtn.nextElementSibling.textContent = newCount;
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '<c:url value="/scraps/post"/>?id=' + scrapId,
+                    success: function (response) {
+                        let newCount = response;
+                        scrapBtn.innerHTML = '<img src="<c:url value="/img/scrap.svg"/>" alt="scrap"/>';
+                        scrapBtn.classList.add('isScrap'); // 좋아요 상태로 변경
+                        scrapBtn.nextElementSibling.textContent = newCount;
+                    }
+                });
+            }
         });
     });
 </script>
 
-
-
 <div class="post">
     <div class="header">
-<%--        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>--%>
-        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="<c:url value='/img/back.svg'/>" alt="back"/></a></div>
+        <%--        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>--%>
+        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="<c:url value='/img/back.svg'/>"
+                                                                              alt="back"/></a></div>
         <h3 class="title">자유 게시판</h3>
         <div class="back"></div>
     </div>
@@ -234,7 +247,7 @@
             <div class="user big">
                 <c:if test="${post.anonymous == false}">
                     <div class="userThumbnail">
-                        ${post.userDto.nickname.charAt(0)}
+                            ${post.userDto.nickname.charAt(0)}
                     </div>
                     ${post.userDto.nickname}
                 </c:if>
@@ -249,7 +262,8 @@
             <c:choose>
                 <c:when test="${id==post.userDto.userId}">
                     <div class="dropdown">
-                        <img onclick="toggleDropdownMyPost()" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
+                        <img onclick="toggleDropdownMyPost()" class="menuBtn dropbtn"
+                             src="<c:url value="/img/menu.svg"/>"/>
                         <div id="myDropdownPost" class="dropdown-content">
                             <a href="<c:url value="/posts/updatepost?postId=${postId}"/>">수정하기</a>
                             <a href="<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>">삭제하기</a>
@@ -258,17 +272,18 @@
                 </c:when>
                 <c:otherwise>
                     <div class="dropdown">
-                        <img onclick="toggleDropdownOtherPost()" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
+                        <img onclick="toggleDropdownOtherPost()" class="menuBtn dropbtn"
+                             src="<c:url value="/img/menu.svg"/>"/>
                         <div id="otherDropdownPost" class="dropdown-content">
                             <a class="dropbtn" onclick="toggleReportDropdownPost()">신고하기⬇️</a>
                             <div id="reportDropdownPost" class="dropdown-content">
-                                <a onclick="post.report('post', ${postId}, 1)">게시판 및 성격 부적절함</a>
-                                <a onclick="post.report('post', ${postId}, 2)">욕설/비하</a>
-                                <a onclick="post.report('post', ${postId}, 3)">음란물/불건전 만남 및 대화</a>
-                                <a onclick="post.report('post', ${postId}, 4)">상업적 광고 및 판매</a>
-                                <a onclick="post.report('post', ${postId}, 5)">유출/사칭/사기</a>
-                                <a onclick="post.report('post', ${postId}, 6)">낚시/놀람/도배</a>
-                                <a onclick="post.report('post', ${postId}, 7)">정당/정치인 비하 및 운동</a>
+                                <a onclick="post.reportPost(1)">게시판 및 성격 부적절함</a>
+                                <a onclick="post.reportPost(2)">욕설/비하</a>
+                                <a onclick="post.reportPost(3)">음란물/불건전 만남 및 대화</a>
+                                <a onclick="post.reportPost(4)">상업적 광고 및 판매</a>
+                                <a onclick="post.reportPost(5)">유출/사칭/사기</a>
+                                <a onclick="post.reportPost(6)">낚시/놀람/도배</a>
+                                <a onclick="post.reportPost(7)">정당/정치인 비하 및 운동</a>
                             </div>
                         </div>
                     </div>
@@ -300,7 +315,8 @@
                                 </c:when>
                                 <c:otherwise>
                                     <!-- 좋아요를 이미 한 경우 -->
-                                    <button class="likeEmoticon imoticon likeButton liked" data-post-id="${post.postId}">
+                                    <button class="likeEmoticon imoticon likeButton liked"
+                                            data-post-id="${post.postId}">
                                         <img src="<c:url value='/img/like.svg'/>" alt="like"/>
                                     </button>
                                 </c:otherwise>
@@ -312,23 +328,23 @@
                 </div>
 
                 <c:choose>
+                    <%-- 로그인되지 않은 경우--%>
                     <c:when test="${sessionScope.id == null}">
-<%--                        로그인되지 않은 경우--%>
                         <button class="scrapButton" onclick="pleaseLogin()">
                             <img src="<c:url value='/img/scrapNone.svg'/>" alt="scrap"/>
                         </button>
                     </c:when>
+                    <%-- 로그인된 경우 --%>
                     <c:otherwise>
-<%--                        로그인된 경우--%>
                         <c:choose>
+                            <%-- 스크랩을 하지 않은 경우 --%>
                             <c:when test="${post.isScraped == null}">
-<%--                                스크랩을 하지 않은 경우--%>
                                 <button class="scrapButton imoticon" data-scrap-id="${post.postId}">
                                     <img src="<c:url value='/img/scrapNone.svg'/>" alt="scrap"/>
                                 </button>
                             </c:when>
+                            <%-- 스크랩을 이미 한 경우 --%>
                             <c:otherwise>
-<%--                                스크랩을 이미 한 경우--%>
                                 <button class="scrapButton imoticon isScrap" data-scrap-id="${post.postId}">
                                     <img src="<c:url value='/img/scrap.svg'/>" alt="scrap"/>
                                 </button>
@@ -338,7 +354,6 @@
                 </c:choose>
                 <span class="cnt">${post.scraps}</span>
             </div>
-
         </div>
     </div>
 
@@ -350,7 +365,7 @@
                         <div class="user">
                             <c:if test="${c.anonymous == false}">
                                 <div class="userThumbnail">
-                                    ${c.userDto.nickname.charAt(0)}
+                                        ${c.userDto.nickname.charAt(0)}
                                 </div>
                                 ${c.userDto.nickname}
                             </c:if>
@@ -363,40 +378,41 @@
                         </div>
                         <div class="rightBox">
                             <div class="cntItem">
-<%--                                    좋아요 버튼--%>
-                                    <c:choose>
-                                        <c:when test="${sessionScope.id == null}">
-<%--                                            로그인되지 않은 경우--%>
-                                            <button class="likePostEmoticon" onclick="pleaseLogin()">
-                                                <img src="<c:url value='/img/likeCommentNone.svg'/>" alt="like"/>
-                                            </button>
-                                        </c:when>
-                                        <c:otherwise>
-<%--                                            로그인된 경우--%>
-                                            <c:choose>
-                                                <c:when test="${c.isLiked == null}">
-<%--                                                    좋아요를 하지 않은 경우 --%>
-                                                    <button class="likePostEmoticon likeButton" data-comment-id="${c.commentId}">
-                                                        <img src="<c:url value='/img/likeCommentNone.svg'/>" alt="like"/>
-                                                    </button>
-                                                </c:when>
-                                                <c:otherwise>
-<%--                                                    좋아요를 이미 한 경우 --%>
-                                                    <button class="likePostEmoticon likeButton liked" data-comment-id="${c.commentId}">
-                                                        <img src="<c:url value='/img/likeComment.svg'/>" alt="like"/>
-                                                    </button>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:otherwise>
-                                    </c:choose>
-<%--                                    좋아요 수--%>
-                                    <span class="cnt">${c.likes}</span>
-
+                                    <%-- 좋아요 버튼 --%>
+                                <c:choose>
+                                    <%-- 로그인되지 않은 경우 --%>
+                                    <c:when test="${sessionScope.id == null}">
+                                        <button class="likePostEmoticon" onclick="pleaseLogin()">
+                                            <img src="<c:url value='/img/likeCommentNone.svg'/>" alt="like"/>
+                                        </button>
+                                    </c:when>
+                                    <%-- 로그인된 경우 --%>
+                                    <c:otherwise>
+                                        <c:choose>
+                                            <%-- 좋아요를 하지 않은 경우 --%>
+                                            <c:when test="${c.isLiked == null}">
+                                                <button class="likePostEmoticon likeButton"
+                                                        data-comment-id="${c.commentId}">
+                                                    <img src="<c:url value='/img/likeCommentNone.svg'/>" alt="like"/>
+                                                </button>
+                                            </c:when>
+                                            <%-- 좋아요를 이미 한 경우 --%>
+                                            <c:otherwise>
+                                                <button class="likePostEmoticon likeButton liked"
+                                                        data-comment-id="${c.commentId}">
+                                                    <img src="<c:url value='/img/likeComment.svg'/>" alt="like"/>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:otherwise>
+                                </c:choose><%-- 좋아요 수 --%>
+                                <span class="cnt">${c.likes}</span>
                             </div>
                             <c:choose>
                                 <c:when test="${id==c.userDto.userId}">
                                     <div class="dropdown">
-                                        <img onclick="toggleDropdownMyComment(${c.commentId})" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
+                                        <img onclick="toggleDropdownMyComment(${c.commentId})" class="menuBtn dropbtn"
+                                             src="<c:url value="/img/menu.svg"/>"/>
                                         <div id="myDropdownComment${c.commentId}" class="dropdown-content">
                                             <a href="<c:url value="/posts/deleteComment?commentId=${c.commentId}&postId=${postId}"/>">삭제하기</a>
                                         </div>
@@ -404,17 +420,18 @@
                                 </c:when>
                                 <c:otherwise>
                                     <div class="dropdown">
-                                        <img onclick="toggleDropdownOtherComment(${c.commentId})" class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
+                                        <img onclick="toggleDropdownOtherComment(${c.commentId})"
+                                             class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
                                         <div id="otherDropdownComment${c.commentId}" class="dropdown-content">
                                             <a class="dropbtn" onclick="toggleReportDropdownComment(${c.commentId})">신고하기⬇️</a>
                                             <div id="reportDropdownComment${c.commentId}" class="dropdown-content">
-                                                <a onclick="post.report('comment', ${c.commentId}, 1)">게시판 및 성격 부적절함</a>
-                                                <a onclick="post.report('comment', ${c.commentId}, 2)">욕설/비하</a>
-                                                <a onclick="post.report('comment', ${c.commentId}, 3)">음란물/불건전 만남 및 대화</a>
-                                                <a onclick="post.report('comment', ${c.commentId}, 4)">상업적 광고 및 판매</a>
-                                                <a onclick="post.report('comment', ${c.commentId}, 5)">유출/사칭/사기</a>
-                                                <a onclick="post.report('comment', ${c.commentId}, 6)">낚시/놀람/도배</a>
-                                                <a onclick="post.report('comment', ${c.commentId}, 7)">정당/정치인 비하 및 운동</a>
+                                                <a onclick="post.reportComment(${c.commentId}, 1)">게시판 및 성격 부적절함</a>
+                                                <a onclick="post.reportComment(${c.commentId}, 2)">욕설/비하</a>
+                                                <a onclick="post.reportComment(${c.commentId}, 3)">음란물/불건전 만남 및 대화</a>
+                                                <a onclick="post.reportComment(${c.commentId}, 4)">상업적 광고 및 판매</a>
+                                                <a onclick="post.reportComment(${c.commentId}, 5)">유출/사칭/사기</a>
+                                                <a onclick="post.reportComment(${c.commentId}, 6)">낚시/놀람/도배</a>
+                                                <a onclick="post.reportComment(${c.commentId}, 7)">정당/정치인 비하 및 운동</a>
                                             </div>
                                         </div>
                                     </div>
@@ -432,7 +449,8 @@
             <div class="write">
                 <c:choose>
                     <c:when test="${sessionScope.id == null}">
-                        <textarea type="text" name="content" id="writeTextArea" placeholder="로그인 먼저 해주세요!" disabled></textarea>
+                        <textarea type="text" name="content" id="writeTextArea" placeholder="로그인 먼저 해주세요!"
+                                  disabled></textarea>
                     </c:when>
                     <c:otherwise>
                         <textarea type="text" name="content" id="writeTextArea"></textarea>
@@ -441,10 +459,9 @@
 
                 <div class="regist">
                     <div class="anonymous">
-                        <input
-                                type="checkbox"
-                                id="anonymousCheckBox"
-                                name="anonymous"/>
+                        <input type="checkbox"
+                               id="anonymousCheckBox"
+                               name="anonymous" />
                         <label for="anonymousCheckBox">익명</label>
                     </div>
                     <button id="writeBtn" type="button">➤</button>

@@ -23,9 +23,9 @@ class InsertTests {
     @Test
     void contextLoads() {
         ReportedCommentDto reportedCommentDto = ReportedCommentDto.builder()
-                .userId(1)
-                .commentDto(CommentDto.builder().commentId(3).build())
-                .reportCategoryDto(ReportCategoryDto.builder().reportCategoryId(2).build())
+                .userId(3)
+                .commentDto(CommentDto.builder().commentId(5).build())
+                .reportCategoryDto(ReportCategoryDto.builder().reportCategoryId(1).build())
                 .build();
 
         try {
