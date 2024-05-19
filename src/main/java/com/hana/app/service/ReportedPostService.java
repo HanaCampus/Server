@@ -52,4 +52,5 @@ public class ReportedPostService implements HanaService<Integer, ReportedPostDto
     public List<ReportedPostDto> completedReports() throws Exception{
         return reportedPostRepository.completedReports();
     }
+
 }

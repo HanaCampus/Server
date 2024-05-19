@@ -5,20 +5,24 @@
   Time: 4:38 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<c:url value="/js/common.js" />"></script>
+
 <script>
     let index = {
         init: function () {
-            var alertMessage = "${alertMessage}";
+            let alertMessage = "${alertMessage}";
             if (alertMessage) {
                 alert(alertMessage);
             }
         }
     };
+
     $(function () {
         index.init();
     });
@@ -26,12 +30,12 @@
 
 <html lang="ko">
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="<c:url value="/css/index.css" />" />
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="<c:url value="/css/index.css" />"/>
     <link rel="stylesheet" href="<c:url value="/css/boards/board.css" />"/>
-<%--    TODO:posts.css 중복 삭제--%>
-    <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%-- TODO: posts.css 중복 삭제 --%>
+    <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <%--  카카오톡 공유 썸네일 설정  --%>
     <meta property="og:url" content="http://43.203.197.213/">
@@ -42,27 +46,27 @@
     <title>게시판 모음 | HANA CAMPUS</title>
     <%--  카카오톡 공유 썸네일 설정  --%>
 
-    <meta property="og:site_name" content="HANA CAMPUS" />
-    <meta property="og:locale" content="ko_KR" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large" />
+    <meta property="og:site_name" content="HANA CAMPUS"/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta name="twitter:card" content="summary_large"/>
     <meta
             name="twitter:image"
             content="/_next/static/media/og-image.aec7a121.png"
     />
-    <meta name="twitter:title" content="게시판 모음" />
+    <meta name="twitter:title" content="게시판 모음"/>
     <meta
             name="twitter:description"
             content="HANA CAMPUS는 디지털 하나로 교육생들의 커뮤니티 공간입니다."
     />
-    <meta name="next-head-count" content="18" />
+    <meta name="next-head-count" content="18"/>
 
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <meta name="msapplication-TileColor" content="#ffffff"/>
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <meta charset="UTF-8"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
@@ -88,7 +92,7 @@
             href="/_next/static/css/36840340f3f01bb9.css"
             data-n-g=""
     />
-    <noscript data-n-css=""> </noscript>
+    <noscript data-n-css=""></noscript>
     <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&amp;display=swap"
@@ -111,15 +115,15 @@
         </main>
         <footer class="hana-footer">
             <div class="css-uewl2b">
-                <a class="css-1vfruvg" href="/legal/1"
-                >커뮤니티 이용 약관 및 개인정보 처리 방침</a
-                >
+                <a class="css-1vfruvg" href="/legal/1">
+                    커뮤니티 이용 약관 및 개인정보 처리 방침
+                </a>
             </div>
             <div class="css-uewl2b">
-            <span>팀 연락처: </span
-            ><a href="mailto:test@gmail.com" class="css-1etjkub"
-            >test@gmail.com</a
-            >
+                <span>팀 연락처: </span>
+                <a href="mailto:test@gmail.com" class="css-1etjkub">
+                    test@gmail.com
+                </a>
             </div>
             <div class="css-uewl2b">© 2024. HANA CAMPUS. All rights reserved.</div>
         </footer>

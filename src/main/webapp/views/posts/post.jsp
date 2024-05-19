@@ -65,45 +65,45 @@
         post.init();
     });
 
-    //댓글 쓰기
-    function sendComment(){
-        var formData = $('#writeCommentForm').serialize();
+    // 댓글 작성
+    function sendComment() {
+        let formData = $('#writeCommentForm').serialize();
         $.ajax({
             type: 'POST',
             url: '<c:url value="/posts/writecomment?postId=${postId}"/>',
             data: formData,
-            success: function(response) {
-                window.location.replace('/posts?id='+${postId});
+            success: function (response) {
+                window.location.replace('/posts?id=' +${postId});
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 alert('댓글 추가에 실패했습니다.');
             }
         });
     }
 
-    //댓글 삭제
-    function onClickDeleteComment(commentId){
+    // 댓글 삭제
+    function onClickDeleteComment(commentId) {
         $.ajax({
             type: 'DELETE',
-            url: '<c:url value="/posts/deleteComment?"/>'+'commentId='+commentId+'&postId=${postId}',
-            success: function(response) {
-                window.location.replace('/posts?id='+${postId});
+            url: '<c:url value="/posts/deleteComment?"/>' + 'commentId=' + commentId + '&postId=${postId}',
+            success: function (response) {
+                window.location.replace('/posts?id=' +${postId});
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 alert('댓글 삭제에 실패했습니다.');
             }
         });
     }
 
-    //게시글 삭제
-    function onClickDeletePost(){
+    // 게시글 삭제
+    function onClickDeletePost() {
         $.ajax({
             type: 'DELETE',
             url: '<c:url value="/posts/deletePost?postId=${postId}&boardId=${post.boardId}"/>',
-            success: function(response) {
+            success: function (response) {
                 window.location.replace('<c:url value="/boards?id=${boardId}&pageNo=1"/>');
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 alert('게시글 삭제에 실패했습니다.');
             }
         });
@@ -129,10 +129,12 @@
         let dropdownCommentContent = document.getElementById("myDropdownComment" + commentId);
         dropdownCommentContent.classList.toggle("show");
     }
+
     function toggleDropdownOtherComment(commentId) {
         let dropdownCommentContent = document.getElementById("otherDropdownComment" + commentId);
         dropdownCommentContent.classList.toggle("show");
     }
+
     function toggleReportDropdownPost() {
         let reportDropdownPost = document.getElementById("reportDropdownPost");
         reportDropdownPost.classList.toggle("show");
@@ -266,13 +268,13 @@
     });
 </script>
 
-
-
 <div class="post">
     <div class="header">
-        <%--        <div class="back"><a class="backBtn" href="<c:url value="/boards"/>?id=1&pageNo=1">⇦</a></div>--%>
-        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="<c:url value='/img/back.svg'/>"
-                                                                              alt="back"/></a></div>
+        <div class="back">
+            <a class="backBtn" href="#" onclick="goBack()">
+                <img src="<c:url value='/img/back.svg'/>" alt="back"/>
+            </a>
+        </div>
         <h3 class="title">자유 게시판</h3>
         <div class="back"></div>
     </div>
@@ -344,23 +346,23 @@
                 <div class="like item">
                     <!-- 좋아요 버튼 -->
                     <c:choose>
+                        <!-- 로그인되지 않은 경우 -->
                         <c:when test="${sessionScope.id == null}">
-                            <!-- 로그인되지 않은 경우 -->
                             <button class="likeEmoticon" onclick="pleaseLogin()">
                                 <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
                             </button>
                         </c:when>
+                        <!-- 로그인된 경우 -->
                         <c:otherwise>
-                            <!-- 로그인된 경우 -->
                             <c:choose>
+                                <!-- 좋아요를 하지 않은 경우 -->
                                 <c:when test="${post.isLiked == null}">
-                                    <!-- 좋아요를 하지 않은 경우 -->
                                     <button class="likeEmoticon imoticon likeButton" data-post-id="${post.postId}">
                                         <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
                                     </button>
                                 </c:when>
+                                <!-- 좋아요를 이미 한 경우 -->
                                 <c:otherwise>
-                                    <!-- 좋아요를 이미 한 경우 -->
                                     <button class="likeEmoticon imoticon likeButton liked"
                                             data-post-id="${post.postId}">
                                         <img src="<c:url value='/img/like.svg'/>" alt="like"/>
@@ -411,7 +413,7 @@
                         <div class="user">
                             <c:if test="${c.anonymous == false}">
                                 <div class="userThumbnail">
-                                    ${c.userDto.nickname.charAt(0)}
+                                        ${c.userDto.nickname.charAt(0)}
                                 </div>
                                 ${c.userDto.nickname}
                             </c:if>
@@ -423,8 +425,8 @@
                             </c:if>
                         </div>
                         <div class="rightBox">
+                            <%-- 좋아요 버튼 --%>
                             <div class="cntItem">
-                                    <%-- 좋아요 버튼 --%>
                                 <c:choose>
                                     <%-- 로그인되지 않은 경우 --%>
                                     <c:when test="${sessionScope.id == null}">
@@ -451,7 +453,8 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </c:otherwise>
-                                </c:choose><%-- 좋아요 수 --%>
+                                </c:choose>
+                                <%-- 좋아요 수 --%>
                                 <span class="cnt">${c.likes}</span>
                             </div>
 
@@ -459,10 +462,11 @@
                                 <c:choose>
                                     <c:when test="${id==c.userDto.userId}">
                                         <div class="dropdown">
-                                            <img onclick="toggleDropdownMyComment(${c.commentId})" class="menuBtn dropbtn"
+                                            <img onclick="toggleDropdownMyComment(${c.commentId})"
+                                                 class="menuBtn dropbtn"
                                                  src="<c:url value="/img/menu.svg"/>"/>
                                             <div id="myDropdownComment${c.commentId}" class="dropdown-content">
-                                                <button onclick="onClickDeleteComment(${c.commentId})" >삭제하기</button>
+                                                <button onclick="onClickDeleteComment(${c.commentId})">삭제하기</button>
                                             </div>
                                         </div>
                                     </c:when>
@@ -471,15 +475,18 @@
                                             <img onclick="toggleDropdownOtherComment(${c.commentId})"
                                                  class="menuBtn dropbtn" src="<c:url value="/img/menu.svg"/>"/>
                                             <div id="otherDropdownComment${c.commentId}" class="dropdown-content">
-                                                <a class="dropbtn" onclick="toggleReportDropdownComment(${c.commentId})">신고하기⬇️</a>
+                                                <a class="dropbtn"
+                                                   onclick="toggleReportDropdownComment(${c.commentId})">신고하기⬇️</a>
                                                 <div id="reportDropdownComment${c.commentId}" class="dropdown-content">
                                                     <a onclick="post.reportComment(${c.commentId}, 1)">게시판 및 성격 부적절함</a>
                                                     <a onclick="post.reportComment(${c.commentId}, 2)">욕설/비하</a>
-                                                    <a onclick="post.reportComment(${c.commentId}, 3)">음란물/불건전 만남 및 대화</a>
+                                                    <a onclick="post.reportComment(${c.commentId}, 3)">음란물/불건전 만남 및
+                                                        대화</a>
                                                     <a onclick="post.reportComment(${c.commentId}, 4)">상업적 광고 및 판매</a>
                                                     <a onclick="post.reportComment(${c.commentId}, 5)">유출/사칭/사기</a>
                                                     <a onclick="post.reportComment(${c.commentId}, 6)">낚시/놀람/도배</a>
-                                                    <a onclick="post.reportComment(${c.commentId}, 7)">정당/정치인 비하 및 운동</a>
+                                                    <a onclick="post.reportComment(${c.commentId}, 7)">정당/정치인 비하 및
+                                                        운동</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -507,7 +514,7 @@
                             <div class="anonymous">
                                 <input type="checkbox"
                                        id="anonymousCheckBox"
-                                       name="anonymous" />
+                                       name="anonymous"/>
                                 <label for="anonymousCheckBox">익명</label>
                             </div>
                             <button id="writeBtn" type="button">➤</button>

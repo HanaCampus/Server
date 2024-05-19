@@ -51,4 +51,5 @@ public class ReportedCommentService implements HanaService<Integer, ReportedComm
     public List<ReportedCommentDto> completedReports() throws Exception{
         return reportedCommentRepository.completedReports();
     }
+
 }

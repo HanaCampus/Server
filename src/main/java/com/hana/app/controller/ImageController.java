@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.File;
 import java.util.UUID;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +16,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+// summernote editor library - image 저장 관련 controller
 @Controller
 public class ImageController {
+
     private static final Logger logger = LoggerFactory.getLogger(ImageController.class);
-    @RequestMapping(value="/post/uploadImage", produces = "application/json; charset=utf8")
+
+    @RequestMapping(value = "/post/uploadImage", produces = "application/json; charset=utf8")
     @ResponseBody
     public String uploadImage(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
         JsonObject jsonObject = new JsonObject();
@@ -40,4 +45,5 @@ public class ImageController {
         }
         return jsonObject.toString();
     }
+
 }

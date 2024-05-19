@@ -1,12 +1,10 @@
 package com.hana.app.controller;
 
-
 import com.hana.app.common.type.UType;
 import com.hana.app.data.dto.PostDto;
 import com.hana.app.data.dto.UserDto;
 import com.hana.app.service.PostService;
 import com.hana.app.service.UserService;
-import com.hana.util.kakao.KakaoKey;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Controller
 @RequestMapping("/users")
@@ -24,11 +20,10 @@ import java.util.List;
 @Slf4j
 public class UserController {
 
+    String dir = "users/";
+
     final UserService userService;
     final PostService postService;
-
-    String dir= "users/";
-
 
     @ResponseBody
     @PostMapping("/sign-out")
@@ -47,12 +42,12 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String userMyPage(Model model, HttpSession httpSession){
+    public String userMyPage(Model model, HttpSession httpSession) {
         try {
             Object id = httpSession.getAttribute("id");
             UserDto userDto = userService.get(String.valueOf(id));
             model.addAttribute("user", userDto);
-            model.addAttribute("center", dir+"mypage");
+            model.addAttribute("center", dir + "mypage");
             return "index";
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -60,13 +55,13 @@ public class UserController {
     }
 
     @GetMapping("/myscraps")
-    public String usermyscraps(Model model,HttpSession httpSession){
+    public String userMyScraps(Model model, HttpSession httpSession) {
         try {
             Object id = httpSession.getAttribute("id");
-            List<PostDto> postDtoList= postService.getScrapList((Integer) id, 1);
+            List<PostDto> postDtoList = postService.getScrapList((Integer) id, 1);
             log.info(postDtoList.toString());
             model.addAttribute("posts", postDtoList);
-            model.addAttribute("center", dir+"myscraps");
+            model.addAttribute("center", dir + "myscraps");
             return "index";
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -74,39 +69,39 @@ public class UserController {
     }
 
     @GetMapping("/myposts")
-    public String usermyposts(Model model,HttpSession httpSession){
+    public String userMyPosts(Model model, HttpSession httpSession) {
         try {
             Object id = httpSession.getAttribute("id");
             UserDto userDto = userService.get(String.valueOf(id));
-            List<PostDto> postDtoList= postService.getMyPostList((Integer) id, 1);
+            List<PostDto> postDtoList = postService.getMyPostList((Integer) id, 1);
             model.addAttribute("user", userDto);
             model.addAttribute("posts", postDtoList);
-            model.addAttribute("center", dir+"myposts");
+            model.addAttribute("center", dir + "myposts");
             return "index";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
     @GetMapping("/agree")
-    public String userAgree(Model model,HttpSession httpSession){
-        if (httpSession.getAttribute("id") !=null){
+    public String userAgree(Model model, HttpSession httpSession) {
+        if (httpSession.getAttribute("id") != null) {
             return "redirect:/";
         }
-        if (httpSession.getAttribute("email") == null){
+        if (httpSession.getAttribute("email") == null) {
             return "redirect:/auth/sign-in";
         }
-        model.addAttribute("center", dir+"agree");
+        model.addAttribute("center", dir + "agree");
         return "index";
     }
 
     @GetMapping("/info")
-    public String userInfo(Model model,HttpSession httpSession){
+    public String userInfo(Model model, HttpSession httpSession) {
         try {
             Object id = httpSession.getAttribute("id");
             UserDto userDto = userService.get(String.valueOf(id));
-            log.info(userDto.toString());
             model.addAttribute("user", userDto);
-            model.addAttribute("center", dir+"info");
+            model.addAttribute("center", dir + "info");
             return "index";
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -115,15 +110,13 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/edit-info")
-    public String userEditInfo(UserDto userDto){
+    public String userEditInfo(UserDto userDto) {
         try {
             userService.modify(userDto);
             return "1";
         } catch (Exception e) {
             return "0";
-//            throw new RuntimeException(e);
         }
     }
-
 
 }

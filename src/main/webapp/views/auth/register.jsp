@@ -5,19 +5,22 @@
   Time: 11:28 AM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <style>
-    .resisterPage{
+    .resisterPage {
         min-height: calc(100vh - 90px);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        .section{
+
+        .section {
             margin-bottom: 40px;
         }
-        h1{
+
+        h1 {
             font-size: 28px;
             line-height: 44px;
             letter-spacing: -0.04em;
@@ -25,6 +28,7 @@
             white-space: pre-wrap;
             margin-bottom: 10px;
         }
+
         label {
             font-size: 18px;
             line-height: 2rem;
@@ -63,7 +67,7 @@
             cursor: pointer;
         }
 
-        [type="text"]{
+        [type="text"] {
             width: 100%;
             padding: 0px 16px;
             border-radius: 8px;
@@ -75,39 +79,44 @@
             letter-spacing: -0.03em;
             font-weight: 400;
         }
+
         .nextButton {
             height: 56px;
             border-radius: 12px;
             width: 100%;
             background: #d2ffdd;
             margin-bottom: 20px;
-            &:disabled{
+
+            &:disabled {
                 background: #5b647c;
             }
-            &:focus{
+
+            &:focus {
                 cursor: pointer;
             }
         }
     }
-
 </style>
 
 <script>
     let resister = {
-        init: function () {
-        }
+        init: function () {}
     };
-    const onChangeNickname=()=>{
-        var nickname = $('#nickname').val()
+
+    const onChangeNickname = () => {
+        let nickname = $('#nickname').val()
         $('.nextButton').prop('disabled', !!!nickname);
     }
+
     const onClickSubmit = () => {
         const gender = $('input[name="gender"]:checked').val();
         const nickname = $('#nickname').val();
+
         if (!isValidateNickname(nickname)) {
             alert("닉네임은 1~20자 사이로 입력해주세요. 특수 기호는 사용할 수 없습니다.");
             return;
         }
+
         const formData = {
             email: $('#registerEmail').val(),
             gender: gender,
@@ -130,16 +139,12 @@
             error: function (_, _, error) {
             }
         });
-
     };
-
 
     $(function () {
         resister.init();
     });
-
 </script>
-
 
 <div class="resisterPage">
     <div>
@@ -152,13 +157,12 @@
         </div>
         <div class="section">
             <h1>닉네임을 입력해주세요</h1>
-            <input type="text" id="nickname" name="nickname" onkeyup="onChangeNickname()"  ><br><br>
+            <input type="text" id="nickname" name="nickname" onkeyup="onChangeNickname()"><br><br>
             <input type="hidden" id="registerEmail" value="${email}">
         </div>
     </div>
     <div>
         <button class="nextButton" disabled onClick="onClickSubmit()">확인</button>
     </div>
-
 </div>
 

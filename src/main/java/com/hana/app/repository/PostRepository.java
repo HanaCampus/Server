@@ -14,12 +14,21 @@ import java.util.List;
 public interface PostRepository extends HanaRepository<Integer, PostDto> {
 
     PostDto selectOne(@Param("postId") Integer postId, @Param("userId") Integer userId) throws Exception;
+
     Page<PostDto> getPostList(@Param("userId") Integer userId, @Param("boardId") Integer boardId) throws Exception;
+
     Page<PostDto> getMyPostList(Integer userId) throws Exception;
+
     Page<PostDto> getScrapList(Integer userId) throws Exception;
+
     int insertByAnonymous(PostDto postDto) throws Exception;
+
     int insertByNotAnonymous(PostDto postDto) throws Exception;
+
     int updateLikeCount(Integer id) throws Exception;
+
     int updateScrapCount(Integer id) throws Exception;
+
     Page<PostDto> selectByKeyword(@Param("boardId") Integer boardId, @Param("userId") Integer userId, @Param("keyword") String keyword) throws Exception;
+
 }

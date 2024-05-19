@@ -9,8 +9,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="static org.eclipse.tags.shaded.org.apache.regexp.RETest.test" %>
-<link rel="stylesheet" href="<c:url value="/css/boards/board.css" />" />
-<link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
+
+<link rel="stylesheet" href="<c:url value="/css/boards/board.css" />"/>
+<link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />"/>
 
 <script>
     let board = {
@@ -39,14 +40,14 @@
         board.init();
     });
 
-    function onClickPostDetail(postId){
+    function onClickPostDetail(postId) {
         location.href = "<c:url value="/posts"/>?id=" + postId;
     }
 
     // Enter 키를 눌렀을 때 폼 제출 막기
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         let searchInput = document.getElementById("searchInput");
-        searchInput.addEventListener("keydown", function(event) {
+        searchInput.addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault(); // 기본 동작 막기
                 return false;
@@ -60,15 +61,15 @@
     }
 
     // POST 좋아요
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         let likeButtons = document.querySelectorAll('.imoticon');
 
-        likeButtons.forEach(function(likeButton) {
-            likeButton.addEventListener('click', function(event) {
+        likeButtons.forEach(function (likeButton) {
+            likeButton.addEventListener('click', function (event) {
                 event.stopPropagation();
                 let postId = this.getAttribute('data-post-id');
                 let isLiked = this.classList.contains('liked');
-                if(isLiked) {
+                if (isLiked) {
                     $.ajax({
                         type: 'DELETE',
                         url: "<c:url value="/likes/post"/>?id=" + postId,
@@ -97,13 +98,15 @@
             });
         });
     });
-
-
 </script>
 
 <div class="board">
     <div class="header">
-        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="<c:url value='/img/back.svg'/>" alt="back"/></a></div>
+        <div class="back">
+            <a class="backBtn" href="#" onclick="goBack()">
+                <img src="<c:url value='/img/back.svg'/>" alt="back"/>
+            </a>
+        </div>
         <h3 class="title">${boardName}</h3>
         <div class="back"></div>
     </div>
@@ -183,6 +186,7 @@
     </div>
 </div>
 
+<%-- 게시글 작성 버튼 --%>
 <c:if test="${sessionScope.id != null}">
     <img id="writePostBtn" src="<c:url value="/img/writePostBtn.svg"/> ">
 </c:if>

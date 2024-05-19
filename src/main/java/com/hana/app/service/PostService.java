@@ -86,4 +86,5 @@ public class PostService implements HanaService<Integer, PostDto> {
         PageHelper.startPage(pageNo, 8);
         return postRepository.selectByKeyword(boardId, userId, keyword);
     }
+
 }

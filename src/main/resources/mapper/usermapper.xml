@@ -33,10 +33,10 @@
     <update id="update" parameterType="UserDto">
         UPDATE user
         <set>
+            update_date=NOW(),
             <if test="nickname != null">
                 nickname=#{nickname},
             </if>
-            update_date=NOW(),
             <if test="status != null">
                 status=#{status},
             </if>
@@ -50,6 +50,5 @@
     <delete id="delete" parameterType="String">
         DELETE FROM user WHERE user_id=#{userId}
     </delete>
-
 
 </mapper>

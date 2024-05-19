@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 public class UserDto {
 
     private String email;
-    private int userId; //DB에서 자동 생성
+    private int userId; // DB에서 자동 생성
     private String nickname;
     private String gender;
     private boolean isAdmin;
@@ -28,8 +28,9 @@ public class UserDto {
 
     public String getCreateDate() {
         if (createDate == null) {
-            return ""; // createDate가 null인 경우 빈 문자열 반환
+            return "";
         }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH시 mm분");
         return createDate.plusHours(9).format(formatter);
     }

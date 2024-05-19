@@ -5,20 +5,24 @@
   Time: 4:38 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<c:url value="/js/common.js" />"></script>
+
 <script>
     let index = {
         init: function () {
-            var alertMessage = "${alertMessage}";
+            let alertMessage = "${alertMessage}";
             if (alertMessage) {
                 alert(alertMessage);
             }
         }
     };
+
     $(function () {
         index.init();
     });
@@ -26,22 +30,22 @@
 
 <html lang="ko">
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="<c:url value="/css/index.css" />" />
-<%--    TODO:posts.css 중복 삭제--%>
-    <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="<c:url value="/css/index.css" />"/>
+    <%-- TODO: posts.css 중복 삭제 --%>
+    <link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>신고 내역 | HANA CAMPUS</title>
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="website"/>
     <meta
             property="og:image"
             content="/_next/static/media/og-image.aec7a121.png"
     />
-    <meta property="og:site_name" content="HANA CAMPUS" />
-    <meta property="og:locale" content="ko_KR" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large" />
+    <meta property="og:site_name" content="HANA CAMPUS"/>
+    <meta property="og:locale" content="ko_KR"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta name="twitter:card" content="summary_large"/>
     <meta
             name="twitter:image"
             content="/_next/static/media/og-image.aec7a121.png"
@@ -50,7 +54,7 @@
             name="description"
             content="HANA CAMPUS는 디지털 하나로 교육생들의 커뮤니티 공간입니다."
     />
-    <meta property="og:title" content="게시판 모음" />
+    <meta property="og:title" content="게시판 모음"/>
     <meta
             property="og:description"
             content="HANA CAMPUS는 디지털 하나로 교육생들의 커뮤니티 공간입니다."
@@ -59,18 +63,18 @@
             property="og:url"
             content="https://hanacampus.com/articles/categories"
     />
-    <meta name="twitter:title" content="게시판 모음" />
+    <meta name="twitter:title" content="게시판 모음"/>
     <meta
             name="twitter:description"
             content="HANA CAMPUS는 디지털 하나로 교육생들의 커뮤니티 공간입니다."
     />
-    <meta name="next-head-count" content="18" />
+    <meta name="next-head-count" content="18"/>
 
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <meta name="msapplication-TileColor" content="#ffffff"/>
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <meta charset="UTF-8"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
@@ -96,7 +100,7 @@
             href="/_next/static/css/36840340f3f01bb9.css"
             data-n-g=""
     />
-    <noscript data-n-css=""> </noscript>
+    <noscript data-n-css=""></noscript>
     <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&amp;display=swap"
@@ -120,19 +124,20 @@
         <footer class="hana-footer">
             <h2 class="css-1wvv5q9">
                 <a href="/"
-                ><div class="css-1icvysg">
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 124 19"
-                            aria-hidden="true"
-                            focusable="false"
-                            class="nav-icon"
-                    >
-                        <circle cx="49.5" cy="14.5" r="2.5" fill="#61A3F3"></circle>
-                    </svg>
-                    <span
-                            style="
+                >
+                    <div class="css-1icvysg">
+                        <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 124 19"
+                                aria-hidden="true"
+                                focusable="false"
+                                class="nav-icon"
+                        >
+                            <circle cx="49.5" cy="14.5" r="2.5" fill="#61A3F3"></circle>
+                        </svg>
+                        <span
+                                style="
                     position: absolute;
                     border: 0px;
                     width: 1px;
@@ -144,9 +149,10 @@
                     white-space: nowrap;
                     overflow-wrap: normal;
                   "
-                    >HANA CAMPUS</span
-                    >
-                </div></a
+                        >HANA CAMPUS</span
+                        >
+                    </div>
+                </a
                 >
             </h2>
             <div class="css-uewl2b">

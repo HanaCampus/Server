@@ -14,9 +14,7 @@
 
 <script>
     let free = {
-        init: function () {
-
-        }
+        init: function () {}
     };
 
     $(function () {
@@ -31,7 +29,11 @@
 
 <div class="freeBoard">
     <div class="header">
-        <div class="back"><a class="backBtn" href="<c:url value="/admins/reportedposts"/>"><img src="/img/back.svg"/></a></div>
+        <div class="back">
+            <a class="backBtn" href="<c:url value="/admins/reportedposts"/>">
+                <img src="/img/back.svg"/>
+            </a>
+        </div>
         <h3 class="title">게시글 신고 내역</h3>
         <div class="back"></div>
     </div>

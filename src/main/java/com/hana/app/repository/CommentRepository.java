@@ -22,6 +22,7 @@ public interface CommentRepository extends HanaRepository<Integer, CommentDto> {
     int report(Integer id) throws Exception;
 
     int insertByAnonymous(CommentDto commentDto) throws Exception;
+
     int insertByNotAnonymous(CommentDto commentDto) throws Exception;
 
 }

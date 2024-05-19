@@ -5,10 +5,11 @@
   Time: 10:11 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
 
+<style>
     .logo {
         width: 180px; /* 로고의 기본 크기 */
         margin: 20px 0; /* 로고 위아래로 20px의 마진 추가 */
@@ -28,6 +29,7 @@
         .logo {
             width: 120px; /* 더 작은 로고 크기 */
         }
+
         .loginBtn {
             padding: 10px;
         }
@@ -51,7 +53,6 @@
         display: block; /* 링크를 블록 요소로 설정하여 마진 적용 가능 */
         margin: 20px 0; /* 링크 위아래로 20px의 마진 추가 */
     }
-
 </style>
 
 <div class="text-center">

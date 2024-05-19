@@ -1,6 +1,5 @@
 package com.hana.app.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.hana.app.data.dto.BoardDto;
 import com.hana.app.data.dto.CommentDto;
 import com.hana.app.data.dto.PostDto;
@@ -23,11 +22,11 @@ import java.util.List;
 @Slf4j
 public class PostController {
 
+    String dir = "posts/";
+
     final PostService postService;
     final CommentService commentService;
     final BoardService boardService;
-
-    String dir = "posts/";
 
     @GetMapping("")
     public String main(Model model, @RequestParam("id") Integer postId, HttpSession httpSession) throws Exception {
@@ -35,7 +34,7 @@ public class PostController {
         PostDto postDto = postService.getPostInfo(postId, userId);
         List<CommentDto> commentDtoList = commentService.getIsLikedComment(postId, userId);
         BoardDto boardDto = boardService.get(postDto.getBoardId());
-        String boardName= boardDto.getName();
+        String boardName = boardDto.getName();
 
         model.addAttribute("id", httpSession.getAttribute("id"));
         model.addAttribute("postId", postId);
@@ -56,16 +55,17 @@ public class PostController {
         commentDto.setUserDto((UserDto.builder().userId(id).build()));
         commentDto.setPostId(postId);
 
-        if(commentDto.isAnonymous()) { // 익명 체크했으면
+        if (commentDto.isAnonymous()) { // 익명 체크했으면
             commentService.addByAnonymous(commentDto);
         } else { // 익명 체크 안했으면
             commentService.addByNotAnonymous(commentDto);
         }
+
         return "1";
     }
 
     @GetMapping("/writepost")
-    public String writePost(Model model, @RequestParam(value = "boardId") Integer boardId , @RequestParam("pageNo") Integer pageNo) {
+    public String writePost(Model model, @RequestParam(value = "boardId") Integer boardId, @RequestParam("pageNo") Integer pageNo) {
         model.addAttribute("boardId", boardId);
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("center", dir + "writepost");
@@ -79,7 +79,7 @@ public class PostController {
         Integer id = (Integer) httpSession.getAttribute("id");
         postDto.setUserDto((UserDto.builder().userId(id).build()));
 
-        if(postDto.isAnonymous()) { // 익명 체크했으면
+        if (postDto.isAnonymous()) { // 익명 체크했으면
             postService.addByAnonymous(postDto);
         } else { // 익명 체크 안했으면
             postService.addByNotAnonymous(postDto);
@@ -105,13 +105,12 @@ public class PostController {
     public String updatePost(PostDto postDto) throws Exception {
         postService.modify(postDto);
 
-//        return "redirect:/posts?id=" + postDto.getPostId();
         return "1";
     }
 
     @ResponseBody
     @DeleteMapping("/deletePost")
-    public String deletePost(@RequestParam("postId") int postId, @RequestParam("boardId") int boardId) throws Exception {
+    public String deletePost(@RequestParam("postId") int postId) throws Exception {
         postService.del(postId);
 
         return "1";
@@ -119,9 +118,10 @@ public class PostController {
 
     @ResponseBody
     @DeleteMapping("/deleteComment")
-    public String deleteComment(@RequestParam("commentId") int commentId, @RequestParam("postId") int postId) throws Exception {
+    public String deleteComment(@RequestParam("commentId") int commentId) throws Exception {
         commentService.del(commentId);
 
         return "1";
     }
+
 }
