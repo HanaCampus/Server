@@ -5,18 +5,19 @@
   Time: 11:28 AM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <style>
-
-    .agreePage{
+    .agreePage {
         min-height: calc(100vh - 90px);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
-    .termTitle{
+
+    .termTitle {
         font-size: 28px;
         line-height: 44px;
         letter-spacing: -0.04em;
@@ -25,7 +26,7 @@
         margin-bottom: 40px;
     }
 
-    .termBox{
+    .termBox {
         padding: 12px;
         font-size: 24px;
         line-height: 36px;
@@ -37,7 +38,8 @@
         gap: 12px;
         display: flex;
     }
-    .termOfService{
+
+    .termOfService {
         font-size: 20px;
         background-color: #208C65;
         padding: 6px 12px;
@@ -51,11 +53,13 @@
         line-height: 30px;
         letter-spacing: -0.03em;
         font-weight: 400;
+
         .require {
             color: #d2ffdd;
             font-size: 16px;
         }
-        .content{
+
+        .content {
             font-size: 20px;
             line-height: 30px;
             letter-spacing: -0.03em;
@@ -63,65 +67,72 @@
         }
     }
 
-    .termListDiv{
+    .termListDiv {
         margin-bottom: 20px;
         flex-direction: column;
         gap: 12px;
         display: flex;
 
-        .toggle{
+        .toggle {
             width: 30px;
             display: flex;
             justify-content: center;
         }
-        .termContent{
+
+        .termContent {
             display: none;
         }
     }
-    .termContent{
+
+    .termContent {
         background-color: #208C65;
         border-radius: 12px;
-        padding:20px;
+        padding: 20px;
         max-height: 300px;
         overflow: scroll;
-        h2{
+
+        h2 {
             font-size: 24px;
             line-height: 36px;
             letter-spacing: -0.03em;
             font-weight: 700;
             margin: 40px 0px 10px;
         }
-        p{
+
+        p {
             margin-top: 12px;
             margin-bottom: 12px;
         }
-        ol{
+
+        ol {
             padding-left: 32px;
             margin: 12px 0px;
         }
     }
+
     .nextButton {
         height: 56px;
         border-radius: 12px;
         width: 100%;
         margin-bottom: 20px;
         background: #d2ffdd;
-        &:disabled{
+
+        &:disabled {
             background: #5b647c;
         }
-        &:focus{
+
+        &:focus {
             cursor: pointer;
         }
     }
-
 </style>
 
 <script>
-    const onClickNext = ()=>{
-        location.href="<c:url value="/auth/register"/>"
+    const onClickNext = () => {
+        location.href = "<c:url value="/auth/register"/>"
     }
-    $(document).ready(function(){
 
+    $(document).ready(function () {
         $(".term1").click(function () {
             var article = $(this).closest(".termListDiv").find(".first");
             $(this).html(article.is(":visible") ? '<img src="/img/buttonDown.svg"/>' : '<img src="/img/buttonUp.svg"/>');
@@ -140,40 +151,41 @@
             article.slideToggle();
         });
 
-
         // 전체 동의 체크박스 선택/해제
         $('#agreeAll').prop('checked', function (i, val) {
             $('input[type="checkbox"]').prop('checked', val);
         });
-        $('#agreeAll').on('click', function() {
+
+        $('#agreeAll').on('click', function () {
             // 전체 동의 체크박스의 현재 상태 가져오기
-            var isChecked = $(this).prop('checked');
+            let isChecked = $(this).prop('checked');
             $('.nextButton').prop('disabled', !isChecked);
             // 개별 체크박스의 상태를 전체 동의 체크박스 상태와 동기화
             $('input[type="checkbox"]').not('#agreeAll').prop('checked', isChecked);
         });
+
         // 개별 체크박스 선택/해제
-        $('input[type="checkbox"]').not('#agreeAll').change(function() {
-            var totalCheckboxes = $('input[type="checkbox"]').not('#agreeAll').length;
-            var checkedCheckboxes = $('input[type="checkbox"]').not('#agreeAll').filter(':checked').length;
+        $('input[type="checkbox"]').not('#agreeAll').change(function () {
+            let totalCheckboxes = $('input[type="checkbox"]').not('#agreeAll').length;
+            let checkedCheckboxes = $('input[type="checkbox"]').not('#agreeAll').filter(':checked').length;
             $('.nextButton').prop('disabled', totalCheckboxes !== checkedCheckboxes);
 
             // 전체 동의 체크박스 상태 변경
             $('#agreeAll').prop('checked', totalCheckboxes === checkedCheckboxes);
         });
 
-        const checkAllBox = ()=>{
-            var isChecked = $('#agreeAll').prop('checked');
-            if(isChecked) return true;
+        const checkAllBox = () => {
+            let isChecked = $('#agreeAll').prop('checked');
+            if (isChecked) return true;
             return false;
         }
+
         const updateButtonState = () => {
-            var isEnabled = checkAllBox();
+            let isEnabled = checkAllBox();
             $('.nextButton').prop('disabled', !isEnabled);
         }
     });
 </script>
-
 
 <div class="agreePage">
     <div>
@@ -187,9 +199,10 @@
                 </label>
             </div>
             <div class="termListDiv">
-                <div class ="termOfService">
+                <div class="termOfService">
                     <label>
-                        <input type="checkbox" name="agreement"> <span class="require">(필수)</span> <span class="content">서비스 이용 약관</span>
+                        <input type="checkbox" name="agreement"> <span class="require">(필수)</span> <span
+                            class="content">서비스 이용 약관</span>
                     </label>
                     <span class="toggle term1"><img src="<c:url value="/img/buttonDown.svg"/>"/></span>
                 </div>
@@ -495,7 +508,7 @@
                         법원에 제기합니다.
                     </p>
                     <strong>부칙 (2024년 05월 03일 공고)</strong></article>
-                <div class ="termOfService">
+                <div class="termOfService">
                     <label>
                         <input type="checkbox" name="agreement"><span class="require">(필수)</span> <span class="content">개인정보 이용 약관</span>
                     </label>
@@ -542,7 +555,7 @@
                         </li>
                     </ol>
                     <p>- 공고일자: 2023년 10월 19일 • 시행일자: 2023년 10월 19일</p></article>
-                <div class ="termOfService">
+                <div class="termOfService">
                     <label>
                         <input type="checkbox" name="agreement"><span class="require">(필수)</span> <span class="content"> 커뮤니티 이용 약관</span>
                     </label>
@@ -1155,7 +1168,5 @@
     <div>
         <button class="nextButton" disabled onClick="onClickNext()">다음으로</button>
     </div>
-
-
 </div>
 

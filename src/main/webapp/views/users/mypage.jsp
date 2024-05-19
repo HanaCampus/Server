@@ -5,22 +5,24 @@
   Time: 1:13 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
-    .mypage{
-        .nicknameContainer{
+    .mypage {
+        .nicknameContainer {
             display: flex;
             align-items: center;
             margin-bottom: 44px;
         }
-        .userNicknameChar{
+
+        .userNicknameChar {
             border-radius: 100px;
             color: rgb(0, 0, 0);
             border: 0.6px solid rgb(255, 255, 255);
-            background-color:#d0fefb;
+            background-color: #d0fefb;
             font-weight: 700;
             -webkit-box-align: center;
             align-items: center;
@@ -33,8 +35,9 @@
             height: 36px;
             flex-shrink: 0;
         }
-        .userNickname{
-            margin-left:10px;
+
+        .userNickname {
+            margin-left: 10px;
             max-width: 260px;
             word-break: break-all;
             font-size: 28px;
@@ -43,7 +46,8 @@
             font-weight: 700;
             font-family: Manrope, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Noto Sans KR", sans-serif;
         }
-        .containerTitle{
+
+        .containerTitle {
             margin-bottom: 10px;
             color: #A6D9B3;
             font-size: 14px;
@@ -52,7 +56,8 @@
             font-weight: 700;
             /*padding: 0 25px;*/
         }
-        .menuContainer{
+
+        .menuContainer {
             -webkit-box-pack: center;
             justify-content: center;
             flex-direction: column;
@@ -62,12 +67,13 @@
             margin-left: -25px;
             margin-right: -25px;
             margin-bottom: 40px;
-            button{
-                color:#ffffff;
+
+            button {
+                color: #ffffff;
                 font-size: 18px;
                 width: inherit;
                 height: 44px;
-                background-color:transparent;
+                background-color: transparent;
                 /*background-color:#0B610B; */
                 padding: 0px 20px;
                 transition: background-color 200ms ease 0s;
@@ -80,58 +86,62 @@
                 flex-direction: row;
                 gap: 10px;
                 display: flex;
-                &:hover{
-                 background-color: #208C6E;
+
+                &:hover {
+                    background-color: #208C6E;
                 }
             }
+
             button:hover {
                 cursor: pointer;
             }
         }
     }
 </style>
+
 <script>
     let mypage = {
-        init: function () {
-        }
+        init: function () {}
     };
-    const onClickMyScrap = ()=>{
+
+    const onClickMyScrap = () => {
         location.href = "<c:url value="/users/myscraps"/>";
     }
-    const onClickMyPosts = ()=>{
+
+    const onClickMyPosts = () => {
         location.href = "<c:url value="/users/myposts"/>";
     }
 
-    const onClickChangeNicknamePage = ()=>{
+    const onClickChangeNicknamePage = () => {
         location.href = "<c:url value="/users/info"/>";
     }
 
-    const onClickLogout = ()=>{
+    const onClickLogout = () => {
         alert("로그아웃되었습니다.")
         location.href = "<c:url value="/logout"/>";
     }
+
     const onClickSignout = () => {
         if (confirm("탈퇴하겠습니까?")) {
             $.ajax({
-                type:'POST',
-                url:"<c:url value="/users/sign-out"/>",
-                success: function(response){
-                    if(response=="1"){
+                type: 'POST',
+                url: "<c:url value="/users/sign-out"/>",
+                success: function (response) {
+                    if (response == "1") {
                         alert("탈퇴되었습니다.");
                         location.href = "<c:url value="/"/>";
                         return;
                     }
                 }
             })
-        } else {
         }
     }
 
     $(function () {
         mypage.init();
     });
-
 </script>
+
 <div class="mypage">
     <div class="nicknameContainer">
         <div class="userNicknameChar">${user.nickname.charAt(0)}</div>
@@ -168,7 +178,4 @@
             <span>탈퇴하기</span>
         </button>
     </div>
-
-
-
 </div>
