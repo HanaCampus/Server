@@ -23,17 +23,15 @@ public class CommentDto {
     private int parentId;
     private boolean anonymous;
 //    private ArrayList<CommentDto> children;
-
-    // 좋아요 누른 사람 여부
-    private Integer isLiked;
-
+    private Integer isLiked; // 좋아요 누른 사람 여부
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
     public String getCreateDate() {
         if (createDate == null) {
-            return ""; // createDate가 null인 경우 빈 문자열 반환
+            return "";
         }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH시 mm분");
         return createDate.plusHours(9).format(formatter);
     }

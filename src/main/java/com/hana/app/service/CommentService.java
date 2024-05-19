@@ -64,4 +64,5 @@ public class CommentService implements HanaService<Integer, CommentDto> {
         // 성공 시 1, 실패 시 0 return
         return commentRepository.report(id);
     }
+
 }

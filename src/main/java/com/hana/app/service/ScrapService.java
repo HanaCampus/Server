@@ -42,4 +42,5 @@ public class ScrapService implements HanaService<Integer, ScrapDto> {
     public ScrapDto isScrapedByUserId(Integer postId, Integer userId) throws Exception {
         return ScrapRepository.isScrapedByUserId(postId, userId);
     }
+
 }

@@ -42,4 +42,5 @@ public class LikedCommentService implements HanaService<Integer, LikedCommentDto
     public LikedCommentDto isLikedCommentByUserId(Integer commentId, Integer userId) throws Exception {
         return likedCommentRepository.isLikedCommentByUserId(commentId, userId);
     }
+
 }

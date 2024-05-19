@@ -11,7 +11,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService implements HanaService<String, UserDto> {
+
     final UserRepository userRepository;
+
     @Override
     public int add(UserDto userDto) throws Exception {
         return userRepository.insert(userDto);
@@ -36,9 +38,11 @@ public class UserService implements HanaService<String, UserDto> {
     public List<UserDto> get() throws Exception {
         return userRepository.select();
     }
+
     public UserDto findByNickname(String s) throws Exception {
         return userRepository.findByNickname(s);
     }
+
     public UserDto findByEmail(String s) throws Exception {
         return userRepository.findByEmail(s);
     }

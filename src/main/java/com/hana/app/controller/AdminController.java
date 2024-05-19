@@ -30,29 +30,32 @@ public class AdminController {
     final ReportCategoryService reportCategoryService;
 
     @RequestMapping("")
-    public String main(Model model, @ModelAttribute("alert") String alertMessage,HttpSession httpSession) {
-        try{
+    public String main(Model model, @ModelAttribute("alert") String alertMessage, HttpSession httpSession) {
+        try {
             Integer userId = (Integer) httpSession.getAttribute("id");
+
             if (userId != null) {
                 UserDto userDto = userService.get(String.valueOf(userId));
-                log.info(userDto.toString());
-                 if(!userDto.isAdmin()){
+
+                // 관리자가 아니면 관리자 페이지 접근 불가
+                if (!userDto.isAdmin()) {
                     return "redirect:/";
-                 }
+                }
             }
+
             if (alertMessage != null && !alertMessage.isEmpty()) {
                 model.addAttribute("alertMessage", alertMessage);
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         return dir + "index";
     }
 
     @GetMapping("/reportedposts")
     public String reportedPosts(Model model) throws Exception {
-        List<ReportedPostDto> reportedPostDtoList= reportedPostService.get();
-        log.info(reportedPostDtoList.toString());
+        List<ReportedPostDto> reportedPostDtoList = reportedPostService.get();
         model.addAttribute("posts", reportedPostDtoList);
         model.addAttribute("center", dir + "reportedposts");
         return "index";
@@ -60,8 +63,7 @@ public class AdminController {
 
     @GetMapping("/reportedposts/complete")
     public String completedPosts(Model model) throws Exception {
-        List<ReportedPostDto> reportedPostDtoList= reportedPostService.completedReports();
-        log.info(reportedPostDtoList.toString());
+        List<ReportedPostDto> reportedPostDtoList = reportedPostService.completedReports();
         model.addAttribute("posts", reportedPostDtoList);
         model.addAttribute("center", dir + "completedposts");
         return "index";
@@ -69,9 +71,8 @@ public class AdminController {
 
     @GetMapping("/postInfo")
     public String getReportedPost(Model model, @RequestParam("id") Integer postId) throws Exception {
-        ReportedPostDto reportedPostDto= reportedPostService.get(postId);
+        ReportedPostDto reportedPostDto = reportedPostService.get(postId);
         List<ReportCategoryDto> reportCategoryDtoList = reportCategoryService.get();
-        log.info(reportedPostDto.toString());
         model.addAttribute("post", reportedPostDto);
         model.addAttribute("category", reportCategoryDtoList);
         model.addAttribute("center", dir + "reportedpost");
@@ -80,8 +81,7 @@ public class AdminController {
 
     @GetMapping("/reportedcomments")
     public String reportedComments(Model model) throws Exception {
-        List<ReportedCommentDto> reportedCommentDtoList= reportedCommentService.get();
-        log.info(reportedCommentDtoList.toString());
+        List<ReportedCommentDto> reportedCommentDtoList = reportedCommentService.get();
         model.addAttribute("comments", reportedCommentDtoList);
         model.addAttribute("center", dir + "reportedcomments");
         return "index";
@@ -89,8 +89,7 @@ public class AdminController {
 
     @GetMapping("/reportedcomments/complete")
     public String completedComments(Model model) throws Exception {
-        List<ReportedCommentDto> reportedCommentDtoList= reportedCommentService.completedReports();
-        log.info(reportedCommentDtoList.toString());
+        List<ReportedCommentDto> reportedCommentDtoList = reportedCommentService.completedReports();
         model.addAttribute("comments", reportedCommentDtoList);
         model.addAttribute("center", dir + "completedcomments");
         return "index";
@@ -98,9 +97,8 @@ public class AdminController {
 
     @GetMapping("/commentInfo")
     public String getReportedComment(Model model, @RequestParam("id") Integer commentId) throws Exception {
-        ReportedCommentDto reportedCommentDto= reportedCommentService.get(commentId);
+        ReportedCommentDto reportedCommentDto = reportedCommentService.get(commentId);
         List<ReportCategoryDto> reportCategoryDtoList = reportCategoryService.get();
-        log.info(reportedCommentDto.toString());
         model.addAttribute("comment", reportedCommentDto);
         model.addAttribute("category", reportCategoryDtoList);
         model.addAttribute("center", dir + "reportedcomment");
@@ -108,15 +106,17 @@ public class AdminController {
     }
 
     @PostMapping("/updateSuspendDate")
-    public String updateSuspendDate(@RequestParam("userId") Integer userId, @RequestParam(value = "postId", required = false) Integer postId, @RequestParam(value = "commentId", required = false) Integer commentId, @RequestParam("suspend_days") String suspendDays) throws Exception {
+    public String updateSuspendDate(@RequestParam("userId") Integer userId,
+                                    @RequestParam(value = "postId", required = false) Integer postId,
+                                    @RequestParam(value = "commentId", required = false) Integer commentId,
+                                    @RequestParam("suspend_days") String suspendDays) throws Exception {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime suspendDate = null;
 
         if (!"all".equals(suspendDays)) {
-            if("영구 정지".equals(suspendDays)){
+            if ("영구 정지".equals(suspendDays)) {
                 suspendDate = now.plusYears(100); // 'all'을 영구 정지로 간주할 경우
-            }
-            else {
+            } else {
                 int daysToAdd = Integer.parseInt(suspendDays);
                 suspendDate = now.plusDays(daysToAdd);
             }
@@ -125,11 +125,12 @@ public class AdminController {
             userDto.setSuspendedDate(suspendDate);
             userService.modify(userDto);
 
-            if(postId != null) {
+            if (postId != null) {
                 reportedPostService.completeReport(postId);
                 return "redirect:/admins/reportedposts"; // 처리 후 리디렉트할 페이지
             }
-            if(commentId != null) {
+
+            if (commentId != null) {
                 reportedCommentService.completeReport(commentId);
                 return "redirect:/admins/reportedcomments"; // 처리 후 리디렉트할 페이지
             }
@@ -137,4 +138,5 @@ public class AdminController {
 
         return "redirect:/admins";
     }
+
 }

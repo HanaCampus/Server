@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface ReportCategoryRepository extends HanaRepository<Integer, ReportCategoryDto> {
+
 }

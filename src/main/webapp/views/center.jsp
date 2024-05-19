@@ -9,17 +9,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
-
 <script>
-
     $(function () {
         $.ajax({
             type: 'GET',
             url: '<c:url value="/boards/list"/>',
             success: function (response) {
                 response.forEach(function (board) {
-                    var imgSrc = '<c:url value="/img/' + board.img + '"/>';
-                    var boardHtml = '<div class="css-65egb5">' +
+                    let imgSrc = '<c:url value="/img/' + board.img + '"/>';
+                    let boardHtml = '<div class="css-65egb5">' +
                         '<a class="css-hthzsn" href="/boards?id=' + board.boardId + '&pageNo=1">' +
                         // '<div class="boardContainer">'+
                             '<div>' +
@@ -37,7 +35,6 @@
             }
         });
     });
-
 </script>
 
 <div class="center">

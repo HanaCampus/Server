@@ -24,21 +24,16 @@ public class PostDto {
     private UserDto userDto;
     private int boardId;
     private int commentCount;
-
-    // 좋아요 누른 사람 여부
-    private Integer isLiked;
-
-    // 스크랩 누른 사람 여부
-    private Integer isScraped;
-
+    private Integer isLiked; // 좋아요 누른 사람 여부
+    private Integer isScraped; // 스크랩 누른 사람 여부
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
-    // 사용자 정의 getDate 메서드
     public String getCreateDate() {
         if (createDate == null) {
-            return ""; // createDate가 null인 경우 빈 문자열 반환
+            return "";
         }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH시 mm분");
         return createDate.plusHours(9).format(formatter);
     }

@@ -4,7 +4,6 @@
     border-radius: 10px;
     background-color: whitesmoke;
     color: black;
-    /*font-weight: bold;*/
 
     display: flex;
     flex-direction: column;
@@ -112,7 +111,8 @@
                 .imoticon {
                     margin-right: 4px;
                 }
-                .likePostEmoticon{
+
+                .likePostEmoticon {
                     margin-right: 2px;
                 }
             }
@@ -172,8 +172,6 @@
         right: 10px;
         bottom: 5px;
         font-size: 16px;
-        /*border-radius: 20px;*/
-        /*padding: 3px 5px 3px 5px;*/
 
         .anonymous {
             color: black;
@@ -189,7 +187,7 @@
     }
 }
 
-.userThumbnail{
+.userThumbnail {
     border-radius: 100px;
     color: rgb(0, 0, 0);
     border: 0.6px solid rgb(255, 255, 255);
@@ -206,17 +204,19 @@
     flex-shrink: 0;
     margin-right: 5px;
 
-    img{
+    img {
         width: inherit;
         height: inherit;
     }
 }
-.user{
+
+.user {
     display: flex;
     justify-content: center;
     align-items: center;
-    &.big{
-        .userThumbnail{
+
+    &.big {
+        .userThumbnail {
             width: 30px;
             height: 30px;
         }

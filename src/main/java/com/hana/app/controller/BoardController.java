@@ -21,30 +21,37 @@ import java.util.List;
 @Slf4j
 public class BoardController {
 
+    String dir = "boards/";
+
     final BoardService boardService;
     final PostService postService;
 
-    String dir = "boards/";
-
     @GetMapping("")
-    public String main(Model model, @RequestParam("id") Integer boardId, @RequestParam("pageNo") Integer pageNo, HttpSession httpSession) throws Exception {
+    public String main(Model model,
+                       @RequestParam("id") Integer boardId,
+                       @RequestParam("pageNo") Integer pageNo,
+                       HttpSession httpSession) throws Exception {
         PageInfo<PostDto> pageInfo;
         pageInfo = new PageInfo<>(postService.getPostList((Integer) httpSession.getAttribute("id"), boardId, pageNo), 5); // navigatePages: 하단 네비게이션 개수
-        BoardDto boardDto = boardService.get(boardId);
-        String boardName= boardDto.getName();
+
         // pagination.jsp 파일에서 path 설정 시 사용
         String paginationPath = "boards";
 
-        model.addAttribute("paginationPath", paginationPath);
+        BoardDto boardDto = boardService.get(boardId);
+        String boardName = boardDto.getName();
+
         model.addAttribute("boardId", boardId);
+        model.addAttribute("boardName", boardName);
+        model.addAttribute("paginationPath", paginationPath);
         model.addAttribute("cpage", pageInfo);
         model.addAttribute("center", dir + "board");
-        model.addAttribute("boardName", boardName);
+
         return "index";
     }
 
     @PostMapping("/search")
-    public String search(Model model, HttpSession httpSession,
+    public String search(Model model,
+                         HttpSession httpSession,
                          @RequestParam("searchKeyword") String searchKeyword,
                          @RequestParam("id") Integer boardId,
                          @RequestParam("pageNo") Integer pageNo) throws Exception {
@@ -68,9 +75,9 @@ public class BoardController {
 
     @ResponseBody
     @GetMapping("/list")
-    public List<BoardDto> boardList(Model model) throws Exception {
+    public List<BoardDto> boardList() throws Exception {
         List<BoardDto> boardDtoList = boardService.get();
-        log.info(boardDtoList.toString());
         return boardDtoList;
     }
+
 }

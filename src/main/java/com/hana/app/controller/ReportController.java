@@ -5,11 +5,7 @@ import com.hana.app.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/reports")
@@ -27,7 +23,7 @@ public class ReportController {
         Integer userId = (Integer) httpSession.getAttribute("id");
 
         // 신고 내역이 있으면 return "0"
-        if(reportedPostService.findDuplicateOne(postId, userId) != null) {
+        if (reportedPostService.findDuplicateOne(postId, userId) != null) {
             return "0";
         }
 
@@ -44,12 +40,12 @@ public class ReportController {
 
     @PostMapping("/comment")
     public String comment(HttpSession httpSession,
-                       @RequestParam("id") int commentId,
-                       @RequestParam("reportCategoryId") int reportCategoryId) throws Exception {
+                          @RequestParam("id") int commentId,
+                          @RequestParam("reportCategoryId") int reportCategoryId) throws Exception {
         Integer userId = (Integer) httpSession.getAttribute("id");
 
         // 신고 내역이 있으면 return "0"
-        if(reportedCommentService.findDuplicateOne(commentId, userId) != null) {
+        if (reportedCommentService.findDuplicateOne(commentId, userId) != null) {
             return "0";
         }
 
@@ -63,4 +59,5 @@ public class ReportController {
         reportedCommentService.add(reportedCommentDto);
         return "1";
     }
+
 }

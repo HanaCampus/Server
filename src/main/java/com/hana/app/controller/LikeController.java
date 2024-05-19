@@ -1,6 +1,5 @@
 package com.hana.app.controller;
 
-
 import com.hana.app.data.dto.CommentDto;
 import com.hana.app.data.dto.LikedCommentDto;
 import com.hana.app.data.dto.LikedPostDto;
@@ -20,17 +19,18 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 public class LikeController {
+
+    String dir = "likes/";
+
     final LikedPostService likedPostService;
     final PostService postService;
     final LikedCommentService likedCommentService;
     final CommentService commentService;
-    String dir = "likes/";
-
 
     @ResponseBody
     @PostMapping("/post")
-    public String getLikePost(@RequestParam("id") Integer id, HttpSession httpSession){
-        try{
+    public String getLikePost(@RequestParam("id") Integer id, HttpSession httpSession) {
+        try {
             Integer userId = (Integer) httpSession.getAttribute("id");
             LikedPostDto likedPostDto = LikedPostDto.builder().userId(userId).postId(id).build();
             likedPostService.add(likedPostDto);
@@ -38,7 +38,7 @@ public class LikeController {
             PostDto postDto = postService.get(id);
             String likeNum = String.valueOf(postDto.getLikes());
             return likeNum;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
@@ -46,8 +46,8 @@ public class LikeController {
 
     @ResponseBody
     @DeleteMapping("/post")
-    public String deleteLikePost(@RequestParam("id") Integer id, HttpSession httpSession){
-        try{
+    public String deleteLikePost(@RequestParam("id") Integer id, HttpSession httpSession) {
+        try {
             Integer userId = (Integer) httpSession.getAttribute("id");
             LikedPostDto likedPostDto = likedPostService.isLikedByUserId(id, userId);
             likedPostService.del(likedPostDto.getLikedPostId());
@@ -55,7 +55,7 @@ public class LikeController {
             PostDto postDto = postService.get(id);
             String likeNum = String.valueOf(postDto.getLikes());
             return likeNum;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
@@ -76,23 +76,19 @@ public class LikeController {
 
     @ResponseBody
     @DeleteMapping("/comment")
-    public String deleteLikeComment(@RequestParam("id") Integer id, HttpSession httpSession){
-        try{
+    public String deleteLikeComment(@RequestParam("id") Integer id, HttpSession httpSession) {
+        try {
             Integer userId = (Integer) httpSession.getAttribute("id");
             LikedCommentDto likedCommentDto = likedCommentService.isLikedCommentByUserId(id, userId);
-            log.info("서윤3");
-            log.info(likedCommentDto.toString());
             likedCommentService.del(likedCommentDto.getLikedCommentId());
             commentService.modifyLikeCount(likedCommentDto.getCommentId());
             CommentDto commentDto = commentService.get(id);
             String likeNum = String.valueOf(commentDto.getLikes());
             return likeNum;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "";
     }
-
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface LikedCommentRepository extends HanaRepository<Integer, LikedCommentDto> {
+
     LikedCommentDto isLikedCommentByUserId(@Param("commentId") Integer commentId, @Param("userId") Integer userId);
 
 }

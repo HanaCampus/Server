@@ -13,11 +13,12 @@ import java.util.List;
 @Repository
 @Mapper
 public interface ReportedCommentRepository extends HanaRepository<Integer, ReportedCommentDto> {
+
     // 신고 중복 여부 확인을 위해 userId와 commentId로 데이터를 select
-    // null이면 중복 x, 아니면 중복
     ReportedCommentDto selectDuplicateOne(@Param("commentId") Integer commentId, @Param("userId") Integer userId);
 
     int completeReport(Integer commentId);
 
     List<ReportedCommentDto> completedReports();
+
 }

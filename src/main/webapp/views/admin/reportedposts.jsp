@@ -9,13 +9,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="<c:url value="/css/boards/board.css" />" />
-<link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />" />
+<link rel="stylesheet" href="<c:url value="/css/boards/board.css" />"/>
+<link rel="stylesheet" href="<c:url value="/css/boards/posts.css" />"/>
 
 <script>
     let free = {
         init: function () {
-
         }
     };
 
@@ -53,7 +52,7 @@
         background-color: #45a049; /* 호버 시 더 어두운 녹색 */
     }
 
-    .comletedReportsButton{
+    .comletedReportsButton {
         display: flex;
         justify-content: end;
     }
@@ -62,7 +61,11 @@
 
 <div class="freeBoard">
     <div class="header">
-        <div class="back"><a class="backBtn" href="<c:url value="/admins"/>"><img src="/img/back.svg"/></a></div>
+        <div class="back">
+            <a class="backBtn" href="<c:url value="/admins"/>">
+                <img src="/img/back.svg"/>
+            </a>
+        </div>
         <h3 class="title">게시글 신고 내역</h3>
         <div class="back"></div>
     </div>

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface BoardRepository extends HanaRepository<Integer, BoardDto> {
+
 }

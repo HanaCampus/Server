@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ReportCategoryService implements HanaService<Integer, ReportCategoryDto> {
+
     private final ReportCategoryRepository reportCategoryRepository;
 
     @Override
@@ -38,4 +39,5 @@ public class ReportCategoryService implements HanaService<Integer, ReportCategor
     public List<ReportCategoryDto> get() throws Exception {
         return reportCategoryRepository.select();
     }
+
 }

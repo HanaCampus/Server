@@ -42,4 +42,5 @@ public class LikedPostService implements HanaService<Integer, LikedPostDto> {
     public LikedPostDto isLikedByUserId(Integer postId, Integer userId) throws Exception {
         return likedPostRepository.isLikedByUserId(postId, userId);
     }
+
 }

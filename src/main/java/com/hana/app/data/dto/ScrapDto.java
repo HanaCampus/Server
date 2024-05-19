@@ -22,8 +22,9 @@ public class ScrapDto {
 
     public String getCreateDate() {
         if (createDate == null) {
-            return ""; // createDate가 null인 경우 빈 문자열 반환
+            return "";
         }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd HH시 mm분");
         return createDate.plusHours(9).format(formatter);
     }

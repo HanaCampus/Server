@@ -38,4 +38,5 @@ public class BoardService implements HanaService<Integer, BoardDto> {
     public List<BoardDto> get() throws Exception {
         return boardRepository.select();
     }
+
 }

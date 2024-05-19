@@ -21,22 +21,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-
 @Data
 @NoArgsConstructor
 @Builder
 @Component
 @Slf4j
 public class KakaoApi {
+
     String kakaoApiKey;
     String kakaoRedirectUrl;
+
     public KakaoApi(String kakaoApiKey, String kakaoRedirectUrl) {
         this.kakaoApiKey = kakaoApiKey;
         this.kakaoRedirectUrl = kakaoRedirectUrl;
     }
 
     // access_token 추출 함수
-    public String getAccessToken(String code){
+    public String getAccessToken(String code) {
         RestTemplate rt = new RestTemplate();
         String accessToken = "";
         // HTTP header
@@ -63,19 +64,19 @@ public class KakaoApi {
         try {
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(response.getBody().toString());
-            //accessToken 추출
+            // accessToken 추출
             accessToken = (String) jsonObject.get("access_token");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return accessToken;
     }
 
-    //getAccessToken함수로 추출한 accessToken으로 유저 정보 요청
+    // getAccessToken 함수로 추출한 accessToken으로 유저 정보 요청
     public HashMap<String, Object> getUserInfo(String accessToken) {
         HashMap<String, Object> userInfo = new HashMap<>();
         String reqUrl = "https://kapi.kakao.com/v2/user/me";
-        try{
+        try {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -83,7 +84,7 @@ public class KakaoApi {
             conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
             int responseCode = conn.getResponseCode();
-            log.info("[KakaoApi.getUserInfo] responseCode : {}",  responseCode);
+            log.info("[KakaoApi.getUserInfo] responseCode : {}", responseCode);
 
             BufferedReader br;
             if (responseCode >= 200 && responseCode <= 300) {
@@ -94,7 +95,7 @@ public class KakaoApi {
 
             String line = "";
             StringBuilder responseSb = new StringBuilder();
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 responseSb.append(line);
             }
             String result = responseSb.toString();
@@ -110,24 +111,24 @@ public class KakaoApi {
 
             br.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return userInfo;
     }
 
-    //카카오 로그아웃 로직
+    // 카카오 로그아웃 로직
     public void kakaoLogout(String accessToken) {
         String reqUrl = "https://kapi.kakao.com/v1/user/logout";
 
-        try{
+        try {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = conn.getResponseCode();
-            log.info("[KakaoApi.kakaoLogout] responseCode : {}",  responseCode);
+            log.info("[KakaoApi.kakaoLogout] responseCode : {}", responseCode);
 
             BufferedReader br;
             if (responseCode >= 200 && responseCode <= 300) {
@@ -138,14 +139,15 @@ public class KakaoApi {
 
             String line = "";
             StringBuilder responseSb = new StringBuilder();
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 responseSb.append(line);
             }
             String result = responseSb.toString();
             log.info("kakao logout - responseBody = {}", result);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

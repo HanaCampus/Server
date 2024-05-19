@@ -16,18 +16,18 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @AllArgsConstructor
-public class SecurityConfig  {
+public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // CSRF 설정 Disable
         http
-            .csrf((csrf) ->
-                csrf.disable()
-            )
-            .logout((logoutConfig) ->
-                //로그아웃
-                logoutConfig.logoutSuccessUrl("/")
-            );
+                .csrf((csrf) ->
+                        csrf.disable()
+                )
+                .logout((logoutConfig) ->
+                        // 로그아웃
+                        logoutConfig.logoutSuccessUrl("/")
+                );
 
         // CORS 설정
         CorsConfiguration configuration = new CorsConfiguration();

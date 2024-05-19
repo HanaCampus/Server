@@ -10,18 +10,17 @@ public enum UType {
 
     private String value;
 
-    UType(String uType){
+    UType(String uType) {
         this.value = uType;
     }
 
-    public String getValue(){
+    public String getValue() {
         return value;
     }
 
-    public static Optional<UType> getUType(String uType){
+    public static Optional<UType> getUType(String uType) {
         return Arrays.stream(UType.values())
                 .filter(utype -> utype.getValue().equals(uType))
                 .findAny();
-
     }
 }

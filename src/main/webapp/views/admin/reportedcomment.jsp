@@ -9,9 +9,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" href="<c:url value="/css/posts/post.css" />" />
+<link rel="stylesheet" href="<c:url value="/css/posts/post.css" />"/>
 <link rel="stylesheet" href="<c:url value="/css/boards/board.css" />"/>
 <link rel="stylesheet" href="<c:url value="/css/posts/dropdown.css" />"/>
+
 <style>
     /* 신고 사유 목록 스타일 */
     .reports {
@@ -62,6 +63,7 @@
     }
 
 </style>
+
 <script>
     let post = {
         init: function () {}
@@ -73,17 +75,17 @@
 
     /* Dropdown을 토글하는 함수 */
     function toggleDropdown() {
-        var dropdownContent = document.getElementById("myDropdown");
+        let dropdownContent = document.getElementById("myDropdown");
         dropdownContent.classList.toggle("show");
     }
 
     /* Dropdown이 열려 있을 때 다른 곳을 클릭하면 닫히도록 함 */
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
+            let dropdowns = document.getElementsByClassName("dropdown-content");
+            let i;
             for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
+                let openDropdown = dropdowns[i];
                 if (openDropdown.classList.contains('show')) {
                     openDropdown.classList.remove('show');
                 }
@@ -94,7 +96,11 @@
 
 <div class="post">
     <div class="header">
-        <div class="back"><a class="backBtn" href="<c:url value="/admins/reportedcomments"/>"><img src="/img/back.svg"/></a></div>
+        <div class="back">
+            <a class="backBtn" href="<c:url value="/admins/reportedcomments"/>">
+                <img src="/img/back.svg"/>
+            </a>
+        </div>
         <h3 class="title">댓글 신고 내역</h3>
         <div class="back"></div>
     </div>
@@ -113,7 +119,7 @@
         <div class="userAndMenuBox">
             <div class="user big">
                 <div class="userThumbnail">
-                        ${comment.writerDto.nickname.charAt(0)}
+                    ${comment.writerDto.nickname.charAt(0)}
                 </div>
                 ${comment.writerDto.nickname}
             </div>
@@ -124,13 +130,13 @@
     </div>
 
     <div class="reports">
-            <div class="report"><span class="cnt">${category[0].getName()} : ${comment.cntCategory1}</span></div>
-            <div class="report"><span class="cnt">${category[1].getName()} : ${comment.cntCategory2}</span></div>
-            <div class="report"><span class="cnt">${category[2].getName()} : ${comment.cntCategory3}</span></div>
-            <div class="report"><span class="cnt">${category[3].getName()} : ${comment.cntCategory4}</span></div>
-            <div class="report"><span class="cnt">${category[4].getName()} : ${comment.cntCategory5}</span></div>
-            <div class="report"><span class="cnt">${category[5].getName()} : ${comment.cntCategory6}</span></div>
-            <div class="report"><span class="cnt">${category[6].getName()} : ${comment.cntCategory7}</span></div>
+        <div class="report"><span class="cnt">${category[0].getName()} : ${comment.cntCategory1}</span></div>
+        <div class="report"><span class="cnt">${category[1].getName()} : ${comment.cntCategory2}</span></div>
+        <div class="report"><span class="cnt">${category[2].getName()} : ${comment.cntCategory3}</span></div>
+        <div class="report"><span class="cnt">${category[3].getName()} : ${comment.cntCategory4}</span></div>
+        <div class="report"><span class="cnt">${category[4].getName()} : ${comment.cntCategory5}</span></div>
+        <div class="report"><span class="cnt">${category[5].getName()} : ${comment.cntCategory6}</span></div>
+        <div class="report"><span class="cnt">${category[6].getName()} : ${comment.cntCategory7}</span></div>
     </div>
 
     <form id="suspendForm" action="/admins/updateSuspendDate" method="post">
@@ -143,8 +149,8 @@
                 <option value="영구 정지">영구 정지</option>
             </select>
             <button id="suspendBtn" type="submit">확인</button>
-            <input name="userId" value="${comment.writerDto.userId}" type="hidden" />
-            <input name="commentId" value="${comment.commentDto.commentId}" type="hidden" />
+            <input name="userId" value="${comment.writerDto.userId}" type="hidden"/>
+            <input name="commentId" value="${comment.commentDto.commentId}" type="hidden"/>
         </div>
     </form>
 </div>
