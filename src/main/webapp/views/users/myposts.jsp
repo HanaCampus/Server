@@ -5,14 +5,16 @@
   Time: 1:13 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script>
     let mypage = {
-        init: function () {
-        }
+        init: function () {}
     };
+
     $(function () {
         mypage.init();
     });
@@ -21,20 +23,20 @@
         window.history.back();
     }
 
-    function onClickPostDetail(postId){
+    function onClickPostDetail(postId) {
         location.href = "<c:url value="/posts"/>?id=" + postId;
     }
 
     // POST 좋아요
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         let likeButtons = document.querySelectorAll('.imoticon');
 
-        likeButtons.forEach(function(likeButton) {
-            likeButton.addEventListener('click', function(event) {
+        likeButtons.forEach(function (likeButton) {
+            likeButton.addEventListener('click', function (event) {
                 event.stopPropagation();
                 let postId = this.getAttribute('data-post-id');
                 let isLiked = this.classList.contains('liked');
-                if(isLiked) {
+                if (isLiked) {
                     $.ajax({
                         type: 'DELETE',
                         url: "<c:url value="/likes/post"/>?id=" + postId,
@@ -67,7 +69,11 @@
 
 <div class="myposts">
     <div class="header">
-        <div class="back"><a class="backBtn" href="#" onclick="goBack()"><img src="/img/back.svg" alt="back"></a></div>
+        <div class="back">
+            <a class="backBtn" href="#" onclick="goBack()">
+                <img src="/img/back.svg" alt="back">
+            </a>
+        </div>
         <h3 class="title">내가 작성한 게시글</h3>
         <div class="back"></div>
     </div>
@@ -95,8 +101,8 @@
                                 </c:if>
                             </div>
                             <div class="cntInfo">
+                                <%-- 좋아요 버튼--%>
                                 <div class="like item">
-                                        <%--                                좋아요 버튼--%>
                                     <c:choose>
                                         <c:when test="${sessionScope.id == null}">
                                             <button class="imoticon" onclick="pleaseLogin()">
@@ -105,22 +111,23 @@
                                         </c:when>
                                         <c:otherwise>
                                             <c:choose>
-                                                <%--                                            좋아요를 하지 않은 경우--%>
+                                                <%-- 좋아요를 하지 않은 경우 --%>
                                                 <c:when test="${p.isLiked == null}">
                                                     <button class="imoticon likeButton" data-post-id="${p.postId}">
                                                         <img src="<c:url value='/img/likeNone.svg'/>" alt="like"/>
                                                     </button>
                                                 </c:when>
-                                                <%--                                            좋아요를 이미 한 경우--%>
+                                                <%-- 좋아요를 이미 한 경우 --%>
                                                 <c:otherwise>
-                                                    <button class="imoticon likeButton liked" data-post-id="${p.postId}">
+                                                    <button class="imoticon likeButton liked"
+                                                            data-post-id="${p.postId}">
                                                         <img src="<c:url value='/img/like.svg'/>" alt="like"/>
                                                     </button>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:otherwise>
                                     </c:choose>
-                                        <%--                                좋아요 수--%>
+                                    <%-- 좋아요 수 --%>
                                     <span class="cnt">${p.likes}</span>
                                 </div>
                                 <div class="comment item">

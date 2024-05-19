@@ -39,7 +39,7 @@
 
     <%--  카카오톡 공유 썸네일 설정  --%>
     <meta property="og:url" content="http://43.203.197.213/">
-    <meta property="og:title" content="게시판 모음">
+    <meta property="og:title" content="HANA CAMPUS">
     <meta property="og:type" content="website">
     <meta property="og:image" content="<c:url value="/img/logo.png"/>">
     <meta property="og:description" content="HANA CAMPUS는 디지털 하나로 교육생들의 커뮤니티 공간입니다.">
@@ -98,6 +98,7 @@
             href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&amp;display=swap"
     />
 </head>
+
 <body>
 <div id="__next">
     <div class="main-container">
@@ -129,6 +130,5 @@
         </footer>
     </div>
 </div>
-
 </body>
 </html>
